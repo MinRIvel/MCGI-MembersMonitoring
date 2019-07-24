@@ -65,6 +65,22 @@ Module Queries
             End With
         End With
     End Sub
+    Public Sub rowpostpaint(ByVal sender As Object, ByVal e As DataGridViewRowPostPaintEventArgs)
+        Dim grid As DataGridView = DirectCast(sender, DataGridView)
+        e.PaintHeader(DataGridViewPaintParts.Background)
+        Dim rowIdx As String = (e.RowIndex + 1).ToString()
+        Dim rowFont As New Font("Microsoft Sans Serif", 10.0!,
+            FontStyle.Regular,
+            GraphicsUnit.Point, CType(0, Byte))
+
+        Dim centerFormat = New StringFormat()
+        centerFormat.Alignment = StringAlignment.Far
+        centerFormat.LineAlignment = StringAlignment.Near
+
+        Dim headerBounds As Rectangle = New Rectangle(e.RowBounds.Left, e.RowBounds.Top, grid.RowHeadersWidth, e.RowBounds.Height)
+
+        e.Graphics.DrawString(rowIdx, rowFont, SystemBrushes.ControlText, headerBounds, centerFormat)
+    End Sub
 
     Public Sub HOMEPAGE_QUERY(ByVal dsTbl_Command As String,
                               ByVal sqlQuery As String,
@@ -81,7 +97,7 @@ Module Queries
                 mscmd.Connection = mscon
                 mscmd.CommandText = sqlQuery
                 mscmd.CommandType = CommandType.Text
-                mscmd.Parameters.Add("@SearchStr", OleDbType.VarChar).Value = SearchStr
+                mscmd.Parameters.Add("@SearchStr", OleDbType.VarChar).Value = "%" & SearchStr & "%"
                 mscmd.ExecuteNonQuery()
 
                 sql_Transaction_result = "Committed"
