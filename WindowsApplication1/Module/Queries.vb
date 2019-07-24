@@ -1,10 +1,13 @@
 ﻿Imports System.Data.OleDb
+Imports System.IO
 Imports ComponentFactory.Krypton.Toolkit
 Module Queries
+    Public Log_File As StreamWriter
     Public msconString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Application.StartupPath & "\mcgidb.accdb"
     Public msDataAdapter As OleDbDataAdapter
     Public msDataSet As New DataSet
     Public msBindingSource As BindingSource
+    Public homepageDGV_BS As New BindingSource
     'Public transaction As OleDbTransaction
     Public sql_Transaction_result As String
     Public Sub DGV_Properties(ByVal DGV As KryptonDataGridView,
@@ -81,10 +84,27 @@ Module Queries
 
         e.Graphics.DrawString(rowIdx, rowFont, SystemBrushes.ControlText, headerBounds, centerFormat)
     End Sub
-
+    Public Sub log_file_writer(ByVal Err_StackTrace As String)
+        Log_File = My.Computer.FileSystem.OpenTextFileWriter(Application.StartupPath & "\Error_Logs.txt", True)
+        Log_File.WriteLine("Logs dated " & Date.Now.ToString("dddd, MMMM dd, yyyy HH:mm:ss tt") & vbCrLf &
+                           "Trace: " & Err_StackTrace & vbCrLf)
+        Log_File.Close()
+    End Sub
     Public Sub HOMEPAGE_QUERY(ByVal dsTbl_Command As String,
                               ByVal sqlQuery As String,
-                              Optional SearchStr As String = Nothing)
+                              Optional SearchStr As String = Nothing,
+                              Optional ID_Number As String = Nothing,
+                              Optional Last_Name As String = Nothing,
+                              Optional First_Name As String = Nothing,
+                              Optional Middle_Name As String = Nothing,
+                              Optional Address As String = Nothing,
+                              Optional Contact_Number As String = Nothing,
+                              Optional Occupation As String = Nothing,
+                              Optional Skill As String = Nothing,
+                              Optional Baptism_Date As Date = Nothing,
+                              Optional Baptized_By As String = Nothing,
+                              Optional Nagakay As String = Nothing,
+                              Optional Image_Location As String = Nothing)
         msDataAdapter = New OleDbDataAdapter
         msBindingSource = New BindingSource
         msDataSet = New DataSet
@@ -98,16 +118,28 @@ Module Queries
                 mscmd.CommandText = sqlQuery
                 mscmd.CommandType = CommandType.Text
                 mscmd.Parameters.Add("@SearchStr", OleDbType.VarChar).Value = "%" & SearchStr & "%"
-                mscmd.ExecuteNonQuery()
-
-                sql_Transaction_result = "Committed"
+                mscmd.Parameters.Add("@ID_Number", OleDbType.VarChar).Value = ID_Number
+                mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Last_Name
+                mscmd.Parameters.Add("@First_Name", OleDbType.VarChar).Value = First_Name
+                mscmd.Parameters.Add("@Middle_Name", OleDbType.VarChar).Value = Middle_Name
+                mscmd.Parameters.Add("@Address", OleDbType.VarChar).Value = Address
+                mscmd.Parameters.Add("@Contact_Number", OleDbType.VarChar).Value = Contact_Number
+                mscmd.Parameters.Add("@Occupation", OleDbType.VarChar).Value = Occupation
+                mscmd.Parameters.Add("@Skill", OleDbType.VarChar).Value = Skill
+                mscmd.Parameters.Add("@Baptism_Date", OleDbType.Date).Value = Baptism_Date
+                mscmd.Parameters.Add("@Baptized_By", OleDbType.VarChar).Value = Baptized_By
+                mscmd.Parameters.Add("@Nagakay", OleDbType.VarChar).Value = Nagakay
+                mscmd.Parameters.Add("@Image_Location", OleDbType.VarChar).Value = Image_Location
 
                 If dsTbl_Command.Contains("Trans") = False Then
                     msDataAdapter.SelectCommand = mscmd
                     msDataAdapter.Fill(msDataSet, dsTbl_Command)
                     msBindingSource.DataSource = msDataSet
                     msBindingSource.DataMember = dsTbl_Command
+                Else
+                    mscmd.ExecuteNonQuery()
                 End If
+                sql_Transaction_result = "Committed"
             End Using
         End Using
     End Sub

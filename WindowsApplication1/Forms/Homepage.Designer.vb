@@ -35,7 +35,7 @@ Partial Class Homepage
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.Save_Btn = New MetroFramework.Controls.MetroButton()
         Me.NagAkay_Tbox = New MetroFramework.Controls.MetroTextBox()
-        Me.MetroTextBox2 = New MetroFramework.Controls.MetroTextBox()
+        Me.BaptizedBy_Tbox = New MetroFramework.Controls.MetroTextBox()
         Me.Baptism_DTP = New MetroFramework.Controls.MetroDateTime()
         Me.Skill_Tbox = New MetroFramework.Controls.MetroTextBox()
         Me.Work_Tbox = New MetroFramework.Controls.MetroTextBox()
@@ -46,6 +46,7 @@ Partial Class Homepage
         Me.Lname_Tbox = New MetroFramework.Controls.MetroTextBox()
         Me.ID_Tbox = New MetroFramework.Controls.MetroTextBox()
         Me.Image_Pbox = New System.Windows.Forms.PictureBox()
+        Me.Open_Btn = New MetroFramework.Controls.MetroButton()
         Me.DGV_Pnl = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.LoadingPB2 = New System.Windows.Forms.PictureBox()
@@ -53,6 +54,8 @@ Partial Class Homepage
         Me.Homepage_Cmenu = New MetroFramework.Controls.MetroContextMenu(Me.components)
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Image_OPFD = New System.Windows.Forms.OpenFileDialog()
+        Me.Homepage_Ttip = New MetroFramework.Components.MetroToolTip()
         Me.EP_Pnl.SuspendLayout()
         Me.Body_Pnl.SuspendLayout()
         CType(Me.Homepage_Split, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -118,7 +121,7 @@ Partial Class Homepage
         Me.Left_Pnl.Controls.Add(Me.Panel1)
         Me.Left_Pnl.Controls.Add(Me.Save_Btn)
         Me.Left_Pnl.Controls.Add(Me.NagAkay_Tbox)
-        Me.Left_Pnl.Controls.Add(Me.MetroTextBox2)
+        Me.Left_Pnl.Controls.Add(Me.BaptizedBy_Tbox)
         Me.Left_Pnl.Controls.Add(Me.Baptism_DTP)
         Me.Left_Pnl.Controls.Add(Me.Skill_Tbox)
         Me.Left_Pnl.Controls.Add(Me.Work_Tbox)
@@ -129,6 +132,7 @@ Partial Class Homepage
         Me.Left_Pnl.Controls.Add(Me.Lname_Tbox)
         Me.Left_Pnl.Controls.Add(Me.ID_Tbox)
         Me.Left_Pnl.Controls.Add(Me.Image_Pbox)
+        Me.Left_Pnl.Controls.Add(Me.Open_Btn)
         Me.Left_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Left_Pnl.Location = New System.Drawing.Point(0, 3)
         Me.Left_Pnl.Name = "Left_Pnl"
@@ -240,42 +244,42 @@ Partial Class Homepage
         Me.NagAkay_Tbox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.NagAkay_Tbox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
-        'MetroTextBox2
+        'BaptizedBy_Tbox
         '
-        Me.MetroTextBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.BaptizedBy_Tbox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         '
         '
         '
-        Me.MetroTextBox2.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MetroTextBox2.CustomButton.Image = CType(resources.GetObject("resource.Image1"), System.Drawing.Image)
-        Me.MetroTextBox2.CustomButton.Location = New System.Drawing.Point(104, 1)
-        Me.MetroTextBox2.CustomButton.Name = ""
-        Me.MetroTextBox2.CustomButton.Size = New System.Drawing.Size(25, 25)
-        Me.MetroTextBox2.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.MetroTextBox2.CustomButton.TabIndex = 1
-        Me.MetroTextBox2.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.MetroTextBox2.CustomButton.UseSelectable = True
-        Me.MetroTextBox2.CustomButton.Visible = False
-        Me.MetroTextBox2.FontSize = MetroFramework.MetroTextBoxSize.Medium
-        Me.MetroTextBox2.ForeColor = System.Drawing.Color.Black
-        Me.MetroTextBox2.Lines = New String(-1) {}
-        Me.MetroTextBox2.Location = New System.Drawing.Point(6, 403)
-        Me.MetroTextBox2.MaxLength = 32767
-        Me.MetroTextBox2.Name = "MetroTextBox2"
-        Me.MetroTextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.MetroTextBox2.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.MetroTextBox2.SelectedText = ""
-        Me.MetroTextBox2.SelectionLength = 0
-        Me.MetroTextBox2.SelectionStart = 0
-        Me.MetroTextBox2.ShowClearButton = True
-        Me.MetroTextBox2.Size = New System.Drawing.Size(130, 27)
-        Me.MetroTextBox2.TabIndex = 838
-        Me.MetroTextBox2.UseCustomForeColor = True
-        Me.MetroTextBox2.UseSelectable = True
-        Me.MetroTextBox2.WaterMark = "Baptized by"
-        Me.MetroTextBox2.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.MetroTextBox2.WaterMarkFont = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BaptizedBy_Tbox.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.BaptizedBy_Tbox.CustomButton.Image = CType(resources.GetObject("resource.Image1"), System.Drawing.Image)
+        Me.BaptizedBy_Tbox.CustomButton.Location = New System.Drawing.Point(104, 1)
+        Me.BaptizedBy_Tbox.CustomButton.Name = ""
+        Me.BaptizedBy_Tbox.CustomButton.Size = New System.Drawing.Size(25, 25)
+        Me.BaptizedBy_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.BaptizedBy_Tbox.CustomButton.TabIndex = 1
+        Me.BaptizedBy_Tbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.BaptizedBy_Tbox.CustomButton.UseSelectable = True
+        Me.BaptizedBy_Tbox.CustomButton.Visible = False
+        Me.BaptizedBy_Tbox.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.BaptizedBy_Tbox.ForeColor = System.Drawing.Color.Black
+        Me.BaptizedBy_Tbox.Lines = New String(-1) {}
+        Me.BaptizedBy_Tbox.Location = New System.Drawing.Point(6, 403)
+        Me.BaptizedBy_Tbox.MaxLength = 32767
+        Me.BaptizedBy_Tbox.Name = "BaptizedBy_Tbox"
+        Me.BaptizedBy_Tbox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.BaptizedBy_Tbox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.BaptizedBy_Tbox.SelectedText = ""
+        Me.BaptizedBy_Tbox.SelectionLength = 0
+        Me.BaptizedBy_Tbox.SelectionStart = 0
+        Me.BaptizedBy_Tbox.ShowClearButton = True
+        Me.BaptizedBy_Tbox.Size = New System.Drawing.Size(130, 27)
+        Me.BaptizedBy_Tbox.TabIndex = 838
+        Me.BaptizedBy_Tbox.UseCustomForeColor = True
+        Me.BaptizedBy_Tbox.UseSelectable = True
+        Me.BaptizedBy_Tbox.WaterMark = "Baptized by"
+        Me.BaptizedBy_Tbox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.BaptizedBy_Tbox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
         'Baptism_DTP
         '
@@ -594,6 +598,15 @@ Partial Class Homepage
         Me.Image_Pbox.TabIndex = 0
         Me.Image_Pbox.TabStop = False
         '
+        'Open_Btn
+        '
+        Me.Open_Btn.Location = New System.Drawing.Point(102, 46)
+        Me.Open_Btn.Name = "Open_Btn"
+        Me.Open_Btn.Size = New System.Drawing.Size(65, 23)
+        Me.Open_Btn.TabIndex = 841
+        Me.Open_Btn.Text = "Open"
+        Me.Open_Btn.UseSelectable = True
+        '
         'DGV_Pnl
         '
         Me.DGV_Pnl.BackColor = System.Drawing.Color.White
@@ -651,14 +664,26 @@ Partial Class Homepage
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
         'DeleteToolStripMenuItem
         '
         Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
-        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
         Me.DeleteToolStripMenuItem.Text = "Delete"
+        '
+        'Image_OPFD
+        '
+        Me.Image_OPFD.FileName = "OpenFileDialog1"
+        Me.Image_OPFD.Filter = "Image Files(*.JPG;*.JPEG;*.PNG;)|*.jpg;*.jpeg;*.png|All files(*.*)|*.*"
+        Me.Image_OPFD.Title = "Select Image"
+        '
+        'Homepage_Ttip
+        '
+        Me.Homepage_Ttip.Style = MetroFramework.MetroColorStyle.Blue
+        Me.Homepage_Ttip.StyleManager = Nothing
+        Me.Homepage_Ttip.Theme = MetroFramework.MetroThemeStyle.Light
         '
         'Homepage
         '
@@ -710,11 +735,14 @@ Partial Class Homepage
     Public WithEvents Work_Tbox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents Baptism_DTP As MetroFramework.Controls.MetroDateTime
     Public WithEvents Skill_Tbox As MetroFramework.Controls.MetroTextBox
-    Public WithEvents MetroTextBox2 As MetroFramework.Controls.MetroTextBox
+    Public WithEvents BaptizedBy_Tbox As MetroFramework.Controls.MetroTextBox
     Public WithEvents NagAkay_Tbox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents Image_Pbox As PictureBox
     Friend WithEvents Save_Btn As MetroFramework.Controls.MetroButton
     Friend WithEvents Homepage_Cmenu As MetroFramework.Controls.MetroContextMenu
     Friend WithEvents EditToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DeleteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents Open_Btn As MetroFramework.Controls.MetroButton
+    Friend WithEvents Image_OPFD As OpenFileDialog
+    Friend WithEvents Homepage_Ttip As MetroFramework.Components.MetroToolTip
 End Class
