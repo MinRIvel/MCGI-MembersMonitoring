@@ -681,6 +681,7 @@ Partial Class Homepage
         '
         'Homepage_Ttip
         '
+        Me.Homepage_Ttip.AutomaticDelay = 100
         Me.Homepage_Ttip.Style = MetroFramework.MetroColorStyle.Blue
         Me.Homepage_Ttip.StyleManager = Nothing
         Me.Homepage_Ttip.Theme = MetroFramework.MetroThemeStyle.Light

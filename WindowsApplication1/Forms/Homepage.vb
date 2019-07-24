@@ -12,12 +12,6 @@ Public Class Homepage
         Baptized_By, Nagakay, Image_Location As String
     Dim Baptism_Date As Date
 
-    Private Sub Tbox_Validated(sender As Object, e As EventArgs) Handles ID_Tbox.Validated
-        If sender.Text = Nothing Then
-            Homepage_Ttip.Show("Required field", sender)
-        End If
-    End Sub
-
     Private Sub reset_here()
         Body_Pnl.Enabled = True
         LoadingPB2.Visible = False
@@ -241,6 +235,20 @@ Public Class Homepage
             MessageBox.Show(ex.Message)
             log_file_writer(ex.StackTrace)
         End Try
+    End Sub
+
+    Private Sub Tbox_Validated(sender As Object, e As EventArgs) Handles ID_Tbox.Validated, Address_Tbox.Validated, BaptizedBy_Tbox.Validated,
+                                                                         Contact_Tbox.Validated, Fname_Tbox.Validated, Lname_Tbox.Validated,
+                                                                         Mname_Tbox.Validated, NagAkay_Tbox.Validated, Skill_Tbox.Validated,
+                                                                         Work_Tbox.Validated
+
+        If sender.Text = Nothing Then
+            Homepage_Ttip.Show("Required field", sender)
+            sender.Style = MetroColorStyle.Red
+        ElseIf sender.Text <> Nothing Then
+            Homepage_Ttip.RemoveAll()
+            sender.Style = MetroColorStyle.Default
+        End If
     End Sub
 
     Dim if_left As Boolean = True
