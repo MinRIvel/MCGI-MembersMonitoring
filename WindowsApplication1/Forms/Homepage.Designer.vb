@@ -432,6 +432,7 @@ Partial Class Homepage
         Me.Address_Tbox.SelectionStart = 0
         Me.Address_Tbox.ShowClearButton = True
         Me.Address_Tbox.Size = New System.Drawing.Size(130, 27)
+        Me.Address_Tbox.Style = MetroFramework.MetroColorStyle.Red
         Me.Address_Tbox.TabIndex = 833
         Me.Address_Tbox.UseCustomForeColor = True
         Me.Address_Tbox.UseSelectable = True
@@ -506,6 +507,7 @@ Partial Class Homepage
         Me.Fname_Tbox.SelectionStart = 0
         Me.Fname_Tbox.ShowClearButton = True
         Me.Fname_Tbox.Size = New System.Drawing.Size(130, 27)
+        Me.Fname_Tbox.Style = MetroFramework.MetroColorStyle.Red
         Me.Fname_Tbox.TabIndex = 831
         Me.Fname_Tbox.UseCustomForeColor = True
         Me.Fname_Tbox.UseSelectable = True
@@ -543,6 +545,7 @@ Partial Class Homepage
         Me.Lname_Tbox.SelectionStart = 0
         Me.Lname_Tbox.ShowClearButton = True
         Me.Lname_Tbox.Size = New System.Drawing.Size(130, 27)
+        Me.Lname_Tbox.Style = MetroFramework.MetroColorStyle.Red
         Me.Lname_Tbox.TabIndex = 830
         Me.Lname_Tbox.UseCustomForeColor = True
         Me.Lname_Tbox.UseSelectable = True
@@ -580,6 +583,7 @@ Partial Class Homepage
         Me.ID_Tbox.SelectionStart = 0
         Me.ID_Tbox.ShowClearButton = True
         Me.ID_Tbox.Size = New System.Drawing.Size(34, 27)
+        Me.ID_Tbox.Style = MetroFramework.MetroColorStyle.Red
         Me.ID_Tbox.TabIndex = 829
         Me.ID_Tbox.UseCustomForeColor = True
         Me.ID_Tbox.UseSelectable = True
@@ -692,6 +696,7 @@ Partial Class Homepage
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1024, 600)
         Me.Controls.Add(Me.EP_Pnl)
+        Me.KeyPreview = True
         Me.Name = "Homepage"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.EP_Pnl.ResumeLayout(False)

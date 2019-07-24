@@ -10,6 +10,7 @@ Module Queries
     Public homepageDGV_BS As New BindingSource
     'Public transaction As OleDbTransaction
     Public sql_Transaction_result As String
+    Public Max_ID As Integer
     Public Sub DGV_Properties(ByVal DGV As KryptonDataGridView,
                               ByVal dgvName As String)
         With DGV
@@ -117,7 +118,10 @@ Module Queries
                 mscmd.Connection = mscon
                 mscmd.CommandText = sqlQuery
                 mscmd.CommandType = CommandType.Text
-                mscmd.Parameters.Add("@SearchStr", OleDbType.VarChar).Value = "%" & SearchStr & "%"
+                If dsTbl_Command.Contains("Trans") = False Then
+                    mscmd.Parameters.Add("@SearchStr", OleDbType.VarChar).Value = "%" & SearchStr & "%"
+                End If
+                mscmd.Parameters.Add("@Max_ID", OleDbType.VarChar).Value = Max_ID + 1
                 mscmd.Parameters.Add("@ID_Number", OleDbType.VarChar).Value = ID_Number
                 mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Last_Name
                 mscmd.Parameters.Add("@First_Name", OleDbType.VarChar).Value = First_Name
@@ -126,7 +130,7 @@ Module Queries
                 mscmd.Parameters.Add("@Contact_Number", OleDbType.VarChar).Value = Contact_Number
                 mscmd.Parameters.Add("@Occupation", OleDbType.VarChar).Value = Occupation
                 mscmd.Parameters.Add("@Skill", OleDbType.VarChar).Value = Skill
-                mscmd.Parameters.Add("@Baptism_Date", OleDbType.Date).Value = Baptism_Date
+                mscmd.Parameters.Add("@Baptism_Date", OleDbType.DBDate).Value = Baptism_Date.ToString("MMM. dd, yyyy")
                 mscmd.Parameters.Add("@Baptized_By", OleDbType.VarChar).Value = Baptized_By
                 mscmd.Parameters.Add("@Nagakay", OleDbType.VarChar).Value = Nagakay
                 mscmd.Parameters.Add("@Image_Location", OleDbType.VarChar).Value = Image_Location
@@ -143,5 +147,21 @@ Module Queries
             End Using
         End Using
     End Sub
-
+    Public Sub Get_QUERY(ByVal sqlQuery As String)
+        Using mscon As New OleDbConnection(msconString)
+            mscon.Open()
+            Using mscmd As OleDbCommand = mscon.CreateCommand()
+                mscmd.Connection = mscon
+                mscmd.CommandText = sqlQuery
+                mscmd.CommandType = CommandType.Text
+                Using msread As OleDbDataReader = mscmd.ExecuteReader
+                    If msread.Read() Then
+                        Max_ID = msread.Item(0)
+                    Else
+                        Max_ID = 0
+                    End If
+                End Using
+            End Using
+        End Using
+    End Sub
 End Module

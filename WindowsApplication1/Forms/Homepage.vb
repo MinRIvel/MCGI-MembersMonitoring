@@ -15,10 +15,16 @@ Public Class Homepage
     Private Sub reset_here()
         Body_Pnl.Enabled = True
         LoadingPB2.Visible = False
-        ''COUNTER_TODO = 0
         sql_Transaction_result = Nothing
         TODO_MODE = Nothing
-        'ObjectSender = Nothing
+        For Each ctrl In Left_Pnl.Controls
+            If ctrl.GetType = GetType(Controls.MetroTextBox) Then
+                ctrl.Clear()
+            ElseIf ctrl.GetType = GetType(PictureBox) Then
+                ctrl.Image = WindowsApplication1.My.Resources.Resources.users
+                ctrl.ImageLocation = Nothing
+            End If
+        Next
     End Sub
     Private Sub Start_BGW()
         Try
@@ -90,7 +96,8 @@ Public Class Homepage
                     BGW.ReportProgress(0)
 
                 Case "SaveTrans"
-                    sqlQuery = "Insert into Member_Information  (ID_Number
+                    sqlQuery = "Insert into Member_Information  (A_id
+                                                                ,ID_Number
                                                                 ,Last_Name
                                                                 ,First_Name
                                                                 ,Middle_Name
@@ -102,7 +109,8 @@ Public Class Homepage
                                                                 ,Baptized_By
                                                                 ,Nagakay
                                                                 ,Image_Location)
-                                                        values  (@ID_Number
+                                                        values  (@Max_ID
+                                                                ,@ID_Number
                                                                 ,@Last_Name
                                                                 ,@First_Name
                                                                 ,@Middle_Name
@@ -114,13 +122,11 @@ Public Class Homepage
                                                                 ,@Baptized_By
                                                                 ,@Nagakay
                                                                 ,@Image_Location)"
-                    'Dim filename As String = Path.GetFileName(Image_Pbox.ImageLocation)
-                    'Dim directory As String = Application.StartupPath & "\Member_Images\"
                     Dim counter As ObjectModel.ReadOnlyCollection(Of String)
                     Dim Occurrences As Integer = 0
-
-                    counter = My.Computer.FileSystem.GetFiles(FileSystem.CombinePath(Application.StartupPath, "\Member_Images"))
+                    counter = My.Computer.FileSystem.GetFiles(Path.Combine(Application.StartupPath, "Member_Images"))
                     For Each File As String In counter
+                        File = Path.GetFileName(File)
                         If File.Contains(ID_Number) Then
                             Occurrences = Occurrences + 1
                         End If
@@ -131,7 +137,8 @@ Public Class Homepage
                     ElseIf Occurrences = 0 Then
                         Image_Location = ID_Number
                     End If
-                    FileSystem.CopyFile(Image_Pbox.ImageLocation, Image_Location)
+                    Dim sql2 As String = "SELECT iif(MAX(A_ID) is null,0,MAX(A_ID)) FROM Member_Information"
+                    Get_QUERY(sql2)
                     HOMEPAGE_QUERY(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
                                    Occupation, Skill, Baptism_Date, Baptized_By, Nagakay, Image_Location)
             End Select
@@ -148,6 +155,7 @@ Public Class Homepage
                     If e.ProgressPercentage = 0 And (Not DGV_Pnl.Controls.Contains(Homepage_DGV)) Then
                         DGV_Properties(Homepage_DGV, "Homepage_DGV")
                         AddHandler Homepage_DGV.RowPostPaint, AddressOf DGV_RowPostPaint
+                        AddHandler Homepage_DGV.CellMouseClick, AddressOf DGV_CellMouseClick
                         DGV_Pnl.Controls.Add(Homepage_DGV)
                     End If
             End Select
@@ -185,11 +193,20 @@ Public Class Homepage
                                 .ClearSelection()
                             End With
                             reset_here()
-
+                            ID_Tbox.Focus()
                         Case "SaveTrans"
+                            If Image_Pbox.ImageLocation <> Nothing Then
+                                FileSystem.CopyFile(Image_Pbox.ImageLocation, Path.Combine(Application.StartupPath,
+                                                                                           "Member_Images",
+                                                                                           Image_Location & Path.GetExtension(Image_Pbox.ImageLocation)), False)
+                            End If
+                            MetroMessageBox.Show(Me, "", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             TODO = "LoadDGV"
                             Start_BGW()
                     End Select
+                Else
+                    MetroMessageBox.Show(Me, "", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    reset_here()
                 End If
             End If
         Catch ex As Exception
@@ -202,12 +219,33 @@ Public Class Homepage
         rowpostpaint(sender, e)
     End Sub
 
+    Private Sub DGV_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs)
+        Try
+            If e.Button = MouseButtons.Right Then
+                If sender.SelectedCells.Count > 1 Then
+                    EditToolStripMenuItem.Visible = False
+                ElseIf sender.SelectedCells.Count = 1 Then
+                    EditToolStripMenuItem.Visible = True
+                End If
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            log_file_writer(ex.StackTrace)
+        End Try
+    End Sub
+
+    Private Sub Homepage_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
+        If e.Control And e.KeyCode = Keys.S Then
+            Save_Btn.PerformClick()
+        End If
+    End Sub
+
     Private Sub Open_Btn_Click(sender As Object, e As EventArgs) Handles Open_Btn.Click
         Try
             If Image_OPFD.ShowDialog() = DialogResult.OK Then
                 'Do things here, the path is stored in openFileDialog1.Filename
                 'If no files were selected, openFileDialog1.Filename is ""  
-                Image_Pbox.Image = Image.FromFile(Image_OPFD.FileName)
+                Image_Pbox.ImageLocation = Image_OPFD.FileName
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -229,18 +267,35 @@ Public Class Homepage
             Baptized_By = Trim(BaptizedBy_Tbox.Text)
             Nagakay = Trim(NagAkay_Tbox.Text)
 
-            TODO = "SaveTrans"
-            Start_BGW()
+            Dim red_occur As Integer = 0
+            For Each ctrl In Left_Pnl.Controls
+                If ctrl.GetType = GetType(Controls.MetroTextBox) AndAlso ctrl.Style = MetroColorStyle.Red Then
+                    red_occur += 1
+                    ctrl.Focus()
+                End If
+            Next
+
+            If red_occur >= 1 Then
+                MetroMessageBox.Show(Me, "Please fill up all required fields", "Required", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            ElseIf red_occur = 0 Then
+                Dim sql2 As String = "SELECT * FROM Member_Information where A_ID = " & ID_Number
+                Get_QUERY(sql2)
+
+                If Max_ID <> 0 Then
+                    MetroMessageBox.Show(Me, "ID number already exists.", "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Else
+                    TODO = "SaveTrans"
+                    Start_BGW()
+                End If
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
             log_file_writer(ex.StackTrace)
         End Try
     End Sub
 
-    Private Sub Tbox_Validated(sender As Object, e As EventArgs) Handles ID_Tbox.Validated, Address_Tbox.Validated, BaptizedBy_Tbox.Validated,
-                                                                         Contact_Tbox.Validated, Fname_Tbox.Validated, Lname_Tbox.Validated,
-                                                                         Mname_Tbox.Validated, NagAkay_Tbox.Validated, Skill_Tbox.Validated,
-                                                                         Work_Tbox.Validated
+    Private Sub Tbox_Validated(sender As Object, e As EventArgs) Handles ID_Tbox.Validated, Address_Tbox.Validated,
+                                                                         Fname_Tbox.Validated, Lname_Tbox.Validated
 
         If sender.Text = Nothing Then
             Homepage_Ttip.Show("Required field", sender)
