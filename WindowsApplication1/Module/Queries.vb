@@ -105,7 +105,8 @@ Module Queries
                               Optional Baptism_Date As Date = Nothing,
                               Optional Baptized_By As String = Nothing,
                               Optional Nagakay As String = Nothing,
-                              Optional Image_Location As String = Nothing)
+                              Optional Image_Location As String = Nothing,
+                              Optional A_id As Long = 0)
         msDataAdapter = New OleDbDataAdapter
         msBindingSource = New BindingSource
         msDataSet = New DataSet
@@ -120,8 +121,11 @@ Module Queries
                 mscmd.CommandType = CommandType.Text
                 If dsTbl_Command.Contains("Trans") = False Then
                     mscmd.Parameters.Add("@SearchStr", OleDbType.VarChar).Value = "%" & SearchStr & "%"
+
+                ElseIf dsTbl_Command.Contains("Save") Then
+                    mscmd.Parameters.Add("@Max_ID", OleDbType.Integer).Value = Max_ID + 1
+                    mscmd.Parameters.Add("@Image_Location", OleDbType.VarChar).Value = Image_Location
                 End If
-                mscmd.Parameters.Add("@Max_ID", OleDbType.VarChar).Value = Max_ID + 1
                 mscmd.Parameters.Add("@ID_Number", OleDbType.VarChar).Value = ID_Number
                 mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Last_Name
                 mscmd.Parameters.Add("@First_Name", OleDbType.VarChar).Value = First_Name
@@ -133,7 +137,10 @@ Module Queries
                 mscmd.Parameters.Add("@Baptism_Date", OleDbType.DBDate).Value = Baptism_Date.ToString("MMM. dd, yyyy")
                 mscmd.Parameters.Add("@Baptized_By", OleDbType.VarChar).Value = Baptized_By
                 mscmd.Parameters.Add("@Nagakay", OleDbType.VarChar).Value = Nagakay
-                mscmd.Parameters.Add("@Image_Location", OleDbType.VarChar).Value = Image_Location
+
+                If dsTbl_Command.Contains("Update") Then
+                    mscmd.Parameters.Add("@A_id", OleDbType.Integer).Value = A_id
+                End If
 
                 If dsTbl_Command.Contains("Trans") = False Then
                     msDataAdapter.SelectCommand = mscmd

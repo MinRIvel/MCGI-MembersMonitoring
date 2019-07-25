@@ -11,16 +11,27 @@ Public Class Homepage
     Dim ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number, Occupation, Skill,
         Baptized_By, Nagakay, Image_Location As String
     Dim Baptism_Date As Date
+    Dim if_left As Boolean = True
+    Private A_ID_list As ArrayList
+    Private dgv_rowindex, A_id As Integer
 
     Private Sub reset_here()
         Body_Pnl.Enabled = True
         LoadingPB2.Visible = False
         sql_Transaction_result = Nothing
         TODO_MODE = Nothing
+        Image_Location = ""
+        Save_Btn.Style = MetroColorStyle.Black
+        Save_Btn.Text = "Save"
+        ID_Tbox.Style = MetroColorStyle.Red
+        Lname_Tbox.Style = MetroColorStyle.Red
+        Fname_Tbox.Style = MetroColorStyle.Red
+        Address_Tbox.Style = MetroColorStyle.Red
         For Each ctrl In Left_Pnl.Controls
             If ctrl.GetType = GetType(Controls.MetroTextBox) Then
                 ctrl.Clear()
             ElseIf ctrl.GetType = GetType(PictureBox) Then
+                ctrl.Enabled = True
                 ctrl.Image = WindowsApplication1.My.Resources.Resources.users
                 ctrl.ImageLocation = Nothing
             End If
@@ -40,10 +51,34 @@ Public Class Homepage
             log_file_writer(ex.StackTrace)
         End Try
     End Sub
-
+    Sub right_arrows()
+        if_left = False
+        Side_Btn.BackgroundImage = My.Resources.icons8_double_right_30
+        Side_Pnl.Visible = True
+    End Sub
+    Sub left_arrows()
+        if_left = True
+        Side_Btn.BackgroundImage = My.Resources.icons8_double_left_30
+        Side_Pnl.Visible = False
+    End Sub
+    'Public Sub DrawString(ByVal sender As Object,
+    '                      ByVal drawString As String,
+    '                      ByVal senderWidth_X As Single,
+    '                      ByVal senderHeight_Y As Single)
+    '    Dim formGraphics As Graphics = sender.CreateGraphics()
+    '    Dim drawFont As New Font("Arial", 10)
+    '    Dim drawBrush As New SolidBrush(Color.Black)
+    '    Dim drawFormat As New StringFormat
+    '    formGraphics.DrawString(drawString, drawFont, drawBrush, senderWidth_X, senderHeight_Y, drawFormat)
+    '    drawFont.Dispose()
+    '    drawBrush.Dispose()
+    '    formGraphics.Dispose()
+    'End Sub
     Private Sub Homepage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             'WindowState = FormWindowState.Maximized
+            DateTime_Lbl.Text = ""
+            DateTime_Timer.Start()
             BGW.WorkerSupportsCancellation = True
             BGW.WorkerReportsProgress = True
             AddHandler BGW.DoWork, AddressOf BGW_DoWork
@@ -52,11 +87,40 @@ Public Class Homepage
 
             Homepage_DGV.DataSource = homepageDGV_BS
 
-            IO.Directory.CreateDirectory(Application.StartupPath & "\Member_Images")
-            IO.Directory.CreateDirectory(Application.StartupPath & "\Report_Images")
-
+            Directory.CreateDirectory(Application.StartupPath & "\Member_Images")
+            Directory.CreateDirectory(Application.StartupPath & "\Report_Images")
             TODO = "LoadDGV"
             Start_BGW()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            log_file_writer(ex.StackTrace)
+        End Try
+    End Sub
+
+    Private Sub Clear_Btn_Click(sender As Object, e As EventArgs) Handles Clear_Btn.Click
+        reset_here()
+    End Sub
+
+    Private Sub Cancel_Btn_Click(sender As Object, e As EventArgs) Handles Cancel_Btn.Click
+        Save_Btn.Style = MetroColorStyle.Black
+        Save_Btn.Text = "Save"
+    End Sub
+
+    Private Sub DateTime_Timer_Tick(sender As Object, e As EventArgs) Handles DateTime_Timer.Tick
+        DateTime_Lbl.Text = Date.Now.ToString("MMMM dd, yyyy h:mm:ss tt")
+    End Sub
+
+    Private Sub Homepage_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
+
+    End Sub
+
+    Private Sub Image_Pbox_Click(sender As Object, e As EventArgs) Handles Image_Pbox.Click
+        Try
+            If Image_OPFD.ShowDialog() = DialogResult.OK Then
+                'Do things here, the path is stored in openFileDialog1.Filename
+                'If no files were selected, openFileDialog1.Filename is ""  
+                Image_Pbox.ImageLocation = Image_OPFD.FileName
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
             log_file_writer(ex.StackTrace)
@@ -91,12 +155,14 @@ Public Class Homepage
                                     or  Skill like @SearchStr
                                     or  Baptized_By like @SearchStr
                                     or  Nagakay like @SearchStr)
-                                    and Row_Status = True"
+                                    and Row_Status = True
+                                Order by A_id asc"
                     HOMEPAGE_QUERY(TODO, sqlQuery, SearchStr)
                     BGW.ReportProgress(0)
 
                 Case "SaveTrans"
                     sqlQuery = "Insert into Member_Information  (A_id
+                                                                ,Image_Location
                                                                 ,ID_Number
                                                                 ,Last_Name
                                                                 ,First_Name
@@ -107,9 +173,9 @@ Public Class Homepage
                                                                 ,Skill
                                                                 ,Baptism_Date
                                                                 ,Baptized_By
-                                                                ,Nagakay
-                                                                ,Image_Location)
+                                                                ,Nagakay)
                                                         values  (@Max_ID
+                                                                ,@Image_Location
                                                                 ,@ID_Number
                                                                 ,@Last_Name
                                                                 ,@First_Name
@@ -120,27 +186,28 @@ Public Class Homepage
                                                                 ,@Skill
                                                                 ,@Baptism_Date
                                                                 ,@Baptized_By
-                                                                ,@Nagakay
-                                                                ,@Image_Location)"
-                    Dim counter As ObjectModel.ReadOnlyCollection(Of String)
-                    Dim Occurrences As Integer = 0
-                    counter = My.Computer.FileSystem.GetFiles(Path.Combine(Application.StartupPath, "Member_Images"))
-                    For Each File As String In counter
-                        File = Path.GetFileName(File)
-                        If File.Contains(ID_Number) Then
-                            Occurrences = Occurrences + 1
-                        End If
-                    Next
-
-                    If Occurrences >= 1 Then
-                        Image_Location = ID_Number & "_" & Occurrences
-                    ElseIf Occurrences = 0 Then
-                        Image_Location = ID_Number
-                    End If
+                                                                ,@Nagakay)"
                     Dim sql2 As String = "SELECT iif(MAX(A_ID) is null,0,MAX(A_ID)) FROM Member_Information"
                     Get_QUERY(sql2)
                     HOMEPAGE_QUERY(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
                                    Occupation, Skill, Baptism_Date, Baptized_By, Nagakay, Image_Location)
+
+                Case "UpdateTrans"
+                    sqlQuery = "Update  Member_Information
+                                set      ID_Number      = @ID_Number
+                                        ,Last_Name      = @Last_Name
+                                        ,First_Name     = @First_Name
+                                        ,Middle_Name    = @Middle_Name
+                                        ,Address        = @Address
+                                        ,Contact_Number = @Contact_Number
+                                        ,Occupation     = @Occupation
+                                        ,Skill          = @Skill
+                                        ,Baptism_Date   = @Baptism_Date
+                                        ,Baptized_By    = @Baptized_By
+                                        ,Nagakay        = @Nagakay
+                                where   A_id = @A_id"
+                    HOMEPAGE_QUERY(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
+                                   Occupation, Skill, Baptism_Date, Baptized_By, Nagakay,, A_id)
             End Select
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -156,6 +223,7 @@ Public Class Homepage
                         DGV_Properties(Homepage_DGV, "Homepage_DGV")
                         AddHandler Homepage_DGV.RowPostPaint, AddressOf DGV_RowPostPaint
                         AddHandler Homepage_DGV.CellMouseClick, AddressOf DGV_CellMouseClick
+                        AddHandler Homepage_DGV.SelectionChanged, AddressOf DGV_SelectionChanged
                         DGV_Pnl.Controls.Add(Homepage_DGV)
                     End If
             End Select
@@ -198,8 +266,13 @@ Public Class Homepage
                             If Image_Pbox.ImageLocation <> Nothing Then
                                 FileSystem.CopyFile(Image_Pbox.ImageLocation, Path.Combine(Application.StartupPath,
                                                                                            "Member_Images",
-                                                                                           Image_Location & Path.GetExtension(Image_Pbox.ImageLocation)), False)
+                                                                                           Image_Location), False)
                             End If
+                            MetroMessageBox.Show(Me, "", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            TODO = "LoadDGV"
+                            Start_BGW()
+
+                        Case "UpdateTrans"
                             MetroMessageBox.Show(Me, "", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             TODO = "LoadDGV"
                             Start_BGW()
@@ -219,15 +292,59 @@ Public Class Homepage
         rowpostpaint(sender, e)
     End Sub
 
+    Private Sub DGV_SelectionChanged(sender As Object, e As EventArgs)
+        Try
+            Dim selectedItems As DataGridViewSelectedRowCollection = sender.SelectedRows
+            A_ID_list = New ArrayList(selectedItems.Count)
+            For Each selectedItem As DataGridViewRow In selectedItems
+                A_ID_list.Add(selectedItem.Cells("A_id").Value.ToString)
+            Next
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            log_file_writer(ex.StackTrace)
+        End Try
+    End Sub
+
     Private Sub DGV_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs)
         Try
+            dgv_rowindex = e.RowIndex
             If e.Button = MouseButtons.Right Then
-                If sender.SelectedCells.Count > 1 Then
+                If sender.SelectedRows.Count > 1 Then
                     EditToolStripMenuItem.Visible = False
-                ElseIf sender.SelectedCells.Count = 1 Then
+                ElseIf sender.SelectedRows.Count = 1 Then
                     EditToolStripMenuItem.Visible = True
                 End If
+                Homepage_Cmenu.Show()
+                Homepage_Cmenu.Location = New Point(MousePosition.X, MousePosition.Y)
             End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            log_file_writer(ex.StackTrace)
+        End Try
+    End Sub
+
+    Private Sub EditToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EditToolStripMenuItem.Click
+        Try
+            left_arrows()
+            Homepage_Split.SplitterDistance = 260
+            Save_Btn.Style = MetroColorStyle.Red
+            Save_Btn.Text = "Update"
+            Image_Pbox.Enabled = False
+            With Homepage_DGV.Rows(dgv_rowindex)
+                A_id = .Cells("A_id").Value
+                ID_Tbox.Text = .Cells("ID NUMBER").Value.ToString
+                Lname_Tbox.Text = .Cells("LAST NAME").Value.ToString
+                Fname_Tbox.Text = .Cells("FIRST NAME").Value.ToString
+                Mname_Tbox.Text = .Cells("MIDDLE NAME").Value.ToString
+                Address_Tbox.Text = .Cells("ADDRESS").Value.ToString
+                Contact_Tbox.Text = .Cells("CONTACT NUMBER").Value.ToString
+                Work_Tbox.Text = .Cells("OCCUPATION").Value.ToString
+                Skill_Tbox.Text = .Cells("SKILL").Value.ToString
+                Baptism_DTP.Value = CDate(.Cells("BAPTISM DATE").Value.ToString)
+                BaptizedBy_Tbox.Text = .Cells("BAPTIZED BY").Value.ToString
+                NagAkay_Tbox.Text = .Cells("NAG-AKAY").Value.ToString
+                Image_Pbox.ImageLocation = Application.StartupPath & "\Member_Images\" & .Cells("Image_Location").Value.ToString
+            End With
         Catch ex As Exception
             MessageBox.Show(ex.Message)
             log_file_writer(ex.StackTrace)
@@ -238,19 +355,6 @@ Public Class Homepage
         If e.Control And e.KeyCode = Keys.S Then
             Save_Btn.PerformClick()
         End If
-    End Sub
-
-    Private Sub Open_Btn_Click(sender As Object, e As EventArgs) Handles Open_Btn.Click
-        Try
-            If Image_OPFD.ShowDialog() = DialogResult.OK Then
-                'Do things here, the path is stored in openFileDialog1.Filename
-                'If no files were selected, openFileDialog1.Filename is ""  
-                Image_Pbox.ImageLocation = Image_OPFD.FileName
-            End If
-        Catch ex As Exception
-            MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
-        End Try
     End Sub
 
     Private Sub Save_Btn_Click(sender As Object, e As EventArgs) Handles Save_Btn.Click
@@ -266,10 +370,11 @@ Public Class Homepage
             Baptism_Date = Baptism_DTP.Value
             Baptized_By = Trim(BaptizedBy_Tbox.Text)
             Nagakay = Trim(NagAkay_Tbox.Text)
+            Image_Location = Image_Pbox.ImageLocation
 
             Dim red_occur As Integer = 0
             For Each ctrl In Left_Pnl.Controls
-                If ctrl.GetType = GetType(Controls.MetroTextBox) AndAlso ctrl.Style = MetroColorStyle.Red Then
+                If ctrl.GetType = GetType(Controls.MetroTextBox) AndAlso (ctrl.Style = MetroColorStyle.Red And ctrl.Text = Nothing) Then
                     red_occur += 1
                     ctrl.Focus()
                 End If
@@ -278,16 +383,41 @@ Public Class Homepage
             If red_occur >= 1 Then
                 MetroMessageBox.Show(Me, "Please fill up all required fields", "Required", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             ElseIf red_occur = 0 Then
-                Dim sql2 As String = "SELECT * FROM Member_Information where A_ID = " & ID_Number
-                Get_QUERY(sql2)
+                If Image_Location <> "" Then
+                    Dim counter As ObjectModel.ReadOnlyCollection(Of String)
+                    Dim Occurrences As Integer = 0
+                    counter = My.Computer.FileSystem.GetFiles(Path.Combine(Application.StartupPath, "Member_Images"))
+                    For Each File As String In counter
+                        File = Path.GetFileName(File)
+                        If File.Contains(ID_Number) Then
+                            Occurrences = Occurrences + 1
+                        End If
+                    Next
 
-                If Max_ID <> 0 Then
-                    MetroMessageBox.Show(Me, "ID number already exists.", "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    If Occurrences >= 1 Then
+                        Image_Location = ID_Number & "_" & Occurrences & Path.GetExtension(Image_Pbox.ImageLocation)
+                    ElseIf Occurrences = 0 Then
+                        Image_Location = ID_Number & Path.GetExtension(Image_Pbox.ImageLocation)
+                    End If
                 Else
-                    TODO = "SaveTrans"
+                    Image_Location = "users.png"
+                End If
+
+                If Save_Btn.Text = "Save" Then
+                    Dim sql2 As String = "SELECT * FROM Member_Information where ID_Number = '" & ID_Number & "'"
+                    Get_QUERY(sql2)
+                    If Max_ID <> 0 Then
+                        MetroMessageBox.Show(Me, "ID number already exists.", "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Else
+                        TODO = "SaveTrans"
+                        Start_BGW()
+                    End If
+                ElseIf Save_Btn.Text = "Update" Then
+                    TODO = "UpdateTrans"
                     Start_BGW()
                 End If
-            End If
+
+                End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
             log_file_writer(ex.StackTrace)
@@ -306,31 +436,21 @@ Public Class Homepage
         End If
     End Sub
 
-    Dim if_left As Boolean = True
-
     Private Sub Side_Btn_Click(sender As Object, e As EventArgs) Handles Side_Btn.Click
         If if_left = True Then
-            if_left = False
-            Side_Btn.BackgroundImage = My.Resources.icons8_double_right_30
-            Side_Pnl.Visible = True
+            right_arrows()
             Homepage_Split.SplitterDistance = 30
         ElseIf if_left = False Then
-            if_left = True
-            Side_Btn.BackgroundImage = My.Resources.icons8_double_left_30
-            Side_Pnl.Visible = False
-            Homepage_Split.SplitterDistance = 244
+            left_arrows()
+            Homepage_Split.SplitterDistance = 260
         End If
     End Sub
 
     Private Sub EP_Split_SplitterMoved(sender As Object, e As SplitterEventArgs) Handles Homepage_Split.SplitterMoved
         If e.SplitX = 30 Then
-            if_left = False
-            Side_Btn.BackgroundImage = My.Resources.icons8_double_right_30
-            Side_Pnl.Visible = True
+            right_arrows()
         ElseIf e.SplitX > 30 Then
-            if_left = True
-            Side_Btn.BackgroundImage = My.Resources.icons8_double_left_30
-            Side_Pnl.Visible = False
+            left_arrows()
         End If
 
     End Sub
