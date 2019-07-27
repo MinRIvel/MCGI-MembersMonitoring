@@ -126,7 +126,7 @@ Module Queries
                     mscmd.Parameters.Add("@Max_ID", OleDbType.Integer).Value = Max_ID + 1
                     mscmd.Parameters.Add("@Image_Location", OleDbType.VarChar).Value = Image_Location
                 End If
-                If dsTbl_Command <> "UpdatePictureTrans" Then
+                If dsTbl_Command <> "UpdatePictureTrans" And dsTbl_Command.Contains("Delete") = False Then
                     mscmd.Parameters.Add("@ID_Number", OleDbType.VarChar).Value = ID_Number
                     mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Last_Name
                     mscmd.Parameters.Add("@First_Name", OleDbType.VarChar).Value = First_Name

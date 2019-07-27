@@ -185,6 +185,14 @@ Public Class Homepage
                                 set     Image_Location = @Image_Location
                                 where   A_id = @A_id"
                     HOMEPAGE_QUERY(TODO, sqlQuery,,,,,,,,,,,,, Image_Location, A_id)
+
+                Case "UpdateDeleteTrans"
+                    sqlQuery = "Update  Member_Information
+                                set     Row_Status = False
+                                where   A_id = @A_id"
+                    For i = 0 To A_ID_list.Count - 1
+                        HOMEPAGE_QUERY(TODO, sqlQuery,,,,,,,,,,,,,, A_ID_list(i))
+                    Next
             End Select
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -263,6 +271,11 @@ Public Class Homepage
                             MetroMessageBox.Show(Me, "", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             TODO = "LoadDGV"
                             Start_BGW()
+
+                        Case "UpdateDeleteTrans"
+                            MetroMessageBox.Show(Me, "", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            TODO = "LoadDGV"
+                            Start_BGW()
                     End Select
                 Else
                     MetroMessageBox.Show(Me, "", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -277,6 +290,7 @@ Public Class Homepage
 
     Private Sub Homepage_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
         ChangePicture_Pnl.Location = New Point((Width - ChangePicture_Pnl.Width) / 2, (Height - ChangePicture_Pnl.Height) / 2)
+        Search_Pnl.Location = New Point((Width - Search_Pnl.Width) / 2, (Height - Search_Pnl.Height) / 2)
     End Sub
 
     Private Sub ChangePicExit_Btn_Click(sender As Object, e As EventArgs) Handles ChangePicExit_Btn.Click
@@ -392,12 +406,33 @@ Public Class Homepage
     End Sub
 
     Private Sub DeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteToolStripMenuItem.Click
+        If MetroMessageBox.Show(Me, "Are you sure you want to delete (" & A_ID_list.Count & ") item(s)?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes Then
+            TODO = "UpdateDeleteTrans"
+            Start_BGW()
+        End If
+    End Sub
 
+    Private Sub Search_Tbox_ButtonClick(sender As Object, e As EventArgs) Handles Search_Tbox.ButtonClick
+        SearchStr = Trim(Search_Tbox.Text)
+        TODO = "LoadDGV"
+        Start_BGW()
+    End Sub
+
+    Private Sub SearchPnlExit_Btn_Click(sender As Object, e As EventArgs) Handles SearchPnlExit_Btn.Click
+        Search_Pnl.Visible = False
+    End Sub
+
+    Private Sub Search_Tbox_KeyDown(sender As Object, e As KeyEventArgs) Handles Search_Tbox.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            Search_Tbox.CustomButton.PerformClick()
+        End If
     End Sub
 
     Private Sub Homepage_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.Control And e.KeyCode = Keys.S Then
             Save_Btn.PerformClick()
+        ElseIf e.Control And e.KeyCode = Keys.F Then
+            Search_Pnl.Visible = True
         ElseIf e.KeyCode = Keys.F5 Then
             TODO = "LoadDGV"
             Start_BGW()
@@ -505,7 +540,6 @@ Public Class Homepage
         ElseIf e.SplitX > 30 Then
             left_arrows()
         End If
-
     End Sub
 
     Private Sub Clear_Btn_Click(sender As Object, e As EventArgs) Handles Clear_Btn.Click
@@ -536,24 +570,24 @@ Public Class Homepage
     End Sub
     Private allowCoolMove As Boolean = False
     Private myCoolPoint As New Point
-    Private Sub Header_Pnl_MouseDown(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseDown
+    Private Sub Header_Pnl_MouseDown(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseDown, SearchHeader_Pnl.MouseDown
         allowCoolMove = True
         myCoolPoint = New Point(e.X, e.Y)
-        'Me.Cursor = Cursors.SizeAll
     End Sub
 
-    Private Sub Header_Pnl_MouseMove(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseMove
+    Private Sub Header_Pnl_MouseMove(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseMove, SearchHeader_Pnl.MouseMove
         If allowCoolMove = True Then
             Dim objectToMove As Object = Nothing
             If sender Is ChangePictureHeader_Pnl Then
                 objectToMove = ChangePicture_Pnl
+            ElseIf sender Is SearchHeader_Pnl Then
+                objectToMove = Search_Pnl
             End If
             objectToMove.Location = New Point(objectToMove.Location.X + e.X - myCoolPoint.X, objectToMove.Location.Y + e.Y - myCoolPoint.Y)
         End If
     End Sub
 
-    Private Sub Header_Pnl_MouseUp(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseUp
+    Private Sub Header_Pnl_MouseUp(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseUp, SearchHeader_Pnl.MouseUp
         allowCoolMove = False
-        'Me.Cursor = Cursors.Default
     End Sub
 End Class
