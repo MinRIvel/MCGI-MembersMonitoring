@@ -50,18 +50,25 @@ Partial Class Homepage
         Me.Clear_Btn = New MetroFramework.Controls.MetroButton()
         Me.DGV_Pnl = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.DateTime_Lbl = New MetroFramework.Controls.MetroLabel()
         Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
         Me.LoadingPB2 = New System.Windows.Forms.PictureBox()
         Me.Homepage_Cmenu = New MetroFramework.Controls.MetroContextMenu(Me.components)
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ChangePictureToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Image_OPFD = New System.Windows.Forms.OpenFileDialog()
         Me.Homepage_Ttip = New MetroFramework.Components.MetroToolTip()
         Me.Homepage_Menu = New System.Windows.Forms.MenuStrip()
         Me.MembersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DateTime_Lbl = New MetroFramework.Controls.MetroLabel()
         Me.DateTime_Timer = New System.Windows.Forms.Timer(Me.components)
+        Me.ChangePicture_Pnl = New System.Windows.Forms.Panel()
+        Me.ChangePicBody_Pnl = New System.Windows.Forms.Panel()
+        Me.ChangePic_Pbox = New System.Windows.Forms.PictureBox()
+        Me.ChangePictureHeader_Pnl = New System.Windows.Forms.Panel()
+        Me.ChangePicAccept_Btn = New MetroFramework.Controls.MetroButton()
+        Me.ChangePicExit_Btn = New MetroFramework.Controls.MetroButton()
         Me.EP_Pnl.SuspendLayout()
         Me.Body_Pnl.SuspendLayout()
         CType(Me.Homepage_Split, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -76,6 +83,10 @@ Partial Class Homepage
         CType(Me.LoadingPB2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Homepage_Cmenu.SuspendLayout()
         Me.Homepage_Menu.SuspendLayout()
+        Me.ChangePicture_Pnl.SuspendLayout()
+        Me.ChangePicBody_Pnl.SuspendLayout()
+        CType(Me.ChangePic_Pbox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ChangePictureHeader_Pnl.SuspendLayout()
         Me.SuspendLayout()
         '
         'EP_Pnl
@@ -87,7 +98,7 @@ Partial Class Homepage
         Me.EP_Pnl.Location = New System.Drawing.Point(0, 24)
         Me.EP_Pnl.Name = "EP_Pnl"
         Me.EP_Pnl.Padding = New System.Windows.Forms.Padding(1)
-        Me.EP_Pnl.Size = New System.Drawing.Size(1008, 576)
+        Me.EP_Pnl.Size = New System.Drawing.Size(1008, 587)
         Me.EP_Pnl.TabIndex = 12
         '
         'Body_Pnl
@@ -98,7 +109,7 @@ Partial Class Homepage
         Me.Body_Pnl.Location = New System.Drawing.Point(1, 37)
         Me.Body_Pnl.Name = "Body_Pnl"
         Me.Body_Pnl.Padding = New System.Windows.Forms.Padding(3)
-        Me.Body_Pnl.Size = New System.Drawing.Size(1006, 538)
+        Me.Body_Pnl.Size = New System.Drawing.Size(1006, 549)
         Me.Body_Pnl.TabIndex = 4
         '
         'Homepage_Split
@@ -118,12 +129,13 @@ Partial Class Homepage
         'Homepage_Split.Panel2
         '
         Me.Homepage_Split.Panel2.Controls.Add(Me.DGV_Pnl)
-        Me.Homepage_Split.Size = New System.Drawing.Size(1000, 532)
+        Me.Homepage_Split.Size = New System.Drawing.Size(1000, 543)
         Me.Homepage_Split.SplitterDistance = 260
         Me.Homepage_Split.TabIndex = 4
         '
         'Left_Pnl
         '
+        Me.Left_Pnl.AutoScroll = True
         Me.Left_Pnl.BackColor = System.Drawing.Color.White
         Me.Left_Pnl.Controls.Add(Me.Side_Pnl)
         Me.Left_Pnl.Controls.Add(Me.Panel1)
@@ -145,7 +157,7 @@ Partial Class Homepage
         Me.Left_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Left_Pnl.Location = New System.Drawing.Point(0, 3)
         Me.Left_Pnl.Name = "Left_Pnl"
-        Me.Left_Pnl.Size = New System.Drawing.Size(260, 529)
+        Me.Left_Pnl.Size = New System.Drawing.Size(260, 540)
         Me.Left_Pnl.TabIndex = 0
         '
         'Side_Pnl
@@ -155,7 +167,7 @@ Partial Class Homepage
         Me.Side_Pnl.Dock = System.Windows.Forms.DockStyle.Right
         Me.Side_Pnl.Location = New System.Drawing.Point(230, 35)
         Me.Side_Pnl.Name = "Side_Pnl"
-        Me.Side_Pnl.Size = New System.Drawing.Size(30, 494)
+        Me.Side_Pnl.Size = New System.Drawing.Size(30, 505)
         Me.Side_Pnl.TabIndex = 14
         Me.Side_Pnl.Visible = False
         '
@@ -297,7 +309,7 @@ Partial Class Homepage
         Me.Baptism_DTP.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Baptism_DTP.Location = New System.Drawing.Point(6, 426)
-        Me.Baptism_DTP.MinimumSize = New System.Drawing.Size(0, 29)
+        Me.Baptism_DTP.MinimumSize = New System.Drawing.Size(4, 29)
         Me.Baptism_DTP.Name = "Baptism_DTP"
         Me.Baptism_DTP.Size = New System.Drawing.Size(218, 29)
         Me.Baptism_DTP.TabIndex = 837
@@ -580,6 +592,7 @@ Partial Class Homepage
         Me.ID_Tbox.CustomButton.TabIndex = 1
         Me.ID_Tbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
         Me.ID_Tbox.CustomButton.UseSelectable = True
+        Me.ID_Tbox.CustomButton.Visible = False
         Me.ID_Tbox.FontSize = MetroFramework.MetroTextBoxSize.Medium
         Me.ID_Tbox.ForeColor = System.Drawing.Color.Black
         Me.ID_Tbox.Lines = New String(-1) {}
@@ -638,7 +651,7 @@ Partial Class Homepage
         Me.DGV_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DGV_Pnl.Location = New System.Drawing.Point(0, 0)
         Me.DGV_Pnl.Name = "DGV_Pnl"
-        Me.DGV_Pnl.Size = New System.Drawing.Size(736, 532)
+        Me.DGV_Pnl.Size = New System.Drawing.Size(736, 543)
         Me.DGV_Pnl.TabIndex = 1
         '
         'Panel6
@@ -652,6 +665,18 @@ Partial Class Homepage
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(1006, 36)
         Me.Panel6.TabIndex = 1
+        '
+        'DateTime_Lbl
+        '
+        Me.DateTime_Lbl.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DateTime_Lbl.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.DateTime_Lbl.Location = New System.Drawing.Point(506, 6)
+        Me.DateTime_Lbl.Name = "DateTime_Lbl"
+        Me.DateTime_Lbl.Size = New System.Drawing.Size(398, 25)
+        Me.DateTime_Lbl.TabIndex = 626
+        Me.DateTime_Lbl.Text = "Date and Time"
+        Me.DateTime_Lbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'MetroLabel2
         '
@@ -679,21 +704,27 @@ Partial Class Homepage
         'Homepage_Cmenu
         '
         Me.Homepage_Cmenu.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Homepage_Cmenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditToolStripMenuItem, Me.DeleteToolStripMenuItem})
+        Me.Homepage_Cmenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditToolStripMenuItem, Me.DeleteToolStripMenuItem, Me.ChangePictureToolStripMenuItem})
         Me.Homepage_Cmenu.Name = "Homepage_Cmenu"
-        Me.Homepage_Cmenu.Size = New System.Drawing.Size(108, 48)
+        Me.Homepage_Cmenu.Size = New System.Drawing.Size(156, 92)
         '
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
         'DeleteToolStripMenuItem
         '
         Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
-        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
         Me.DeleteToolStripMenuItem.Text = "Delete"
+        '
+        'ChangePictureToolStripMenuItem
+        '
+        Me.ChangePictureToolStripMenuItem.Name = "ChangePictureToolStripMenuItem"
+        Me.ChangePictureToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.ChangePictureToolStripMenuItem.Text = "Change Picture"
         '
         'Image_OPFD
         '
@@ -702,7 +733,7 @@ Partial Class Homepage
         '
         'Homepage_Ttip
         '
-        Me.Homepage_Ttip.AutomaticDelay = 100
+        Me.Homepage_Ttip.AutomaticDelay = 1
         Me.Homepage_Ttip.Style = MetroFramework.MetroColorStyle.Blue
         Me.Homepage_Ttip.StyleManager = Nothing
         Me.Homepage_Ttip.Theme = MetroFramework.MetroThemeStyle.Light
@@ -713,7 +744,6 @@ Partial Class Homepage
         Me.Homepage_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MembersToolStripMenuItem})
         Me.Homepage_Menu.Location = New System.Drawing.Point(0, 0)
         Me.Homepage_Menu.Name = "Homepage_Menu"
-        Me.Homepage_Menu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
         Me.Homepage_Menu.Size = New System.Drawing.Size(1008, 24)
         Me.Homepage_Menu.TabIndex = 14
         Me.Homepage_Menu.Text = "MenuStrip1"
@@ -731,33 +761,95 @@ Partial Class Homepage
         Me.AddToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.AddToolStripMenuItem.Text = "Add User"
         '
-        'DateTime_Lbl
-        '
-        Me.DateTime_Lbl.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.DateTime_Lbl.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.DateTime_Lbl.Location = New System.Drawing.Point(506, 6)
-        Me.DateTime_Lbl.Name = "DateTime_Lbl"
-        Me.DateTime_Lbl.Size = New System.Drawing.Size(398, 25)
-        Me.DateTime_Lbl.TabIndex = 626
-        Me.DateTime_Lbl.Text = "Date and Time"
-        Me.DateTime_Lbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'DateTime_Timer
         '
         Me.DateTime_Timer.Enabled = True
         Me.DateTime_Timer.Interval = 1000
         '
+        'ChangePicture_Pnl
+        '
+        Me.ChangePicture_Pnl.BackColor = System.Drawing.Color.White
+        Me.ChangePicture_Pnl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.ChangePicture_Pnl.Controls.Add(Me.ChangePicBody_Pnl)
+        Me.ChangePicture_Pnl.Controls.Add(Me.ChangePictureHeader_Pnl)
+        Me.ChangePicture_Pnl.Location = New System.Drawing.Point(350, 139)
+        Me.ChangePicture_Pnl.MinimumSize = New System.Drawing.Size(270, 292)
+        Me.ChangePicture_Pnl.Name = "ChangePicture_Pnl"
+        Me.ChangePicture_Pnl.Size = New System.Drawing.Size(308, 333)
+        Me.ChangePicture_Pnl.TabIndex = 19
+        Me.ChangePicture_Pnl.Visible = False
+        '
+        'ChangePicBody_Pnl
+        '
+        Me.ChangePicBody_Pnl.Controls.Add(Me.ChangePic_Pbox)
+        Me.ChangePicBody_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ChangePicBody_Pnl.Location = New System.Drawing.Point(0, 25)
+        Me.ChangePicBody_Pnl.Name = "ChangePicBody_Pnl"
+        Me.ChangePicBody_Pnl.Padding = New System.Windows.Forms.Padding(3)
+        Me.ChangePicBody_Pnl.Size = New System.Drawing.Size(306, 306)
+        Me.ChangePicBody_Pnl.TabIndex = 4
+        '
+        'ChangePic_Pbox
+        '
+        Me.ChangePic_Pbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.ChangePic_Pbox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ChangePic_Pbox.Location = New System.Drawing.Point(3, 3)
+        Me.ChangePic_Pbox.Name = "ChangePic_Pbox"
+        Me.ChangePic_Pbox.Size = New System.Drawing.Size(300, 300)
+        Me.ChangePic_Pbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ChangePic_Pbox.TabIndex = 5
+        Me.ChangePic_Pbox.TabStop = False
+        '
+        'ChangePictureHeader_Pnl
+        '
+        Me.ChangePictureHeader_Pnl.BackColor = System.Drawing.Color.PowderBlue
+        Me.ChangePictureHeader_Pnl.Controls.Add(Me.ChangePicAccept_Btn)
+        Me.ChangePictureHeader_Pnl.Controls.Add(Me.ChangePicExit_Btn)
+        Me.ChangePictureHeader_Pnl.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ChangePictureHeader_Pnl.Location = New System.Drawing.Point(0, 0)
+        Me.ChangePictureHeader_Pnl.Name = "ChangePictureHeader_Pnl"
+        Me.ChangePictureHeader_Pnl.Size = New System.Drawing.Size(306, 25)
+        Me.ChangePictureHeader_Pnl.TabIndex = 3
+        '
+        'ChangePicAccept_Btn
+        '
+        Me.ChangePicAccept_Btn.BackColor = System.Drawing.Color.Transparent
+        Me.ChangePicAccept_Btn.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ChangePicAccept_Btn.ForeColor = System.Drawing.Color.Green
+        Me.ChangePicAccept_Btn.Location = New System.Drawing.Point(244, 0)
+        Me.ChangePicAccept_Btn.Name = "ChangePicAccept_Btn"
+        Me.ChangePicAccept_Btn.Size = New System.Drawing.Size(31, 25)
+        Me.ChangePicAccept_Btn.TabIndex = 2
+        Me.ChangePicAccept_Btn.Text = "✔"
+        Me.ChangePicAccept_Btn.UseCustomBackColor = True
+        Me.ChangePicAccept_Btn.UseCustomForeColor = True
+        Me.ChangePicAccept_Btn.UseSelectable = True
+        '
+        'ChangePicExit_Btn
+        '
+        Me.ChangePicExit_Btn.BackColor = System.Drawing.Color.Transparent
+        Me.ChangePicExit_Btn.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ChangePicExit_Btn.Location = New System.Drawing.Point(275, 0)
+        Me.ChangePicExit_Btn.Name = "ChangePicExit_Btn"
+        Me.ChangePicExit_Btn.Size = New System.Drawing.Size(31, 25)
+        Me.ChangePicExit_Btn.TabIndex = 0
+        Me.ChangePicExit_Btn.Text = "X"
+        Me.ChangePicExit_Btn.UseCustomBackColor = True
+        Me.ChangePicExit_Btn.UseSelectable = True
+        '
         'Homepage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1008, 600)
+        Me.ClientSize = New System.Drawing.Size(1008, 611)
+        Me.Controls.Add(Me.ChangePicture_Pnl)
         Me.Controls.Add(Me.EP_Pnl)
         Me.Controls.Add(Me.Homepage_Menu)
+        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.Homepage_Menu
         Me.Name = "Homepage"
+        Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Members Monitoring"
         Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
@@ -779,6 +871,10 @@ Partial Class Homepage
         Me.Homepage_Cmenu.ResumeLayout(False)
         Me.Homepage_Menu.ResumeLayout(False)
         Me.Homepage_Menu.PerformLayout()
+        Me.ChangePicture_Pnl.ResumeLayout(False)
+        Me.ChangePicBody_Pnl.ResumeLayout(False)
+        CType(Me.ChangePic_Pbox, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ChangePictureHeader_Pnl.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -822,4 +918,11 @@ Partial Class Homepage
     Friend WithEvents MetroLabel2 As MetroFramework.Controls.MetroLabel
     Friend WithEvents DateTime_Lbl As MetroFramework.Controls.MetroLabel
     Friend WithEvents DateTime_Timer As Timer
+    Friend WithEvents ChangePictureToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ChangePicture_Pnl As Panel
+    Friend WithEvents ChangePictureHeader_Pnl As Panel
+    Friend WithEvents ChangePicExit_Btn As MetroFramework.Controls.MetroButton
+    Friend WithEvents ChangePicAccept_Btn As MetroFramework.Controls.MetroButton
+    Friend WithEvents ChangePicBody_Pnl As Panel
+    Friend WithEvents ChangePic_Pbox As PictureBox
 End Class

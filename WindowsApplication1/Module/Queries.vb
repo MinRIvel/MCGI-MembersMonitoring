@@ -126,17 +126,23 @@ Module Queries
                     mscmd.Parameters.Add("@Max_ID", OleDbType.Integer).Value = Max_ID + 1
                     mscmd.Parameters.Add("@Image_Location", OleDbType.VarChar).Value = Image_Location
                 End If
-                mscmd.Parameters.Add("@ID_Number", OleDbType.VarChar).Value = ID_Number
-                mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Last_Name
-                mscmd.Parameters.Add("@First_Name", OleDbType.VarChar).Value = First_Name
-                mscmd.Parameters.Add("@Middle_Name", OleDbType.VarChar).Value = Middle_Name
-                mscmd.Parameters.Add("@Address", OleDbType.VarChar).Value = Address
-                mscmd.Parameters.Add("@Contact_Number", OleDbType.VarChar).Value = Contact_Number
-                mscmd.Parameters.Add("@Occupation", OleDbType.VarChar).Value = Occupation
-                mscmd.Parameters.Add("@Skill", OleDbType.VarChar).Value = Skill
-                mscmd.Parameters.Add("@Baptism_Date", OleDbType.DBDate).Value = Baptism_Date.ToString("MMM. dd, yyyy")
-                mscmd.Parameters.Add("@Baptized_By", OleDbType.VarChar).Value = Baptized_By
-                mscmd.Parameters.Add("@Nagakay", OleDbType.VarChar).Value = Nagakay
+                If dsTbl_Command <> "UpdatePictureTrans" Then
+                    mscmd.Parameters.Add("@ID_Number", OleDbType.VarChar).Value = ID_Number
+                    mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Last_Name
+                    mscmd.Parameters.Add("@First_Name", OleDbType.VarChar).Value = First_Name
+                    mscmd.Parameters.Add("@Middle_Name", OleDbType.VarChar).Value = Middle_Name
+                    mscmd.Parameters.Add("@Address", OleDbType.VarChar).Value = Address
+                    mscmd.Parameters.Add("@Contact_Number", OleDbType.VarChar).Value = Contact_Number
+                    mscmd.Parameters.Add("@Occupation", OleDbType.VarChar).Value = Occupation
+                    mscmd.Parameters.Add("@Skill", OleDbType.VarChar).Value = Skill
+                    mscmd.Parameters.Add("@Baptism_Date", OleDbType.DBDate).Value = Baptism_Date.ToString("MMM. dd, yyyy")
+                    mscmd.Parameters.Add("@Baptized_By", OleDbType.VarChar).Value = Baptized_By
+                    mscmd.Parameters.Add("@Nagakay", OleDbType.VarChar).Value = Nagakay
+                End If
+
+                If dsTbl_Command = "UpdatePictureTrans" Then
+                    mscmd.Parameters.Add("@Image_Location", OleDbType.VarChar).Value = Image_Location
+                End If
 
                 If dsTbl_Command.Contains("Update") Then
                     mscmd.Parameters.Add("@A_id", OleDbType.Integer).Value = A_id
