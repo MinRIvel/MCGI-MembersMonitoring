@@ -75,6 +75,15 @@ Partial Class Homepage
         Me.SearchHeader_Pnl = New System.Windows.Forms.Panel()
         Me.SearchPnlExit_Btn = New MetroFramework.Controls.MetroButton()
         Me.Info_Pnl = New System.Windows.Forms.Panel()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.MetroButton1 = New MetroFramework.Controls.MetroButton()
+        Me.MetroButton2 = New MetroFramework.Controls.MetroButton()
+        Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
+        Me.InputToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
         Me.EP_Pnl.SuspendLayout()
         Me.Body_Pnl.SuspendLayout()
         CType(Me.Homepage_Split, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -96,6 +105,8 @@ Partial Class Homepage
         Me.Search_Pnl.SuspendLayout()
         Me.SearchHeader_Pnl.SuspendLayout()
         Me.Info_Pnl.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        Me.Panel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'EP_Pnl
@@ -104,10 +115,10 @@ Partial Class Homepage
         Me.EP_Pnl.Controls.Add(Me.Body_Pnl)
         Me.EP_Pnl.Controls.Add(Me.Panel6)
         Me.EP_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.EP_Pnl.Location = New System.Drawing.Point(0, 24)
+        Me.EP_Pnl.Location = New System.Drawing.Point(0, 0)
         Me.EP_Pnl.Name = "EP_Pnl"
         Me.EP_Pnl.Padding = New System.Windows.Forms.Padding(1)
-        Me.EP_Pnl.Size = New System.Drawing.Size(1008, 587)
+        Me.EP_Pnl.Size = New System.Drawing.Size(1008, 611)
         Me.EP_Pnl.TabIndex = 12
         '
         'Body_Pnl
@@ -118,7 +129,7 @@ Partial Class Homepage
         Me.Body_Pnl.Location = New System.Drawing.Point(1, 37)
         Me.Body_Pnl.Name = "Body_Pnl"
         Me.Body_Pnl.Padding = New System.Windows.Forms.Padding(3)
-        Me.Body_Pnl.Size = New System.Drawing.Size(1006, 549)
+        Me.Body_Pnl.Size = New System.Drawing.Size(1006, 573)
         Me.Body_Pnl.TabIndex = 4
         '
         'Homepage_Split
@@ -138,7 +149,7 @@ Partial Class Homepage
         'Homepage_Split.Panel2
         '
         Me.Homepage_Split.Panel2.Controls.Add(Me.DGV_Pnl)
-        Me.Homepage_Split.Size = New System.Drawing.Size(1000, 543)
+        Me.Homepage_Split.Size = New System.Drawing.Size(1000, 567)
         Me.Homepage_Split.SplitterDistance = 260
         Me.Homepage_Split.TabIndex = 4
         '
@@ -151,7 +162,7 @@ Partial Class Homepage
         Me.Left_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Left_Pnl.Location = New System.Drawing.Point(0, 3)
         Me.Left_Pnl.Name = "Left_Pnl"
-        Me.Left_Pnl.Size = New System.Drawing.Size(260, 540)
+        Me.Left_Pnl.Size = New System.Drawing.Size(260, 564)
         Me.Left_Pnl.TabIndex = 0
         '
         'Side_Pnl
@@ -161,7 +172,7 @@ Partial Class Homepage
         Me.Side_Pnl.Dock = System.Windows.Forms.DockStyle.Right
         Me.Side_Pnl.Location = New System.Drawing.Point(230, 35)
         Me.Side_Pnl.Name = "Side_Pnl"
-        Me.Side_Pnl.Size = New System.Drawing.Size(30, 505)
+        Me.Side_Pnl.Size = New System.Drawing.Size(30, 529)
         Me.Side_Pnl.TabIndex = 14
         Me.Side_Pnl.Visible = False
         '
@@ -645,7 +656,7 @@ Partial Class Homepage
         Me.DGV_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.DGV_Pnl.Location = New System.Drawing.Point(0, 0)
         Me.DGV_Pnl.Name = "DGV_Pnl"
-        Me.DGV_Pnl.Size = New System.Drawing.Size(736, 543)
+        Me.DGV_Pnl.Size = New System.Drawing.Size(736, 567)
         Me.DGV_Pnl.TabIndex = 1
         '
         'Panel6
@@ -722,9 +733,10 @@ Partial Class Homepage
         '
         'ReportToolStripMenuItem
         '
+        Me.ReportToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InputToolStripMenuItem, Me.PrintToolStripMenuItem})
         Me.ReportToolStripMenuItem.Name = "ReportToolStripMenuItem"
         Me.ReportToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.ReportToolStripMenuItem.Text = "Report"
+        Me.ReportToolStripMenuItem.Text = "Status Report"
         '
         'Image_OPFD
         '
@@ -803,6 +815,7 @@ Partial Class Homepage
         'ChangePictureHeader_Pnl
         '
         Me.ChangePictureHeader_Pnl.BackColor = System.Drawing.Color.PowderBlue
+        Me.ChangePictureHeader_Pnl.Controls.Add(Me.MetroLabel3)
         Me.ChangePictureHeader_Pnl.Controls.Add(Me.ChangePicAccept_Btn)
         Me.ChangePictureHeader_Pnl.Controls.Add(Me.ChangePicExit_Btn)
         Me.ChangePictureHeader_Pnl.Dock = System.Windows.Forms.DockStyle.Top
@@ -928,8 +941,102 @@ Partial Class Homepage
         Me.Info_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Info_Pnl.Location = New System.Drawing.Point(0, 35)
         Me.Info_Pnl.Name = "Info_Pnl"
-        Me.Info_Pnl.Size = New System.Drawing.Size(230, 505)
+        Me.Info_Pnl.Size = New System.Drawing.Size(230, 529)
         Me.Info_Pnl.TabIndex = 0
+        '
+        'Panel2
+        '
+        Me.Panel2.BackColor = System.Drawing.Color.White
+        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.Panel3)
+        Me.Panel2.Controls.Add(Me.Panel4)
+        Me.Panel2.Location = New System.Drawing.Point(172, 100)
+        Me.Panel2.MinimumSize = New System.Drawing.Size(270, 292)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(665, 411)
+        Me.Panel2.TabIndex = 21
+        Me.Panel2.Visible = False
+        '
+        'Panel3
+        '
+        Me.Panel3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel3.Location = New System.Drawing.Point(0, 25)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Padding = New System.Windows.Forms.Padding(3)
+        Me.Panel3.Size = New System.Drawing.Size(663, 384)
+        Me.Panel3.TabIndex = 4
+        '
+        'Panel4
+        '
+        Me.Panel4.BackColor = System.Drawing.Color.PowderBlue
+        Me.Panel4.Controls.Add(Me.MetroLabel4)
+        Me.Panel4.Controls.Add(Me.MetroButton1)
+        Me.Panel4.Controls.Add(Me.MetroButton2)
+        Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel4.Location = New System.Drawing.Point(0, 0)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(663, 25)
+        Me.Panel4.TabIndex = 3
+        '
+        'MetroButton1
+        '
+        Me.MetroButton1.BackColor = System.Drawing.Color.Transparent
+        Me.MetroButton1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.MetroButton1.ForeColor = System.Drawing.Color.Green
+        Me.MetroButton1.Location = New System.Drawing.Point(601, 0)
+        Me.MetroButton1.Name = "MetroButton1"
+        Me.MetroButton1.Size = New System.Drawing.Size(31, 25)
+        Me.MetroButton1.TabIndex = 2
+        Me.MetroButton1.Text = "✔"
+        Me.MetroButton1.UseCustomBackColor = True
+        Me.MetroButton1.UseCustomForeColor = True
+        Me.MetroButton1.UseSelectable = True
+        '
+        'MetroButton2
+        '
+        Me.MetroButton2.BackColor = System.Drawing.Color.Transparent
+        Me.MetroButton2.Dock = System.Windows.Forms.DockStyle.Right
+        Me.MetroButton2.Location = New System.Drawing.Point(632, 0)
+        Me.MetroButton2.Name = "MetroButton2"
+        Me.MetroButton2.Size = New System.Drawing.Size(31, 25)
+        Me.MetroButton2.TabIndex = 0
+        Me.MetroButton2.Text = "X"
+        Me.MetroButton2.UseCustomBackColor = True
+        Me.MetroButton2.UseSelectable = True
+        '
+        'MetroLabel3
+        '
+        Me.MetroLabel3.AutoSize = True
+        Me.MetroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel3.Location = New System.Drawing.Point(4, 3)
+        Me.MetroLabel3.Name = "MetroLabel3"
+        Me.MetroLabel3.Size = New System.Drawing.Size(102, 19)
+        Me.MetroLabel3.TabIndex = 3
+        Me.MetroLabel3.Text = "Change Picture"
+        Me.MetroLabel3.UseCustomBackColor = True
+        '
+        'InputToolStripMenuItem
+        '
+        Me.InputToolStripMenuItem.Name = "InputToolStripMenuItem"
+        Me.InputToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.InputToolStripMenuItem.Text = "Input"
+        '
+        'PrintToolStripMenuItem
+        '
+        Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
+        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.PrintToolStripMenuItem.Text = "Print"
+        '
+        'MetroLabel4
+        '
+        Me.MetroLabel4.AutoSize = True
+        Me.MetroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel4.Location = New System.Drawing.Point(4, 3)
+        Me.MetroLabel4.Name = "MetroLabel4"
+        Me.MetroLabel4.Size = New System.Drawing.Size(129, 19)
+        Me.MetroLabel4.TabIndex = 4
+        Me.MetroLabel4.Text = "Input Status Report"
+        Me.MetroLabel4.UseCustomBackColor = True
         '
         'Homepage
         '
@@ -938,8 +1045,9 @@ Partial Class Homepage
         Me.ClientSize = New System.Drawing.Size(1008, 611)
         Me.Controls.Add(Me.Search_Pnl)
         Me.Controls.Add(Me.ChangePicture_Pnl)
-        Me.Controls.Add(Me.EP_Pnl)
         Me.Controls.Add(Me.Homepage_Menu)
+        Me.Controls.Add(Me.Panel2)
+        Me.Controls.Add(Me.EP_Pnl)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.Homepage_Menu
@@ -970,9 +1078,13 @@ Partial Class Homepage
         Me.ChangePicBody_Pnl.ResumeLayout(False)
         CType(Me.ChangePic_Pbox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ChangePictureHeader_Pnl.ResumeLayout(False)
+        Me.ChangePictureHeader_Pnl.PerformLayout()
         Me.Search_Pnl.ResumeLayout(False)
         Me.SearchHeader_Pnl.ResumeLayout(False)
         Me.Info_Pnl.ResumeLayout(False)
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1029,4 +1141,13 @@ Partial Class Homepage
     Friend WithEvents SearchHeader_Pnl As Panel
     Friend WithEvents SearchPnlExit_Btn As MetroFramework.Controls.MetroButton
     Friend WithEvents Info_Pnl As Panel
+    Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents MetroButton1 As MetroFramework.Controls.MetroButton
+    Friend WithEvents MetroButton2 As MetroFramework.Controls.MetroButton
+    Friend WithEvents InputToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PrintToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MetroLabel4 As MetroFramework.Controls.MetroLabel
 End Class
