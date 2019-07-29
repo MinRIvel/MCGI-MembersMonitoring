@@ -64,7 +64,11 @@ Partial Class Homepage
         Me.Image_OPFD = New System.Windows.Forms.OpenFileDialog()
         Me.Homepage_Ttip = New MetroFramework.Components.MetroToolTip()
         Me.Homepage_Menu = New System.Windows.Forms.MenuStrip()
-        Me.MembersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InformationPanelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReloadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AdminToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DateTime_Timer = New System.Windows.Forms.Timer(Me.components)
         Me.ChangePicture_Pnl = New System.Windows.Forms.Panel()
@@ -82,12 +86,24 @@ Partial Class Homepage
         Me.IS_Split = New System.Windows.Forms.SplitContainer()
         Me.ISTop_Pnl = New System.Windows.Forms.Panel()
         Me.ISBot_Pnl = New System.Windows.Forms.Panel()
+        Me.ISCancel_Btn = New MetroFramework.Controls.MetroButton()
+        Me.SearchIS_Tbox = New MetroFramework.Controls.MetroTextBox()
+        Me.ReportDate_DTP = New MetroFramework.Controls.MetroDateTime()
         Me.ISAdd_Btn = New MetroFramework.Controls.MetroButton()
         Me.ISReport_RTF = New System.Windows.Forms.RichTextBox()
         Me.InputStatusHdr_Pnl = New System.Windows.Forms.Panel()
         Me.ISHdr_Lbl = New MetroFramework.Controls.MetroLabel()
         Me.ISExit_Btn = New MetroFramework.Controls.MetroButton()
-        Me.ReportDate_DTP = New MetroFramework.Controls.MetroDateTime()
+        Me.StatusReport_Cmenu = New MetroFramework.Controls.MetroContextMenu(Me.components)
+        Me.ISEditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ISDeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LogoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BackupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AddUser_Pnl = New System.Windows.Forms.Panel()
+        Me.AddUserBdy_Pnl = New System.Windows.Forms.Panel()
+        Me.AddUserHdr_Pnl = New System.Windows.Forms.Panel()
+        Me.MetroLabel4 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroButton2 = New MetroFramework.Controls.MetroButton()
         Me.EP_Pnl.SuspendLayout()
         Me.Body_Pnl.SuspendLayout()
         CType(Me.Homepage_Split, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -116,6 +132,9 @@ Partial Class Homepage
         Me.IS_Split.SuspendLayout()
         Me.ISBot_Pnl.SuspendLayout()
         Me.InputStatusHdr_Pnl.SuspendLayout()
+        Me.StatusReport_Cmenu.SuspendLayout()
+        Me.AddUser_Pnl.SuspendLayout()
+        Me.AddUserHdr_Pnl.SuspendLayout()
         Me.SuspendLayout()
         '
         'EP_Pnl
@@ -249,7 +268,7 @@ Partial Class Homepage
         '
         Me.NagAkay_Tbox.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.NagAkay_Tbox.CustomButton.Image = CType(resources.GetObject("resource.Image"), System.Drawing.Image)
-        Me.NagAkay_Tbox.CustomButton.Location = New System.Drawing.Point(172, 1)
+        Me.NagAkay_Tbox.CustomButton.Location = New System.Drawing.Point(180, 1)
         Me.NagAkay_Tbox.CustomButton.Name = ""
         Me.NagAkay_Tbox.CustomButton.Size = New System.Drawing.Size(25, 25)
         Me.NagAkay_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -269,7 +288,7 @@ Partial Class Homepage
         Me.NagAkay_Tbox.SelectionLength = 0
         Me.NagAkay_Tbox.SelectionStart = 0
         Me.NagAkay_Tbox.ShowClearButton = True
-        Me.NagAkay_Tbox.Size = New System.Drawing.Size(198, 27)
+        Me.NagAkay_Tbox.Size = New System.Drawing.Size(206, 27)
         Me.NagAkay_Tbox.TabIndex = 839
         Me.NagAkay_Tbox.UseCustomForeColor = True
         Me.NagAkay_Tbox.UseSelectable = True
@@ -286,7 +305,7 @@ Partial Class Homepage
         '
         Me.ID_Tbox.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ID_Tbox.CustomButton.Image = Nothing
-        Me.ID_Tbox.CustomButton.Location = New System.Drawing.Point(172, 1)
+        Me.ID_Tbox.CustomButton.Location = New System.Drawing.Point(180, 1)
         Me.ID_Tbox.CustomButton.Name = ""
         Me.ID_Tbox.CustomButton.Size = New System.Drawing.Size(25, 25)
         Me.ID_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -306,7 +325,7 @@ Partial Class Homepage
         Me.ID_Tbox.SelectionLength = 0
         Me.ID_Tbox.SelectionStart = 0
         Me.ID_Tbox.ShowClearButton = True
-        Me.ID_Tbox.Size = New System.Drawing.Size(198, 27)
+        Me.ID_Tbox.Size = New System.Drawing.Size(206, 27)
         Me.ID_Tbox.Style = MetroFramework.MetroColorStyle.Red
         Me.ID_Tbox.TabIndex = 829
         Me.ID_Tbox.UseCustomForeColor = True
@@ -324,7 +343,7 @@ Partial Class Homepage
         '
         Me.BaptizedBy_Tbox.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.BaptizedBy_Tbox.CustomButton.Image = CType(resources.GetObject("resource.Image1"), System.Drawing.Image)
-        Me.BaptizedBy_Tbox.CustomButton.Location = New System.Drawing.Point(172, 1)
+        Me.BaptizedBy_Tbox.CustomButton.Location = New System.Drawing.Point(180, 1)
         Me.BaptizedBy_Tbox.CustomButton.Name = ""
         Me.BaptizedBy_Tbox.CustomButton.Size = New System.Drawing.Size(25, 25)
         Me.BaptizedBy_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -344,7 +363,7 @@ Partial Class Homepage
         Me.BaptizedBy_Tbox.SelectionLength = 0
         Me.BaptizedBy_Tbox.SelectionStart = 0
         Me.BaptizedBy_Tbox.ShowClearButton = True
-        Me.BaptizedBy_Tbox.Size = New System.Drawing.Size(198, 27)
+        Me.BaptizedBy_Tbox.Size = New System.Drawing.Size(206, 27)
         Me.BaptizedBy_Tbox.TabIndex = 838
         Me.BaptizedBy_Tbox.UseCustomForeColor = True
         Me.BaptizedBy_Tbox.UseSelectable = True
@@ -361,7 +380,7 @@ Partial Class Homepage
         '
         Me.Lname_Tbox.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Lname_Tbox.CustomButton.Image = CType(resources.GetObject("resource.Image2"), System.Drawing.Image)
-        Me.Lname_Tbox.CustomButton.Location = New System.Drawing.Point(172, 1)
+        Me.Lname_Tbox.CustomButton.Location = New System.Drawing.Point(180, 1)
         Me.Lname_Tbox.CustomButton.Name = ""
         Me.Lname_Tbox.CustomButton.Size = New System.Drawing.Size(25, 25)
         Me.Lname_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -381,7 +400,7 @@ Partial Class Homepage
         Me.Lname_Tbox.SelectionLength = 0
         Me.Lname_Tbox.SelectionStart = 0
         Me.Lname_Tbox.ShowClearButton = True
-        Me.Lname_Tbox.Size = New System.Drawing.Size(198, 27)
+        Me.Lname_Tbox.Size = New System.Drawing.Size(206, 27)
         Me.Lname_Tbox.Style = MetroFramework.MetroColorStyle.Red
         Me.Lname_Tbox.TabIndex = 830
         Me.Lname_Tbox.UseCustomForeColor = True
@@ -397,7 +416,7 @@ Partial Class Homepage
         Me.Baptism_DTP.Location = New System.Drawing.Point(17, 391)
         Me.Baptism_DTP.MinimumSize = New System.Drawing.Size(0, 29)
         Me.Baptism_DTP.Name = "Baptism_DTP"
-        Me.Baptism_DTP.Size = New System.Drawing.Size(198, 29)
+        Me.Baptism_DTP.Size = New System.Drawing.Size(206, 29)
         Me.Baptism_DTP.TabIndex = 837
         '
         'Fname_Tbox
@@ -409,7 +428,7 @@ Partial Class Homepage
         '
         Me.Fname_Tbox.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Fname_Tbox.CustomButton.Image = CType(resources.GetObject("resource.Image3"), System.Drawing.Image)
-        Me.Fname_Tbox.CustomButton.Location = New System.Drawing.Point(172, 1)
+        Me.Fname_Tbox.CustomButton.Location = New System.Drawing.Point(180, 1)
         Me.Fname_Tbox.CustomButton.Name = ""
         Me.Fname_Tbox.CustomButton.Size = New System.Drawing.Size(25, 25)
         Me.Fname_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -429,7 +448,7 @@ Partial Class Homepage
         Me.Fname_Tbox.SelectionLength = 0
         Me.Fname_Tbox.SelectionStart = 0
         Me.Fname_Tbox.ShowClearButton = True
-        Me.Fname_Tbox.Size = New System.Drawing.Size(198, 27)
+        Me.Fname_Tbox.Size = New System.Drawing.Size(206, 27)
         Me.Fname_Tbox.Style = MetroFramework.MetroColorStyle.Red
         Me.Fname_Tbox.TabIndex = 831
         Me.Fname_Tbox.UseCustomForeColor = True
@@ -447,7 +466,7 @@ Partial Class Homepage
         '
         Me.Skill_Tbox.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Skill_Tbox.CustomButton.Image = CType(resources.GetObject("resource.Image4"), System.Drawing.Image)
-        Me.Skill_Tbox.CustomButton.Location = New System.Drawing.Point(172, 1)
+        Me.Skill_Tbox.CustomButton.Location = New System.Drawing.Point(180, 1)
         Me.Skill_Tbox.CustomButton.Name = ""
         Me.Skill_Tbox.CustomButton.Size = New System.Drawing.Size(25, 25)
         Me.Skill_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -467,7 +486,7 @@ Partial Class Homepage
         Me.Skill_Tbox.SelectionLength = 0
         Me.Skill_Tbox.SelectionStart = 0
         Me.Skill_Tbox.ShowClearButton = True
-        Me.Skill_Tbox.Size = New System.Drawing.Size(198, 27)
+        Me.Skill_Tbox.Size = New System.Drawing.Size(206, 27)
         Me.Skill_Tbox.TabIndex = 836
         Me.Skill_Tbox.UseCustomForeColor = True
         Me.Skill_Tbox.UseSelectable = True
@@ -484,7 +503,7 @@ Partial Class Homepage
         '
         Me.Mname_Tbox.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Mname_Tbox.CustomButton.Image = CType(resources.GetObject("resource.Image5"), System.Drawing.Image)
-        Me.Mname_Tbox.CustomButton.Location = New System.Drawing.Point(172, 1)
+        Me.Mname_Tbox.CustomButton.Location = New System.Drawing.Point(180, 1)
         Me.Mname_Tbox.CustomButton.Name = ""
         Me.Mname_Tbox.CustomButton.Size = New System.Drawing.Size(25, 25)
         Me.Mname_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -504,7 +523,7 @@ Partial Class Homepage
         Me.Mname_Tbox.SelectionLength = 0
         Me.Mname_Tbox.SelectionStart = 0
         Me.Mname_Tbox.ShowClearButton = True
-        Me.Mname_Tbox.Size = New System.Drawing.Size(198, 27)
+        Me.Mname_Tbox.Size = New System.Drawing.Size(206, 27)
         Me.Mname_Tbox.TabIndex = 832
         Me.Mname_Tbox.UseCustomForeColor = True
         Me.Mname_Tbox.UseSelectable = True
@@ -521,7 +540,7 @@ Partial Class Homepage
         '
         Me.Work_Tbox.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Work_Tbox.CustomButton.Image = CType(resources.GetObject("resource.Image6"), System.Drawing.Image)
-        Me.Work_Tbox.CustomButton.Location = New System.Drawing.Point(172, 1)
+        Me.Work_Tbox.CustomButton.Location = New System.Drawing.Point(180, 1)
         Me.Work_Tbox.CustomButton.Name = ""
         Me.Work_Tbox.CustomButton.Size = New System.Drawing.Size(25, 25)
         Me.Work_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -541,7 +560,7 @@ Partial Class Homepage
         Me.Work_Tbox.SelectionLength = 0
         Me.Work_Tbox.SelectionStart = 0
         Me.Work_Tbox.ShowClearButton = True
-        Me.Work_Tbox.Size = New System.Drawing.Size(198, 27)
+        Me.Work_Tbox.Size = New System.Drawing.Size(206, 27)
         Me.Work_Tbox.TabIndex = 835
         Me.Work_Tbox.UseCustomForeColor = True
         Me.Work_Tbox.UseSelectable = True
@@ -558,7 +577,7 @@ Partial Class Homepage
         '
         Me.Address_Tbox.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Address_Tbox.CustomButton.Image = CType(resources.GetObject("resource.Image7"), System.Drawing.Image)
-        Me.Address_Tbox.CustomButton.Location = New System.Drawing.Point(172, 1)
+        Me.Address_Tbox.CustomButton.Location = New System.Drawing.Point(180, 1)
         Me.Address_Tbox.CustomButton.Name = ""
         Me.Address_Tbox.CustomButton.Size = New System.Drawing.Size(25, 25)
         Me.Address_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -578,7 +597,7 @@ Partial Class Homepage
         Me.Address_Tbox.SelectionLength = 0
         Me.Address_Tbox.SelectionStart = 0
         Me.Address_Tbox.ShowClearButton = True
-        Me.Address_Tbox.Size = New System.Drawing.Size(198, 27)
+        Me.Address_Tbox.Size = New System.Drawing.Size(206, 27)
         Me.Address_Tbox.Style = MetroFramework.MetroColorStyle.Red
         Me.Address_Tbox.TabIndex = 833
         Me.Address_Tbox.UseCustomForeColor = True
@@ -596,7 +615,7 @@ Partial Class Homepage
         '
         Me.Contact_Tbox.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Contact_Tbox.CustomButton.Image = CType(resources.GetObject("resource.Image8"), System.Drawing.Image)
-        Me.Contact_Tbox.CustomButton.Location = New System.Drawing.Point(172, 1)
+        Me.Contact_Tbox.CustomButton.Location = New System.Drawing.Point(180, 1)
         Me.Contact_Tbox.CustomButton.Name = ""
         Me.Contact_Tbox.CustomButton.Size = New System.Drawing.Size(25, 25)
         Me.Contact_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
@@ -616,7 +635,7 @@ Partial Class Homepage
         Me.Contact_Tbox.SelectionLength = 0
         Me.Contact_Tbox.SelectionStart = 0
         Me.Contact_Tbox.ShowClearButton = True
-        Me.Contact_Tbox.Size = New System.Drawing.Size(198, 27)
+        Me.Contact_Tbox.Size = New System.Drawing.Size(206, 27)
         Me.Contact_Tbox.TabIndex = 834
         Me.Contact_Tbox.UseCustomForeColor = True
         Me.Contact_Tbox.UseSelectable = True
@@ -798,24 +817,49 @@ Partial Class Homepage
         'Homepage_Menu
         '
         Me.Homepage_Menu.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.Homepage_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MembersToolStripMenuItem})
+        Me.Homepage_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MenuToolStripMenuItem, Me.AdminToolStripMenuItem})
         Me.Homepage_Menu.Location = New System.Drawing.Point(0, 0)
         Me.Homepage_Menu.Name = "Homepage_Menu"
         Me.Homepage_Menu.Size = New System.Drawing.Size(1008, 24)
         Me.Homepage_Menu.TabIndex = 14
         Me.Homepage_Menu.Text = "MenuStrip1"
         '
-        'MembersToolStripMenuItem
+        'MenuToolStripMenuItem
         '
-        Me.MembersToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddToolStripMenuItem})
-        Me.MembersToolStripMenuItem.Name = "MembersToolStripMenuItem"
-        Me.MembersToolStripMenuItem.Size = New System.Drawing.Size(55, 20)
-        Me.MembersToolStripMenuItem.Text = "Admin"
+        Me.MenuToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InformationPanelToolStripMenuItem, Me.ReloadToolStripMenuItem, Me.BackupToolStripMenuItem, Me.LogoutToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.MenuToolStripMenuItem.Name = "MenuToolStripMenuItem"
+        Me.MenuToolStripMenuItem.Size = New System.Drawing.Size(50, 20)
+        Me.MenuToolStripMenuItem.Text = "Menu"
+        '
+        'InformationPanelToolStripMenuItem
+        '
+        Me.InformationPanelToolStripMenuItem.Name = "InformationPanelToolStripMenuItem"
+        Me.InformationPanelToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
+        Me.InformationPanelToolStripMenuItem.Text = "Information Panel"
+        '
+        'ReloadToolStripMenuItem
+        '
+        Me.ReloadToolStripMenuItem.Name = "ReloadToolStripMenuItem"
+        Me.ReloadToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
+        Me.ReloadToolStripMenuItem.Text = "Reload (F5)"
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
+        Me.ExitToolStripMenuItem.Text = "Exit"
+        '
+        'AdminToolStripMenuItem
+        '
+        Me.AdminToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddToolStripMenuItem})
+        Me.AdminToolStripMenuItem.Name = "AdminToolStripMenuItem"
+        Me.AdminToolStripMenuItem.Size = New System.Drawing.Size(55, 20)
+        Me.AdminToolStripMenuItem.Text = "Admin"
         '
         'AddToolStripMenuItem
         '
         Me.AddToolStripMenuItem.Name = "AddToolStripMenuItem"
-        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
+        Me.AddToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.AddToolStripMenuItem.Text = "Add User"
         '
         'DateTime_Timer
@@ -1022,6 +1066,8 @@ Partial Class Homepage
         'ISBot_Pnl
         '
         Me.ISBot_Pnl.BackColor = System.Drawing.Color.White
+        Me.ISBot_Pnl.Controls.Add(Me.ISCancel_Btn)
+        Me.ISBot_Pnl.Controls.Add(Me.SearchIS_Tbox)
         Me.ISBot_Pnl.Controls.Add(Me.ReportDate_DTP)
         Me.ISBot_Pnl.Controls.Add(Me.ISAdd_Btn)
         Me.ISBot_Pnl.Controls.Add(Me.ISReport_RTF)
@@ -1031,14 +1077,66 @@ Partial Class Homepage
         Me.ISBot_Pnl.Size = New System.Drawing.Size(592, 204)
         Me.ISBot_Pnl.TabIndex = 1
         '
+        'ISCancel_Btn
+        '
+        Me.ISCancel_Btn.FontSize = MetroFramework.MetroButtonSize.Medium
+        Me.ISCancel_Btn.Location = New System.Drawing.Point(278, 11)
+        Me.ISCancel_Btn.Name = "ISCancel_Btn"
+        Me.ISCancel_Btn.Size = New System.Drawing.Size(23, 23)
+        Me.ISCancel_Btn.TabIndex = 3
+        Me.ISCancel_Btn.Text = "X"
+        Me.ISCancel_Btn.UseSelectable = True
+        '
+        'SearchIS_Tbox
+        '
+        '
+        '
+        '
+        Me.SearchIS_Tbox.CustomButton.Font = New System.Drawing.Font("Century Gothic", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SearchIS_Tbox.CustomButton.Image = CType(resources.GetObject("resource.Image10"), System.Drawing.Image)
+        Me.SearchIS_Tbox.CustomButton.Location = New System.Drawing.Point(256, 1)
+        Me.SearchIS_Tbox.CustomButton.Name = ""
+        Me.SearchIS_Tbox.CustomButton.Size = New System.Drawing.Size(25, 25)
+        Me.SearchIS_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.SearchIS_Tbox.CustomButton.TabIndex = 1
+        Me.SearchIS_Tbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.SearchIS_Tbox.CustomButton.UseSelectable = True
+        Me.SearchIS_Tbox.FontSize = MetroFramework.MetroTextBoxSize.Medium
+        Me.SearchIS_Tbox.ForeColor = System.Drawing.Color.Black
+        Me.SearchIS_Tbox.Lines = New String(-1) {}
+        Me.SearchIS_Tbox.Location = New System.Drawing.Point(307, 5)
+        Me.SearchIS_Tbox.MaxLength = 32767
+        Me.SearchIS_Tbox.Name = "SearchIS_Tbox"
+        Me.SearchIS_Tbox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.SearchIS_Tbox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.SearchIS_Tbox.SelectedText = ""
+        Me.SearchIS_Tbox.SelectionLength = 0
+        Me.SearchIS_Tbox.SelectionStart = 0
+        Me.SearchIS_Tbox.ShowButton = True
+        Me.SearchIS_Tbox.ShowClearButton = True
+        Me.SearchIS_Tbox.Size = New System.Drawing.Size(282, 27)
+        Me.SearchIS_Tbox.TabIndex = 4
+        Me.SearchIS_Tbox.UseSelectable = True
+        Me.SearchIS_Tbox.WaterMark = "Search keyword"
+        Me.SearchIS_Tbox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.SearchIS_Tbox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'ReportDate_DTP
+        '
+        Me.ReportDate_DTP.Location = New System.Drawing.Point(3, 5)
+        Me.ReportDate_DTP.MinimumSize = New System.Drawing.Size(0, 29)
+        Me.ReportDate_DTP.Name = "ReportDate_DTP"
+        Me.ReportDate_DTP.Size = New System.Drawing.Size(198, 29)
+        Me.ReportDate_DTP.TabIndex = 1
+        '
         'ISAdd_Btn
         '
         Me.ISAdd_Btn.Location = New System.Drawing.Point(207, 5)
         Me.ISAdd_Btn.Name = "ISAdd_Btn"
         Me.ISAdd_Btn.Size = New System.Drawing.Size(65, 29)
         Me.ISAdd_Btn.Style = MetroFramework.MetroColorStyle.Black
-        Me.ISAdd_Btn.TabIndex = 841
-        Me.ISAdd_Btn.Text = "&Add"
+        Me.ISAdd_Btn.TabIndex = 2
+        Me.ISAdd_Btn.Text = "Add"
         Me.ISAdd_Btn.UseSelectable = True
         Me.ISAdd_Btn.UseStyleColors = True
         '
@@ -1053,7 +1151,7 @@ Partial Class Homepage
         Me.ISReport_RTF.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
         Me.ISReport_RTF.Size = New System.Drawing.Size(586, 163)
         Me.ISReport_RTF.TabIndex = 0
-        Me.ISReport_RTF.Text = "Sample Text"
+        Me.ISReport_RTF.Text = ""
         '
         'InputStatusHdr_Pnl
         '
@@ -1089,22 +1187,102 @@ Partial Class Homepage
         Me.ISExit_Btn.UseCustomBackColor = True
         Me.ISExit_Btn.UseSelectable = True
         '
-        'ReportDate_DTP
+        'StatusReport_Cmenu
         '
-        Me.ReportDate_DTP.Location = New System.Drawing.Point(3, 5)
-        Me.ReportDate_DTP.MinimumSize = New System.Drawing.Size(0, 29)
-        Me.ReportDate_DTP.Name = "ReportDate_DTP"
-        Me.ReportDate_DTP.Size = New System.Drawing.Size(198, 29)
-        Me.ReportDate_DTP.TabIndex = 842
+        Me.StatusReport_Cmenu.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.StatusReport_Cmenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ISEditToolStripMenuItem, Me.ISDeleteToolStripMenuItem})
+        Me.StatusReport_Cmenu.Name = "StatusReport_Cmenu"
+        Me.StatusReport_Cmenu.Size = New System.Drawing.Size(108, 48)
+        '
+        'ISEditToolStripMenuItem
+        '
+        Me.ISEditToolStripMenuItem.Name = "ISEditToolStripMenuItem"
+        Me.ISEditToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.ISEditToolStripMenuItem.Text = "Edit"
+        '
+        'ISDeleteToolStripMenuItem
+        '
+        Me.ISDeleteToolStripMenuItem.Name = "ISDeleteToolStripMenuItem"
+        Me.ISDeleteToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.ISDeleteToolStripMenuItem.Text = "Delete"
+        '
+        'LogoutToolStripMenuItem
+        '
+        Me.LogoutToolStripMenuItem.Name = "LogoutToolStripMenuItem"
+        Me.LogoutToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
+        Me.LogoutToolStripMenuItem.Text = "Logout"
+        '
+        'BackupToolStripMenuItem
+        '
+        Me.BackupToolStripMenuItem.Name = "BackupToolStripMenuItem"
+        Me.BackupToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
+        Me.BackupToolStripMenuItem.Text = "Backup"
+        '
+        'AddUser_Pnl
+        '
+        Me.AddUser_Pnl.BackColor = System.Drawing.Color.White
+        Me.AddUser_Pnl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.AddUser_Pnl.Controls.Add(Me.AddUserBdy_Pnl)
+        Me.AddUser_Pnl.Controls.Add(Me.AddUserHdr_Pnl)
+        Me.AddUser_Pnl.Location = New System.Drawing.Point(350, 139)
+        Me.AddUser_Pnl.MinimumSize = New System.Drawing.Size(270, 292)
+        Me.AddUser_Pnl.Name = "AddUser_Pnl"
+        Me.AddUser_Pnl.Size = New System.Drawing.Size(555, 333)
+        Me.AddUser_Pnl.TabIndex = 22
+        Me.AddUser_Pnl.Visible = False
+        '
+        'AddUserBdy_Pnl
+        '
+        Me.AddUserBdy_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.AddUserBdy_Pnl.Location = New System.Drawing.Point(0, 25)
+        Me.AddUserBdy_Pnl.Name = "AddUserBdy_Pnl"
+        Me.AddUserBdy_Pnl.Padding = New System.Windows.Forms.Padding(3)
+        Me.AddUserBdy_Pnl.Size = New System.Drawing.Size(553, 306)
+        Me.AddUserBdy_Pnl.TabIndex = 4
+        '
+        'AddUserHdr_Pnl
+        '
+        Me.AddUserHdr_Pnl.BackColor = System.Drawing.Color.PowderBlue
+        Me.AddUserHdr_Pnl.Controls.Add(Me.MetroLabel4)
+        Me.AddUserHdr_Pnl.Controls.Add(Me.MetroButton2)
+        Me.AddUserHdr_Pnl.Dock = System.Windows.Forms.DockStyle.Top
+        Me.AddUserHdr_Pnl.Location = New System.Drawing.Point(0, 0)
+        Me.AddUserHdr_Pnl.Name = "AddUserHdr_Pnl"
+        Me.AddUserHdr_Pnl.Size = New System.Drawing.Size(553, 25)
+        Me.AddUserHdr_Pnl.TabIndex = 3
+        '
+        'MetroLabel4
+        '
+        Me.MetroLabel4.AutoSize = True
+        Me.MetroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel4.Location = New System.Drawing.Point(4, 3)
+        Me.MetroLabel4.Name = "MetroLabel4"
+        Me.MetroLabel4.Size = New System.Drawing.Size(102, 19)
+        Me.MetroLabel4.TabIndex = 3
+        Me.MetroLabel4.Text = "Change Picture"
+        Me.MetroLabel4.UseCustomBackColor = True
+        '
+        'MetroButton2
+        '
+        Me.MetroButton2.BackColor = System.Drawing.Color.Transparent
+        Me.MetroButton2.Dock = System.Windows.Forms.DockStyle.Right
+        Me.MetroButton2.Location = New System.Drawing.Point(522, 0)
+        Me.MetroButton2.Name = "MetroButton2"
+        Me.MetroButton2.Size = New System.Drawing.Size(31, 25)
+        Me.MetroButton2.TabIndex = 0
+        Me.MetroButton2.Text = "X"
+        Me.MetroButton2.UseCustomBackColor = True
+        Me.MetroButton2.UseSelectable = True
         '
         'Homepage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1008, 611)
-        Me.Controls.Add(Me.InputStatus_Pnl)
+        Me.Controls.Add(Me.AddUser_Pnl)
         Me.Controls.Add(Me.Search_Pnl)
         Me.Controls.Add(Me.ChangePicture_Pnl)
+        Me.Controls.Add(Me.InputStatus_Pnl)
         Me.Controls.Add(Me.EP_Pnl)
         Me.Controls.Add(Me.Homepage_Menu)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -1149,6 +1327,10 @@ Partial Class Homepage
         Me.ISBot_Pnl.ResumeLayout(False)
         Me.InputStatusHdr_Pnl.ResumeLayout(False)
         Me.InputStatusHdr_Pnl.PerformLayout()
+        Me.StatusReport_Cmenu.ResumeLayout(False)
+        Me.AddUser_Pnl.ResumeLayout(False)
+        Me.AddUserHdr_Pnl.ResumeLayout(False)
+        Me.AddUserHdr_Pnl.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1187,7 +1369,7 @@ Partial Class Homepage
     Friend WithEvents Clear_Btn As MetroFramework.Controls.MetroButton
     Friend WithEvents Cancel_Btn As MetroFramework.Controls.MetroButton
     Friend WithEvents Homepage_Menu As MenuStrip
-    Friend WithEvents MembersToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AdminToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AddToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MetroLabel2 As MetroFramework.Controls.MetroLabel
     Friend WithEvents DateTime_Lbl As MetroFramework.Controls.MetroLabel
@@ -1218,4 +1400,20 @@ Partial Class Homepage
     Friend WithEvents ISReport_RTF As RichTextBox
     Friend WithEvents ISAdd_Btn As MetroFramework.Controls.MetroButton
     Friend WithEvents ReportDate_DTP As MetroFramework.Controls.MetroDateTime
+    Public WithEvents SearchIS_Tbox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents ISCancel_Btn As MetroFramework.Controls.MetroButton
+    Friend WithEvents StatusReport_Cmenu As MetroFramework.Controls.MetroContextMenu
+    Friend WithEvents ISEditToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ISDeleteToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents MenuToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents InformationPanelToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ExitToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ReloadToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents LogoutToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BackupToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents AddUser_Pnl As Panel
+    Friend WithEvents AddUserBdy_Pnl As Panel
+    Friend WithEvents AddUserHdr_Pnl As Panel
+    Friend WithEvents MetroLabel4 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroButton2 As MetroFramework.Controls.MetroButton
 End Class

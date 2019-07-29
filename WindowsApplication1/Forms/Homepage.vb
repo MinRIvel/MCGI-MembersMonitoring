@@ -8,13 +8,13 @@ Public Class Homepage
     Dim Homepage_DGV As New KryptonDataGridView
     Dim Report_DGV As New KryptonDataGridView
     Public BGW As BackgroundWorker = New BackgroundWorker
-    Private TODO, TODO_MODE, SearchStr, sqlQuery As String
+    Private TODO, TODO_MODE, SearchStr, sqlQuery, SearchISStr As String
     Dim ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number, Occupation, Skill,
         Baptized_By, Nagakay, Image_Location As String
-    Dim Baptism_Date As Date
+    Dim Baptism_Date, Report_Date As Date
     Dim if_left As Boolean = True
-    Private A_ID_list As ArrayList
-    Private dgv_rowindex, A_id As Integer
+    Private A_ID_list, R_id_list As ArrayList
+    Private dgv_rowindex, ISdgv_rowindex, A_id, R_Id As Integer
 
     Private Sub reset_here()
         Body_Pnl.Enabled = True
@@ -25,11 +25,14 @@ Public Class Homepage
         Image_Location = ""
         Save_Btn.Style = MetroColorStyle.Black
         Save_Btn.Text = "Save"
+        ISAdd_Btn.Style = MetroColorStyle.Black
+        ISAdd_Btn.Text = "Add"
         ID_Tbox.Style = MetroColorStyle.Red
         Lname_Tbox.Style = MetroColorStyle.Red
         Fname_Tbox.Style = MetroColorStyle.Red
         Address_Tbox.Style = MetroColorStyle.Red
-        For Each ctrl In Left_Pnl.Controls
+        ISReport_RTF.Clear()
+        For Each ctrl In Info_Pnl.Controls
             If ctrl.GetType = GetType(Controls.MetroTextBox) Then
                 ctrl.Clear()
             ElseIf ctrl.GetType = GetType(PictureBox) Then
@@ -91,7 +94,7 @@ Public Class Homepage
             Report_DGV.DataSource = ReportDGV_BS
 
             Directory.CreateDirectory(Application.StartupPath & "\Member_Images")
-            Directory.CreateDirectory(Application.StartupPath & "\Report_Images")
+            'Directory.CreateDirectory(Application.StartupPath & "\Report_Images")
             TODO = "LoadDGV"
             Start_BGW()
         Catch ex As Exception
@@ -130,7 +133,7 @@ Public Class Homepage
                                     or  Nagakay like @SearchStr)
                                     and Row_Status = True
                                 Order by A_id asc"
-                    HOMEPAGE_QUERY(TODO, sqlQuery, SearchStr)
+                    MbrsInfo_QUERY(TODO, sqlQuery, SearchStr)
                     BGW.ReportProgress(0)
 
                 Case "SaveTrans"
@@ -162,7 +165,7 @@ Public Class Homepage
                                                                 ,@Nagakay)"
                     Dim sql2 As String = "SELECT iif(MAX(A_ID) is null,0,MAX(A_ID)) FROM Member_Information"
                     Get_QUERY(sql2)
-                    HOMEPAGE_QUERY(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
+                    MbrsInfo_QUERY(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
                                    Occupation, Skill, Baptism_Date, Baptized_By, Nagakay, Image_Location)
 
                 Case "UpdateTrans"
@@ -179,36 +182,68 @@ Public Class Homepage
                                         ,Baptized_By    = @Baptized_By
                                         ,Nagakay        = @Nagakay
                                 where   A_id = @A_id"
-                    HOMEPAGE_QUERY(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
+                    MbrsInfo_QUERY(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
                                    Occupation, Skill, Baptism_Date, Baptized_By, Nagakay,, A_id)
 
                 Case "UpdatePictureTrans"
                     sqlQuery = "Update  Member_Information
                                 set     Image_Location = @Image_Location
                                 where   A_id = @A_id"
-                    HOMEPAGE_QUERY(TODO, sqlQuery,,,,,,,,,,,,, Image_Location, A_id)
+                    MbrsInfo_QUERY(TODO, sqlQuery,,,,,,,,,,,,, Image_Location, A_id)
 
                 Case "UpdateDeleteTrans"
                     sqlQuery = "Update  Member_Information
                                 set     Row_Status = False
                                 where   A_id = @A_id"
                     For i = 0 To A_ID_list.Count - 1
-                        HOMEPAGE_QUERY(TODO, sqlQuery,,,,,,,,,,,,,, A_ID_list(i))
+                        MbrsInfo_QUERY(TODO, sqlQuery,,,,,,,,,,,,,, A_ID_list(i))
                     Next
 
                 Case "Load_ReportDGV"
                     sqlQuery = "Select   R_Id
                                         ,A_id_Ref
-                                        ,Format(CStr(Report_Date),""MMMM dd, yyyy"") + Chr(13) + Chr(10) +  Chr(13) + Chr(10) +Report_Status as [Report Status]
+                                        ,Format(CStr(Report_Date),""MMMM dd, yyyy"") + Chr(13) + Chr(10) +  Chr(13) + Chr(10) + Report_Status as [Report Status]
+                                        ,Report_Date
+                                        ,Report_Status
                                 FROM    Member_Information [MI]
                                 INNER JOIN  Report_Information [RI]
                                 ON      [MI].A_Id = [RI].A_Id_Ref
                                 Where   Row_Status = True
                                     and Report_RowStatus = True
+                                    and Report_Status like @SearchStrIS
                                     and A_id_Ref = @A_id_Ref
-                                Order by A_id asc"
-                    HOMEPAGE_QUERY(TODO, sqlQuery,,,,,,,,,,,,,, A_id)
+                                Order by Report_Date desc"
+                    ReportInfo_QUERY(TODO, sqlQuery, SearchISStr, A_id)
                     BGW.ReportProgress(0)
+
+                Case "SaveISTrans"
+                    sqlQuery = "Insert into Report_Information       (R_id
+                                                                     ,A_Id_Ref
+                                                                     ,Report_Status
+                                                                     ,Report_Date)
+                                                            VALUES   (@R_id
+                                                                     ,@A_Id_Ref
+                                                                     ,@Report_Status
+                                                                     ,@Report_Date)"
+                    Dim sql2 As String = "SELECT iif(MAX(R_Id) is null,0,MAX(R_Id)) FROM Report_Information"
+                    Get_QUERY(sql2)
+                    ReportInfo_QUERY(TODO, sqlQuery,, A_id, Report_Status, Max_ID, Report_Date)
+
+                Case "UpdateISTrans"
+                    sqlQuery = "Update  Report_Information
+                                set     A_Id_Ref = @A_Id_Ref
+                                       ,Report_Status = @Report_Status
+                                       ,Report_Date = @Report_Date
+                                where   R_id = @R_id"
+                    ReportInfo_QUERY(TODO, sqlQuery,, A_id, Report_Status, R_Id, Report_Date)
+
+                Case "UpdateDeleteISTrans"
+                    sqlQuery = "Update  Report_Information
+                                set     Report_RowStatus = False
+                                where   R_id = @R_id"
+                    For i = 0 To R_id_list.Count - 1
+                        ReportInfo_QUERY(TODO, sqlQuery,,,, R_id_list(i))
+                    Next
             End Select
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -231,8 +266,8 @@ Public Class Homepage
                     If e.ProgressPercentage = 0 And (Not ISTop_Pnl.Controls.Contains(Report_DGV)) Then
                         DGV_Properties(Report_DGV, "Report_DGV")
                         AddHandler Report_DGV.RowPostPaint, AddressOf DGV_RowPostPaint
-                        'AddHandler Homepage_DGV.CellMouseClick, AddressOf DGV_CellMouseClick
-                        'AddHandler Homepage_DGV.SelectionChanged, AddressOf DGV_SelectionChanged
+                        AddHandler Report_DGV.CellMouseClick, AddressOf DGV_CellMouseClick
+                        AddHandler Report_DGV.SelectionChanged, AddressOf DGV_SelectionChanged
                         ISTop_Pnl.Controls.Add(Report_DGV)
                     End If
             End Select
@@ -254,7 +289,6 @@ Public Class Homepage
                             homepageDGV_BS.DataSource = msDataSet
                             homepageDGV_BS.DataMember = TODO
                             With Homepage_DGV
-                                '.DataSource = msBindingSource
                                 .AllowUserToResizeColumns = False
                                 .AllowUserToResizeRows = False
                                 .Select()
@@ -276,26 +310,23 @@ Public Class Homepage
                             ReportDGV_BS.DataSource = msDataSet
                             ReportDGV_BS.DataMember = TODO
                             With Report_DGV
-                                '.DataSource = msBindingSource
                                 .AllowUserToResizeColumns = False
                                 .AllowUserToResizeRows = False
                                 .Select()
                                 .DefaultCellStyle.WrapMode = DataGridViewTriState.True
                                 .Columns("R_Id").Visible = False
                                 .Columns("A_id_Ref").Visible = False
-                                '.Columns("Report_Date").Visible = False
+                                .Columns("Report_Date").Visible = False
+                                .Columns("Report_Status").Visible = False
                                 .DefaultCellStyle.BackColor = Color.White
                                 .RowsDefaultCellStyle.Font = New Font("Segoe UI", 10.0!, FontStyle.Regular)
                                 .AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                                '.Columns("Report_Date").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
                                 .Columns("Report Status").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
-                                '.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
                                 .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells
                                 .MultiSelect = True
                                 .ClearSelection()
                             End With
                             reset_here()
-                            ID_Tbox.Focus()
 
                         Case "SaveTrans"
                             If Image_Pbox.ImageLocation <> Nothing Then
@@ -325,6 +356,21 @@ Public Class Homepage
                         Case "UpdateDeleteTrans"
                             MetroMessageBox.Show(Me, "", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             TODO = "LoadDGV"
+                            Start_BGW()
+
+                        Case "SaveISTrans"
+                            MetroMessageBox.Show(Me, "", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            TODO = "Load_ReportDGV"
+                            Start_BGW()
+
+                        Case "UpdateISTrans"
+                            MetroMessageBox.Show(Me, "", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            TODO = "Load_ReportDGV"
+                            Start_BGW()
+
+                        Case "UpdateDeleteISTrans"
+                            MetroMessageBox.Show(Me, "", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            TODO = "Load_ReportDGV"
                             Start_BGW()
                     End Select
                 Else
@@ -370,10 +416,18 @@ Public Class Homepage
     Private Sub DGV_SelectionChanged(sender As Object, e As EventArgs)
         Try
             Dim selectedItems As DataGridViewSelectedRowCollection = sender.SelectedRows
-            A_ID_list = New ArrayList(selectedItems.Count)
-            For Each selectedItem As DataGridViewRow In selectedItems
-                A_ID_list.Add(selectedItem.Cells("A_id").Value.ToString)
-            Next
+            If sender Is Homepage_DGV Then
+                A_ID_list = New ArrayList(selectedItems.Count)
+                For Each selectedItem As DataGridViewRow In selectedItems
+                    A_ID_list.Add(selectedItem.Cells("A_id").Value.ToString)
+                Next
+
+            ElseIf sender Is Report_DGV Then
+                R_id_list = New ArrayList(selectedItems.Count)
+                For Each selectedItem As DataGridViewRow In selectedItems
+                    R_id_list.Add(selectedItem.Cells("R_id").Value.ToString)
+                Next
+            End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
             log_file_writer(ex.StackTrace)
@@ -382,20 +436,33 @@ Public Class Homepage
 
     Private Sub DGV_CellMouseClick(sender As Object, e As DataGridViewCellMouseEventArgs)
         Try
-            dgv_rowindex = e.RowIndex
             If e.Button = MouseButtons.Right Then
-                Homepage_DGV.Rows(e.RowIndex).Selected = True
-                If sender.SelectedRows.Count > 1 Then
-                    EditToolStripMenuItem.Visible = False
-                    ChangePictureToolStripMenuItem.Visible = False
-                    ReportToolStripMenuItem.Visible = False
-                ElseIf sender.SelectedRows.Count = 1 Then
-                    EditToolStripMenuItem.Visible = True
-                    ChangePictureToolStripMenuItem.Visible = True
-                    ReportToolStripMenuItem.Visible = True
+                If sender Is Homepage_DGV Then
+                    dgv_rowindex = e.RowIndex
+                    Homepage_DGV.Rows(e.RowIndex).Selected = True
+                    If sender.SelectedRows.Count > 1 Then
+                        EditToolStripMenuItem.Visible = False
+                        ChangePictureToolStripMenuItem.Visible = False
+                        ReportToolStripMenuItem.Visible = False
+                    ElseIf sender.SelectedRows.Count = 1 Then
+                        EditToolStripMenuItem.Visible = True
+                        ChangePictureToolStripMenuItem.Visible = True
+                        ReportToolStripMenuItem.Visible = True
+                    End If
+                    Homepage_Cmenu.Show()
+                    Homepage_Cmenu.Location = New Point(MousePosition.X, MousePosition.Y)
+
+                ElseIf sender Is Report_DGV Then
+                    ISdgv_rowindex = e.RowIndex
+                    Report_DGV.Rows(e.RowIndex).Selected = True
+                    If sender.SelectedRows.Count > 1 Then
+                        ISEditToolStripMenuItem.Visible = False
+                    ElseIf sender.SelectedRows.Count = 1 Then
+                        ISEditToolStripMenuItem.Visible = True
+                    End If
+                    StatusReport_Cmenu.Show()
+                    StatusReport_Cmenu.Location = New Point(MousePosition.X, MousePosition.Y)
                 End If
-                Homepage_Cmenu.Show()
-                Homepage_Cmenu.Location = New Point(MousePosition.X, MousePosition.Y)
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -488,8 +555,80 @@ Public Class Homepage
             A_id = .Cells("A_id").Value
             ISHdr_Lbl.Text = .Cells("LAST NAME").Value.ToString & ", " & .Cells("FIRST NAME").Value.ToString & " " & .Cells("MIDDLE NAME").Value.ToString
         End With
+        ISReport_RTF.Focus()
+        SearchISStr = ""
         TODO = "Load_ReportDGV"
         Start_BGW()
+    End Sub
+
+    Private Sub SearchIS_Tbox_ButtonClick(sender As Object, e As EventArgs) Handles SearchIS_Tbox.ButtonClick
+        SearchISStr = Trim(SearchIS_Tbox.Text)
+        TODO = "Load_ReportDGV"
+        Start_BGW()
+    End Sub
+
+    Private Sub ISCancel_Btn_Click(sender As Object, e As EventArgs) Handles ISCancel_Btn.Click
+        ISAdd_Btn.Style = MetroColorStyle.Black
+        ISAdd_Btn.Text = "Add"
+    End Sub
+
+    Private Sub ISDeleteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ISDeleteToolStripMenuItem.Click
+        If MetroMessageBox.Show(Me, "Are you sure you want to delete (" & R_id_list.Count & ") item(s)?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.Yes Then
+            TODO = "UpdateDeleteISTrans"
+            Start_BGW()
+        End If
+    End Sub
+
+    Private Sub ISReport_RTF_KeyDown(sender As Object, e As KeyEventArgs) Handles ISReport_RTF.KeyDown
+        If e.Control And e.KeyCode = Keys.Enter Then
+            ISAdd_Btn.PerformClick()
+        End If
+    End Sub
+
+    Private Sub InformationPanelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InformationPanelToolStripMenuItem.Click
+        left_arrows()
+        Homepage_Split.SplitterDistance = 260
+    End Sub
+
+    Private Sub ReloadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReloadToolStripMenuItem.Click
+        TODO = "LoadDGV"
+        Start_BGW()
+    End Sub
+
+    Private Sub ISEditToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ISEditToolStripMenuItem.Click
+        Try
+            ISAdd_Btn.Style = MetroColorStyle.Red
+            ISAdd_Btn.Text = "Update"
+            With Report_DGV.Rows(ISdgv_rowindex)
+                R_Id = .Cells("R_Id").Value
+                ISReport_RTF.Text = .Cells("Report_Status").Value
+                ReportDate_DTP.Value = .Cells("Report_Date").Value
+            End With
+            ISReport_RTF.Focus()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            log_file_writer(ex.StackTrace)
+        End Try
+    End Sub
+
+    Private Sub SearchIS_Tbox_KeyDown(sender As Object, e As KeyEventArgs) Handles SearchIS_Tbox.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            SearchIS_Tbox.CustomButton.PerformClick()
+        End If
+    End Sub
+
+    Private Sub ISAdd_Btn_Click(sender As Object, e As EventArgs) Handles ISAdd_Btn.Click
+        Report_Date = ReportDate_DTP.Value
+        Report_Status = ISReport_RTF.Text
+
+        If ISAdd_Btn.Text = "Add" Then
+            TODO = "SaveISTrans"
+            Start_BGW()
+
+        ElseIf ISAdd_Btn.Text = "Update" Then
+            TODO = "UpdateISTrans"
+            Start_BGW()
+        End If
     End Sub
 
     Private Sub ISExit_Btn_Click(sender As Object, e As EventArgs) Handles ISExit_Btn.Click
@@ -640,6 +779,8 @@ Public Class Homepage
     End Sub
     Private allowCoolMove As Boolean = False
     Private myCoolPoint As New Point
+    Private Report_Status As String
+
     Private Sub Header_Pnl_MouseDown(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseDown,
                                                                                     SearchHeader_Pnl.MouseDown,
                                                                                     InputStatusHdr_Pnl.MouseDown

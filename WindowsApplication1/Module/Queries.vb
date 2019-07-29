@@ -92,7 +92,7 @@ Module Queries
                            "Trace: " & Err_StackTrace & vbCrLf)
         Log_File.Close()
     End Sub
-    Public Sub HOMEPAGE_QUERY(ByVal dsTbl_Command As String,
+    Public Sub MbrsInfo_QUERY(ByVal dsTbl_Command As String,
                               ByVal sqlQuery As String,
                               Optional SearchStr As String = Nothing,
                               Optional ID_Number As String = Nothing,
@@ -130,6 +130,7 @@ Module Queries
                 If dsTbl_Command <> "UpdatePictureTrans" And
                    dsTbl_Command.Contains("Delete") = False And
                    dsTbl_Command <> "Load_ReportDGV" Then
+
                     mscmd.Parameters.Add("@ID_Number", OleDbType.VarChar).Value = ID_Number
                     mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Last_Name
                     mscmd.Parameters.Add("@First_Name", OleDbType.VarChar).Value = First_Name
@@ -167,6 +168,62 @@ Module Queries
             End Using
         End Using
     End Sub
+    Public Sub ReportInfo_QUERY(ByVal dsTbl_Command As String,
+                                ByVal sqlQuery As String,
+                                Optional SearchStrIS As String = "",
+                                Optional A_id As Integer = 0,
+                                Optional Report_Status As String = "",
+                                Optional R_id As Integer = 0,
+                                Optional Report_Date As Date = Nothing)
+        msDataAdapter = New OleDbDataAdapter
+        msBindingSource = New BindingSource
+        msDataSet = New DataSet
+        If msDataSet.Tables.Contains(dsTbl_Command) Then
+            msDataSet.Tables(dsTbl_Command).Clear()
+        End If
+        Using mscon As New OleDbConnection(msconString)
+            mscon.Open()
+            Using mscmd As OleDbCommand = mscon.CreateCommand()
+                mscmd.Connection = mscon
+                mscmd.CommandText = sqlQuery
+                mscmd.CommandType = CommandType.Text
+                If dsTbl_Command.Contains("Trans") = False Then
+                    mscmd.Parameters.Add("@SearchStrIS", OleDbType.VarChar).Value = "%" & SearchStrIS & "%"
+                End If
+
+                If dsTbl_Command = "Load_ReportDGV" Then
+                    mscmd.Parameters.Add("@A_id_Ref", OleDbType.Integer).Value = A_id
+                End If
+
+                If dsTbl_Command = "SaveISTrans" Then
+                    mscmd.Parameters.Add("@R_id", OleDbType.Integer).Value = R_id + 1
+                    mscmd.Parameters.Add("@A_id_Ref", OleDbType.Integer).Value = A_id
+                    mscmd.Parameters.Add("@Report_Status", OleDbType.LongVarChar).Value = Report_Status
+                    mscmd.Parameters.Add("@Report_Date", OleDbType.DBDate).Value = Report_Date.ToString("MMM. dd, yyyy")
+
+                ElseIf dsTbl_Command = "UpdateISTrans" Then
+                    mscmd.Parameters.Add("@A_id_Ref", OleDbType.Integer).Value = A_id
+                    mscmd.Parameters.Add("@Report_Status", OleDbType.LongVarChar).Value = Report_Status
+                    mscmd.Parameters.Add("@Report_Date", OleDbType.DBDate).Value = Report_Date.ToString("MMM. dd, yyyy")
+                    mscmd.Parameters.Add("@R_id", OleDbType.Integer).Value = R_id
+
+                ElseIf dsTbl_Command = "UpdateDeleteISTrans" Then
+                    mscmd.Parameters.Add("@R_id", OleDbType.Integer).Value = R_id
+                End If
+
+                If dsTbl_Command.Contains("Trans") = False Then
+                    msDataAdapter.SelectCommand = mscmd
+                    msDataAdapter.Fill(msDataSet, dsTbl_Command)
+                    msBindingSource.DataSource = msDataSet
+                    msBindingSource.DataMember = dsTbl_Command
+                Else
+                    mscmd.ExecuteNonQuery()
+                End If
+                sql_Transaction_result = "Committed"
+            End Using
+        End Using
+    End Sub
+
     Public Sub Get_QUERY(ByVal sqlQuery As String)
         Using mscon As New OleDbConnection(msconString)
             mscon.Open()
