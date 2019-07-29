@@ -8,6 +8,7 @@ Module Queries
     Public msDataSet As New DataSet
     Public msBindingSource As BindingSource
     Public homepageDGV_BS As New BindingSource
+    Public ReportDGV_BS As New BindingSource
     'Public transaction As OleDbTransaction
     Public sql_Transaction_result As String
     Public Max_ID As Integer
@@ -119,7 +120,7 @@ Module Queries
                 mscmd.Connection = mscon
                 mscmd.CommandText = sqlQuery
                 mscmd.CommandType = CommandType.Text
-                If dsTbl_Command.Contains("Trans") = False Then
+                If dsTbl_Command.Contains("Trans") = False And dsTbl_Command <> "Load_ReportDGV" Then
                     mscmd.Parameters.Add("@SearchStr", OleDbType.VarChar).Value = "%" & SearchStr & "%"
 
                 ElseIf dsTbl_Command.Contains("Save") Then

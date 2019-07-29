@@ -6,6 +6,7 @@ Imports MetroFramework
 
 Public Class Homepage
     Dim Homepage_DGV As New KryptonDataGridView
+    Dim Report_DGV As New KryptonDataGridView
     Public BGW As BackgroundWorker = New BackgroundWorker
     Private TODO, TODO_MODE, SearchStr, sqlQuery As String
     Dim ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number, Occupation, Skill,
@@ -87,6 +88,7 @@ Public Class Homepage
             AddHandler BGW.RunWorkerCompleted, AddressOf BGW_RunWorkerCompleted
 
             Homepage_DGV.DataSource = homepageDGV_BS
+            Report_DGV.DataSource = ReportDGV_BS
 
             Directory.CreateDirectory(Application.StartupPath & "\Member_Images")
             Directory.CreateDirectory(Application.StartupPath & "\Report_Images")
@@ -193,6 +195,20 @@ Public Class Homepage
                     For i = 0 To A_ID_list.Count - 1
                         HOMEPAGE_QUERY(TODO, sqlQuery,,,,,,,,,,,,,, A_ID_list(i))
                     Next
+
+                Case "Load_ReportDGV"
+                    sqlQuery = "Select   R_Id
+                                        ,A_id_Ref
+                                        ,Report_Status
+                                        ,Report_Date
+                                FROM    Member_Information [MI]
+                                INNER JOIN  Report_Information [RI]
+                                ON      [MI].A_Id = [RI].A_Id_Ref
+                                Where   Row_Status = True
+                                    and Report_RowStatus = True
+                                Order by A_id asc"
+                    HOMEPAGE_QUERY(TODO, sqlQuery)
+                    BGW.ReportProgress(0)
             End Select
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -210,6 +226,14 @@ Public Class Homepage
                         AddHandler Homepage_DGV.CellMouseClick, AddressOf DGV_CellMouseClick
                         AddHandler Homepage_DGV.SelectionChanged, AddressOf DGV_SelectionChanged
                         DGV_Pnl.Controls.Add(Homepage_DGV)
+                    End If
+                Case "Load_ReportDGV"
+                    If e.ProgressPercentage = 0 And (Not ISTop_Pnl.Controls.Contains(Report_DGV)) Then
+                        DGV_Properties(Report_DGV, "Report_DGV")
+                        AddHandler Report_DGV.RowPostPaint, AddressOf DGV_RowPostPaint
+                        'AddHandler Homepage_DGV.CellMouseClick, AddressOf DGV_CellMouseClick
+                        'AddHandler Homepage_DGV.SelectionChanged, AddressOf DGV_SelectionChanged
+                        ISTop_Pnl.Controls.Add(Report_DGV)
                     End If
             End Select
         Catch ex As Exception
@@ -230,7 +254,7 @@ Public Class Homepage
                             homepageDGV_BS.DataSource = msDataSet
                             homepageDGV_BS.DataMember = TODO
                             With Homepage_DGV
-                                .DataSource = msBindingSource
+                                '.DataSource = msBindingSource
                                 .AllowUserToResizeColumns = False
                                 .AllowUserToResizeRows = False
                                 .Select()
@@ -247,6 +271,29 @@ Public Class Homepage
                             End With
                             reset_here()
                             ID_Tbox.Focus()
+
+                        Case "Load_ReportDGV"
+                            ReportDGV_BS.DataSource = msDataSet
+                            ReportDGV_BS.DataMember = TODO
+                            With Report_DGV
+                                '.DataSource = msBindingSource
+                                .AllowUserToResizeColumns = False
+                                .AllowUserToResizeRows = False
+                                .Select()
+                                .Columns("A_id").Visible = False
+                                .Columns("Image_Location").Visible = False
+                                .Columns("BAPTISM DATE").DefaultCellStyle.Format = "MMM. dd, yyyy"
+                                .DefaultCellStyle.BackColor = Color.White
+                                .RowsDefaultCellStyle.Font = New Font("Segoe UI", 10.0!, FontStyle.Regular)
+                                .AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                                .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+                                .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells
+                                .MultiSelect = True
+                                .ClearSelection()
+                            End With
+                            reset_here()
+                            ID_Tbox.Focus()
+
                         Case "SaveTrans"
                             If Image_Pbox.ImageLocation <> Nothing Then
                                 FileSystem.CopyFile(Image_Pbox.ImageLocation, Path.Combine(Application.StartupPath,
@@ -291,6 +338,7 @@ Public Class Homepage
     Private Sub Homepage_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
         ChangePicture_Pnl.Location = New Point((Width - ChangePicture_Pnl.Width) / 2, (Height - ChangePicture_Pnl.Height) / 2)
         Search_Pnl.Location = New Point((Width - Search_Pnl.Width) / 2, (Height - Search_Pnl.Height) / 2)
+        InputStatus_Pnl.Location = New Point((Width - InputStatus_Pnl.Width) / 2, (Height - InputStatus_Pnl.Height) / 2)
     End Sub
 
     Private Sub ChangePicExit_Btn_Click(sender As Object, e As EventArgs) Handles ChangePicExit_Btn.Click
@@ -333,12 +381,15 @@ Public Class Homepage
         Try
             dgv_rowindex = e.RowIndex
             If e.Button = MouseButtons.Right Then
+                Homepage_DGV.Rows(e.RowIndex).Selected = True
                 If sender.SelectedRows.Count > 1 Then
                     EditToolStripMenuItem.Visible = False
                     ChangePictureToolStripMenuItem.Visible = False
+                    ReportToolStripMenuItem.Visible = False
                 ElseIf sender.SelectedRows.Count = 1 Then
                     EditToolStripMenuItem.Visible = True
                     ChangePictureToolStripMenuItem.Visible = True
+                    ReportToolStripMenuItem.Visible = True
                 End If
                 Homepage_Cmenu.Show()
                 Homepage_Cmenu.Location = New Point(MousePosition.X, MousePosition.Y)
@@ -428,11 +479,25 @@ Public Class Homepage
         End If
     End Sub
 
+    Private Sub InputToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InputToolStripMenuItem.Click
+        InputStatus_Pnl.Visible = True
+        With Homepage_DGV.Rows(dgv_rowindex)
+            A_id = .Cells("A_id").Value
+            ISHdr_Lbl.Text = .Cells("LAST NAME").Value.ToString & ", " & .Cells("FIRST NAME").Value.ToString & " " & .Cells("MIDDLE NAME").Value.ToString
+        End With
+    End Sub
+
+    Private Sub ISExit_Btn_Click(sender As Object, e As EventArgs) Handles ISExit_Btn.Click
+        InputStatus_Pnl.Visible = False
+    End Sub
+
     Private Sub Homepage_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.Control And e.KeyCode = Keys.S Then
             Save_Btn.PerformClick()
         ElseIf e.Control And e.KeyCode = Keys.F Then
             Search_Pnl.Visible = True
+        ElseIf e.Control And e.KeyCode = Keys.I And Homepage_DGV.SelectedRows.Count = 1 Then
+            InputToolStripMenuItem.PerformClick()
         ElseIf e.KeyCode = Keys.F5 Then
             TODO = "LoadDGV"
             Start_BGW()
@@ -570,24 +635,32 @@ Public Class Homepage
     End Sub
     Private allowCoolMove As Boolean = False
     Private myCoolPoint As New Point
-    Private Sub Header_Pnl_MouseDown(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseDown, SearchHeader_Pnl.MouseDown
+    Private Sub Header_Pnl_MouseDown(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseDown,
+                                                                                    SearchHeader_Pnl.MouseDown,
+                                                                                    InputStatusHdr_Pnl.MouseDown
         allowCoolMove = True
         myCoolPoint = New Point(e.X, e.Y)
     End Sub
 
-    Private Sub Header_Pnl_MouseMove(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseMove, SearchHeader_Pnl.MouseMove
+    Private Sub Header_Pnl_MouseMove(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseMove,
+                                                                                    SearchHeader_Pnl.MouseMove,
+                                                                                    InputStatusHdr_Pnl.MouseMove
         If allowCoolMove = True Then
             Dim objectToMove As Object = Nothing
             If sender Is ChangePictureHeader_Pnl Then
                 objectToMove = ChangePicture_Pnl
             ElseIf sender Is SearchHeader_Pnl Then
                 objectToMove = Search_Pnl
+            ElseIf sender Is InputStatusHdr_Pnl Then
+                objectToMove = InputStatus_Pnl
             End If
             objectToMove.Location = New Point(objectToMove.Location.X + e.X - myCoolPoint.X, objectToMove.Location.Y + e.Y - myCoolPoint.Y)
         End If
     End Sub
 
-    Private Sub Header_Pnl_MouseUp(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseUp, SearchHeader_Pnl.MouseUp
+    Private Sub Header_Pnl_MouseUp(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseUp,
+                                                                                  SearchHeader_Pnl.MouseUp,
+                                                                                  InputStatusHdr_Pnl.MouseUp
         allowCoolMove = False
     End Sub
 End Class
