@@ -199,15 +199,15 @@ Public Class Homepage
                 Case "Load_ReportDGV"
                     sqlQuery = "Select   R_Id
                                         ,A_id_Ref
-                                        ,Report_Status
-                                        ,Report_Date
+                                        ,Format(CStr(Report_Date),""MMMM dd, yyyy"") + Chr(13) + Chr(10) +  Chr(13) + Chr(10) +Report_Status as [Report Status]
                                 FROM    Member_Information [MI]
                                 INNER JOIN  Report_Information [RI]
                                 ON      [MI].A_Id = [RI].A_Id_Ref
                                 Where   Row_Status = True
                                     and Report_RowStatus = True
+                                    and A_id_Ref = @A_id_Ref
                                 Order by A_id asc"
-                    HOMEPAGE_QUERY(TODO, sqlQuery)
+                    HOMEPAGE_QUERY(TODO, sqlQuery,,,,,,,,,,,,,, A_id)
                     BGW.ReportProgress(0)
             End Select
         Catch ex As Exception
@@ -280,13 +280,16 @@ Public Class Homepage
                                 .AllowUserToResizeColumns = False
                                 .AllowUserToResizeRows = False
                                 .Select()
-                                .Columns("A_id").Visible = False
-                                .Columns("Image_Location").Visible = False
-                                .Columns("BAPTISM DATE").DefaultCellStyle.Format = "MMM. dd, yyyy"
+                                .DefaultCellStyle.WrapMode = DataGridViewTriState.True
+                                .Columns("R_Id").Visible = False
+                                .Columns("A_id_Ref").Visible = False
+                                '.Columns("Report_Date").Visible = False
                                 .DefaultCellStyle.BackColor = Color.White
                                 .RowsDefaultCellStyle.Font = New Font("Segoe UI", 10.0!, FontStyle.Regular)
                                 .AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                                .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
+                                '.Columns("Report_Date").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
+                                .Columns("Report Status").AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                                '.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
                                 .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells
                                 .MultiSelect = True
                                 .ClearSelection()
@@ -485,6 +488,8 @@ Public Class Homepage
             A_id = .Cells("A_id").Value
             ISHdr_Lbl.Text = .Cells("LAST NAME").Value.ToString & ", " & .Cells("FIRST NAME").Value.ToString & " " & .Cells("MIDDLE NAME").Value.ToString
         End With
+        TODO = "Load_ReportDGV"
+        Start_BGW()
     End Sub
 
     Private Sub ISExit_Btn_Click(sender As Object, e As EventArgs) Handles ISExit_Btn.Click

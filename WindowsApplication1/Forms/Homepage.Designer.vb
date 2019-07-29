@@ -86,7 +86,6 @@ Partial Class Homepage
         Me.ISReport_RTF = New System.Windows.Forms.RichTextBox()
         Me.InputStatusHdr_Pnl = New System.Windows.Forms.Panel()
         Me.ISHdr_Lbl = New MetroFramework.Controls.MetroLabel()
-        Me.ISAcpt_Btn = New MetroFramework.Controls.MetroButton()
         Me.ISExit_Btn = New MetroFramework.Controls.MetroButton()
         Me.ReportDate_DTP = New MetroFramework.Controls.MetroDateTime()
         Me.EP_Pnl.SuspendLayout()
@@ -983,11 +982,9 @@ Partial Class Homepage
         Me.InputStatus_Pnl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.InputStatus_Pnl.Controls.Add(Me.IS_Split)
         Me.InputStatus_Pnl.Controls.Add(Me.InputStatusHdr_Pnl)
-        Me.InputStatus_Pnl.Location = New System.Drawing.Point(304, 55)
-        Me.InputStatus_Pnl.MaximumSize = New System.Drawing.Size(400, 500)
-        Me.InputStatus_Pnl.MinimumSize = New System.Drawing.Size(400, 500)
+        Me.InputStatus_Pnl.Location = New System.Drawing.Point(254, 55)
         Me.InputStatus_Pnl.Name = "InputStatus_Pnl"
-        Me.InputStatus_Pnl.Size = New System.Drawing.Size(400, 500)
+        Me.InputStatus_Pnl.Size = New System.Drawing.Size(600, 500)
         Me.InputStatus_Pnl.TabIndex = 21
         Me.InputStatus_Pnl.Visible = False
         '
@@ -1008,7 +1005,7 @@ Partial Class Homepage
         '
         Me.IS_Split.Panel2.Controls.Add(Me.ISBot_Pnl)
         Me.IS_Split.Panel2.Padding = New System.Windows.Forms.Padding(3)
-        Me.IS_Split.Size = New System.Drawing.Size(398, 473)
+        Me.IS_Split.Size = New System.Drawing.Size(598, 473)
         Me.IS_Split.SplitterDistance = 262
         Me.IS_Split.SplitterWidth = 1
         Me.IS_Split.TabIndex = 0
@@ -1019,7 +1016,7 @@ Partial Class Homepage
         Me.ISTop_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ISTop_Pnl.Location = New System.Drawing.Point(3, 3)
         Me.ISTop_Pnl.Name = "ISTop_Pnl"
-        Me.ISTop_Pnl.Size = New System.Drawing.Size(392, 256)
+        Me.ISTop_Pnl.Size = New System.Drawing.Size(592, 256)
         Me.ISTop_Pnl.TabIndex = 0
         '
         'ISBot_Pnl
@@ -1031,7 +1028,7 @@ Partial Class Homepage
         Me.ISBot_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ISBot_Pnl.Location = New System.Drawing.Point(3, 3)
         Me.ISBot_Pnl.Name = "ISBot_Pnl"
-        Me.ISBot_Pnl.Size = New System.Drawing.Size(392, 204)
+        Me.ISBot_Pnl.Size = New System.Drawing.Size(592, 204)
         Me.ISBot_Pnl.TabIndex = 1
         '
         'ISAdd_Btn
@@ -1054,7 +1051,7 @@ Partial Class Homepage
         Me.ISReport_RTF.Location = New System.Drawing.Point(3, 38)
         Me.ISReport_RTF.Name = "ISReport_RTF"
         Me.ISReport_RTF.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
-        Me.ISReport_RTF.Size = New System.Drawing.Size(386, 163)
+        Me.ISReport_RTF.Size = New System.Drawing.Size(586, 163)
         Me.ISReport_RTF.TabIndex = 0
         Me.ISReport_RTF.Text = "Sample Text"
         '
@@ -1062,12 +1059,11 @@ Partial Class Homepage
         '
         Me.InputStatusHdr_Pnl.BackColor = System.Drawing.Color.PowderBlue
         Me.InputStatusHdr_Pnl.Controls.Add(Me.ISHdr_Lbl)
-        Me.InputStatusHdr_Pnl.Controls.Add(Me.ISAcpt_Btn)
         Me.InputStatusHdr_Pnl.Controls.Add(Me.ISExit_Btn)
         Me.InputStatusHdr_Pnl.Dock = System.Windows.Forms.DockStyle.Top
         Me.InputStatusHdr_Pnl.Location = New System.Drawing.Point(0, 0)
         Me.InputStatusHdr_Pnl.Name = "InputStatusHdr_Pnl"
-        Me.InputStatusHdr_Pnl.Size = New System.Drawing.Size(398, 25)
+        Me.InputStatusHdr_Pnl.Size = New System.Drawing.Size(598, 25)
         Me.InputStatusHdr_Pnl.TabIndex = 3
         '
         'ISHdr_Lbl
@@ -1081,25 +1077,11 @@ Partial Class Homepage
         Me.ISHdr_Lbl.Text = "Input Status Report"
         Me.ISHdr_Lbl.UseCustomBackColor = True
         '
-        'ISAcpt_Btn
-        '
-        Me.ISAcpt_Btn.BackColor = System.Drawing.Color.Transparent
-        Me.ISAcpt_Btn.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ISAcpt_Btn.ForeColor = System.Drawing.Color.Green
-        Me.ISAcpt_Btn.Location = New System.Drawing.Point(336, 0)
-        Me.ISAcpt_Btn.Name = "ISAcpt_Btn"
-        Me.ISAcpt_Btn.Size = New System.Drawing.Size(31, 25)
-        Me.ISAcpt_Btn.TabIndex = 2
-        Me.ISAcpt_Btn.Text = "✔"
-        Me.ISAcpt_Btn.UseCustomBackColor = True
-        Me.ISAcpt_Btn.UseCustomForeColor = True
-        Me.ISAcpt_Btn.UseSelectable = True
-        '
         'ISExit_Btn
         '
         Me.ISExit_Btn.BackColor = System.Drawing.Color.Transparent
         Me.ISExit_Btn.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ISExit_Btn.Location = New System.Drawing.Point(367, 0)
+        Me.ISExit_Btn.Location = New System.Drawing.Point(567, 0)
         Me.ISExit_Btn.Name = "ISExit_Btn"
         Me.ISExit_Btn.Size = New System.Drawing.Size(31, 25)
         Me.ISExit_Btn.TabIndex = 0
@@ -1226,7 +1208,6 @@ Partial Class Homepage
     Friend WithEvents MetroLabel3 As MetroFramework.Controls.MetroLabel
     Friend WithEvents InputStatus_Pnl As Panel
     Friend WithEvents InputStatusHdr_Pnl As Panel
-    Friend WithEvents ISAcpt_Btn As MetroFramework.Controls.MetroButton
     Friend WithEvents ISExit_Btn As MetroFramework.Controls.MetroButton
     Friend WithEvents InputToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PrintToolStripMenuItem As ToolStripMenuItem
