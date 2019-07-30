@@ -129,6 +129,18 @@ Module Queries
         Return cipherText
     End Function
 
+    Public Sub Creation_Query(ByVal sqlQuery As String)
+        Using mscon As New OleDbConnection(msconString)
+            mscon.Open()
+            Using mscmd As OleDbCommand = mscon.CreateCommand()
+                mscmd.Connection = mscon
+                mscmd.CommandText = sqlQuery
+                mscmd.CommandType = CommandType.Text
+                mscmd.ExecuteNonQuery()
+                sql_Transaction_result = "Committed"
+            End Using
+        End Using
+    End Sub
     Public Sub MbrsInfo_QUERY(ByVal dsTbl_Command As String,
                               ByVal sqlQuery As String,
                               Optional SearchStr As String = Nothing,
