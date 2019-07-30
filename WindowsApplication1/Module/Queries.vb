@@ -12,8 +12,8 @@ Module Queries
     Public homepageDGV_BS As New BindingSource
     Public ReportDGV_BS As New BindingSource
     'Public transaction As OleDbTransaction
-    Public sql_Transaction_result As String
-    Public Max_ID As Integer
+    Public sql_Transaction_result, UserNickname, User_type, Uname, Pword As String
+    Public Max_ID, User_Id As Integer
     Public Sub DGV_Properties(ByVal DGV As KryptonDataGridView,
                               ByVal dgvName As String)
         With DGV
@@ -298,6 +298,33 @@ Module Queries
                     mscmd.ExecuteNonQuery()
                 End If
                 sql_Transaction_result = "Committed"
+            End Using
+        End Using
+    End Sub
+    Public Sub Login_QUERY(ByVal Username As String,
+                                ByVal Password As String)
+        Using mscon As New OleDbConnection(msconString)
+            mscon.Open()
+            Using mscmd As OleDbCommand = mscon.CreateCommand()
+                mscmd.Connection = mscon
+                mscmd.CommandText = "Select * from User_Information where Uname = @Uname and Pword = @Pword "
+                mscmd.CommandType = CommandType.Text
+
+                mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = Username
+                mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(Password)
+                Using msread As OleDbDataReader = mscmd.ExecuteReader
+                    msread.Read()
+                    If msread.HasRows Then
+                        User_Id = msread.Item(0)
+                        UserNickname = msread.Item("Nickname").ToString
+                        User_type = msread.Item("Usertype").ToString
+                        Uname = msread.Item("Uname").ToString
+                        Pword = Decrypt(msread.Item("Pword").ToString)
+                        sql_Transaction_result = "Committed"
+                    Else
+                        User_Id = Nothing
+                    End If
+                End Using
             End Using
         End Using
     End Sub

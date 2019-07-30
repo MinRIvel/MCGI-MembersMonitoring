@@ -90,6 +90,10 @@ Public Class Homepage
     Private Sub Homepage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             'WindowState = FormWindowState.Maximized
+            Header_Lbl.Text = "Welcome " & UsrNickname
+            If User_type <> "Admin" Then
+                AdminToolStripMenuItem.Visible = False
+            End If
             DateTime_Lbl.Text = ""
             DateTime_Timer.Start()
             BGW.WorkerSupportsCancellation = True
@@ -689,6 +693,23 @@ Public Class Homepage
         ChangeUNPW_Pnl.Visible = False
         Body_Pnl.Enabled = True
         Homepage_Menu.Enabled = True
+    End Sub
+
+    Private Sub LogoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LogoutToolStripMenuItem.Click
+        Hide()
+        Login.Show()
+    End Sub
+
+    Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        Close()
+    End Sub
+
+    Private Sub Homepage_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        If MetroMessageBox.Show(Me, "Are you sure you want to log out?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
+            e.Cancel = True
+        Else
+            Close()
+        End If
     End Sub
 
     Private Sub ISAdd_Btn_Click(sender As Object, e As EventArgs) Handles ISAdd_Btn.Click

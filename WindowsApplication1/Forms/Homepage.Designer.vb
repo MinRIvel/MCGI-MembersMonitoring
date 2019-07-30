@@ -52,7 +52,7 @@ Partial Class Homepage
         Me.DGV_Pnl = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.DateTime_Lbl = New MetroFramework.Controls.MetroLabel()
-        Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
+        Me.Header_Lbl = New MetroFramework.Controls.MetroLabel()
         Me.LoadingPB2 = New System.Windows.Forms.PictureBox()
         Me.Homepage_Cmenu = New MetroFramework.Controls.MetroContextMenu(Me.components)
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -119,6 +119,9 @@ Partial Class Homepage
         Me.AddUserExit_Btn = New MetroFramework.Controls.MetroButton()
         Me.ChangeUNPW_Pnl = New System.Windows.Forms.Panel()
         Me.ChangeUNPWBdy_Pnl = New System.Windows.Forms.Panel()
+        Me.MetroCheckBox3 = New MetroFramework.Controls.MetroCheckBox()
+        Me.MetroCheckBox2 = New MetroFramework.Controls.MetroCheckBox()
+        Me.MetroCheckBox1 = New MetroFramework.Controls.MetroCheckBox()
         Me.MetroTextBox2 = New MetroFramework.Controls.MetroTextBox()
         Me.MetroTextBox3 = New MetroFramework.Controls.MetroTextBox()
         Me.MetroTextBox4 = New MetroFramework.Controls.MetroTextBox()
@@ -126,9 +129,6 @@ Partial Class Homepage
         Me.ChangeUNPWAcpt_Btn = New MetroFramework.Controls.MetroButton()
         Me.MetroLabel14 = New MetroFramework.Controls.MetroLabel()
         Me.ChangeUNPWExit_Btn = New MetroFramework.Controls.MetroButton()
-        Me.MetroCheckBox1 = New MetroFramework.Controls.MetroCheckBox()
-        Me.MetroCheckBox2 = New MetroFramework.Controls.MetroCheckBox()
-        Me.MetroCheckBox3 = New MetroFramework.Controls.MetroCheckBox()
         Me.EP_Pnl.SuspendLayout()
         Me.Body_Pnl.SuspendLayout()
         CType(Me.Homepage_Split, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -443,7 +443,7 @@ Partial Class Homepage
         Me.Baptism_DTP.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Baptism_DTP.Location = New System.Drawing.Point(17, 391)
-        Me.Baptism_DTP.MinimumSize = New System.Drawing.Size(0, 29)
+        Me.Baptism_DTP.MinimumSize = New System.Drawing.Size(4, 29)
         Me.Baptism_DTP.Name = "Baptism_DTP"
         Me.Baptism_DTP.Size = New System.Drawing.Size(222, 29)
         Me.Baptism_DTP.TabIndex = 837
@@ -744,7 +744,7 @@ Partial Class Homepage
         '
         Me.Panel6.BackColor = System.Drawing.Color.White
         Me.Panel6.Controls.Add(Me.DateTime_Lbl)
-        Me.Panel6.Controls.Add(Me.MetroLabel2)
+        Me.Panel6.Controls.Add(Me.Header_Lbl)
         Me.Panel6.Controls.Add(Me.LoadingPB2)
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel6.Location = New System.Drawing.Point(1, 1)
@@ -764,16 +764,16 @@ Partial Class Homepage
         Me.DateTime_Lbl.Text = "Date and Time"
         Me.DateTime_Lbl.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'MetroLabel2
+        'Header_Lbl
         '
-        Me.MetroLabel2.AutoSize = True
-        Me.MetroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall
-        Me.MetroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular
-        Me.MetroLabel2.Location = New System.Drawing.Point(9, 6)
-        Me.MetroLabel2.Name = "MetroLabel2"
-        Me.MetroLabel2.Size = New System.Drawing.Size(123, 25)
-        Me.MetroLabel2.TabIndex = 625
-        Me.MetroLabel2.Text = "Welcome user"
+        Me.Header_Lbl.AutoSize = True
+        Me.Header_Lbl.FontSize = MetroFramework.MetroLabelSize.Tall
+        Me.Header_Lbl.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.Header_Lbl.Location = New System.Drawing.Point(9, 6)
+        Me.Header_Lbl.Name = "Header_Lbl"
+        Me.Header_Lbl.Size = New System.Drawing.Size(123, 25)
+        Me.Header_Lbl.TabIndex = 625
+        Me.Header_Lbl.Text = "Welcome user"
         '
         'LoadingPB2
         '
@@ -913,7 +913,7 @@ Partial Class Homepage
         'AddUserToolStripMenuItem
         '
         Me.AddUserToolStripMenuItem.Name = "AddUserToolStripMenuItem"
-        Me.AddUserToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.AddUserToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.AddUserToolStripMenuItem.Text = "Add User"
         '
         'DateTime_Timer
@@ -1546,6 +1546,42 @@ Partial Class Homepage
         Me.ChangeUNPWBdy_Pnl.Size = New System.Drawing.Size(298, 108)
         Me.ChangeUNPWBdy_Pnl.TabIndex = 4
         '
+        'MetroCheckBox3
+        '
+        Me.MetroCheckBox3.AutoSize = True
+        Me.MetroCheckBox3.Enabled = False
+        Me.MetroCheckBox3.FontSize = MetroFramework.MetroCheckBoxSize.Medium
+        Me.MetroCheckBox3.Location = New System.Drawing.Point(20, 71)
+        Me.MetroCheckBox3.Name = "MetroCheckBox3"
+        Me.MetroCheckBox3.Size = New System.Drawing.Size(82, 19)
+        Me.MetroCheckBox3.TabIndex = 13
+        Me.MetroCheckBox3.Text = "Re-type:*"
+        Me.MetroCheckBox3.UseSelectable = True
+        '
+        'MetroCheckBox2
+        '
+        Me.MetroCheckBox2.AutoSize = True
+        Me.MetroCheckBox2.Enabled = False
+        Me.MetroCheckBox2.FontSize = MetroFramework.MetroCheckBoxSize.Medium
+        Me.MetroCheckBox2.Location = New System.Drawing.Point(10, 42)
+        Me.MetroCheckBox2.Name = "MetroCheckBox2"
+        Me.MetroCheckBox2.Size = New System.Drawing.Size(92, 19)
+        Me.MetroCheckBox2.TabIndex = 12
+        Me.MetroCheckBox2.Text = "Password:*"
+        Me.MetroCheckBox2.UseSelectable = True
+        '
+        'MetroCheckBox1
+        '
+        Me.MetroCheckBox1.AutoSize = True
+        Me.MetroCheckBox1.Enabled = False
+        Me.MetroCheckBox1.FontSize = MetroFramework.MetroCheckBoxSize.Medium
+        Me.MetroCheckBox1.Location = New System.Drawing.Point(6, 14)
+        Me.MetroCheckBox1.Name = "MetroCheckBox1"
+        Me.MetroCheckBox1.Size = New System.Drawing.Size(96, 19)
+        Me.MetroCheckBox1.TabIndex = 11
+        Me.MetroCheckBox1.Text = "Username:*"
+        Me.MetroCheckBox1.UseSelectable = True
+        '
         'MetroTextBox2
         '
         '
@@ -1561,7 +1597,7 @@ Partial Class Homepage
         Me.MetroTextBox2.CustomButton.UseSelectable = True
         Me.MetroTextBox2.CustomButton.Visible = False
         Me.MetroTextBox2.Enabled = False
-        Me.MetroTextBox2.Lines = New String() {"asdasdasdad"}
+        Me.MetroTextBox2.Lines = New String(-1) {}
         Me.MetroTextBox2.Location = New System.Drawing.Point(107, 71)
         Me.MetroTextBox2.MaxLength = 32767
         Me.MetroTextBox2.Name = "MetroTextBox2"
@@ -1572,7 +1608,6 @@ Partial Class Homepage
         Me.MetroTextBox2.SelectionStart = 0
         Me.MetroTextBox2.Size = New System.Drawing.Size(180, 23)
         Me.MetroTextBox2.TabIndex = 5
-        Me.MetroTextBox2.Text = "asdasdasdad"
         Me.MetroTextBox2.UseSelectable = True
         Me.MetroTextBox2.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.MetroTextBox2.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
@@ -1592,7 +1627,7 @@ Partial Class Homepage
         Me.MetroTextBox3.CustomButton.UseSelectable = True
         Me.MetroTextBox3.CustomButton.Visible = False
         Me.MetroTextBox3.Enabled = False
-        Me.MetroTextBox3.Lines = New String() {"asdasdasdad"}
+        Me.MetroTextBox3.Lines = New String(-1) {}
         Me.MetroTextBox3.Location = New System.Drawing.Point(107, 42)
         Me.MetroTextBox3.MaxLength = 32767
         Me.MetroTextBox3.Name = "MetroTextBox3"
@@ -1603,7 +1638,6 @@ Partial Class Homepage
         Me.MetroTextBox3.SelectionStart = 0
         Me.MetroTextBox3.Size = New System.Drawing.Size(180, 23)
         Me.MetroTextBox3.TabIndex = 4
-        Me.MetroTextBox3.Text = "asdasdasdad"
         Me.MetroTextBox3.UseSelectable = True
         Me.MetroTextBox3.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.MetroTextBox3.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
@@ -1686,42 +1720,6 @@ Partial Class Homepage
         Me.ChangeUNPWExit_Btn.Text = "X"
         Me.ChangeUNPWExit_Btn.UseCustomBackColor = True
         Me.ChangeUNPWExit_Btn.UseSelectable = True
-        '
-        'MetroCheckBox1
-        '
-        Me.MetroCheckBox1.AutoSize = True
-        Me.MetroCheckBox1.Enabled = False
-        Me.MetroCheckBox1.FontSize = MetroFramework.MetroCheckBoxSize.Medium
-        Me.MetroCheckBox1.Location = New System.Drawing.Point(6, 14)
-        Me.MetroCheckBox1.Name = "MetroCheckBox1"
-        Me.MetroCheckBox1.Size = New System.Drawing.Size(96, 19)
-        Me.MetroCheckBox1.TabIndex = 11
-        Me.MetroCheckBox1.Text = "Username:*"
-        Me.MetroCheckBox1.UseSelectable = True
-        '
-        'MetroCheckBox2
-        '
-        Me.MetroCheckBox2.AutoSize = True
-        Me.MetroCheckBox2.Enabled = False
-        Me.MetroCheckBox2.FontSize = MetroFramework.MetroCheckBoxSize.Medium
-        Me.MetroCheckBox2.Location = New System.Drawing.Point(10, 42)
-        Me.MetroCheckBox2.Name = "MetroCheckBox2"
-        Me.MetroCheckBox2.Size = New System.Drawing.Size(92, 19)
-        Me.MetroCheckBox2.TabIndex = 12
-        Me.MetroCheckBox2.Text = "Password:*"
-        Me.MetroCheckBox2.UseSelectable = True
-        '
-        'MetroCheckBox3
-        '
-        Me.MetroCheckBox3.AutoSize = True
-        Me.MetroCheckBox3.Enabled = False
-        Me.MetroCheckBox3.FontSize = MetroFramework.MetroCheckBoxSize.Medium
-        Me.MetroCheckBox3.Location = New System.Drawing.Point(20, 71)
-        Me.MetroCheckBox3.Name = "MetroCheckBox3"
-        Me.MetroCheckBox3.Size = New System.Drawing.Size(82, 19)
-        Me.MetroCheckBox3.TabIndex = 13
-        Me.MetroCheckBox3.Text = "Re-type:*"
-        Me.MetroCheckBox3.UseSelectable = True
         '
         'Homepage
         '
@@ -1828,7 +1826,7 @@ Partial Class Homepage
     Friend WithEvents Homepage_Menu As MenuStrip
     Friend WithEvents AdminToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents AddUserToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents MetroLabel2 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents Header_Lbl As MetroFramework.Controls.MetroLabel
     Friend WithEvents DateTime_Lbl As MetroFramework.Controls.MetroLabel
     Friend WithEvents DateTime_Timer As Timer
     Friend WithEvents ChangePictureToolStripMenuItem As ToolStripMenuItem
