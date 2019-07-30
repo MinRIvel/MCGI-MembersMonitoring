@@ -179,10 +179,15 @@ Module Queries
                     mscmd.Parameters.Add("@Baptism_Date", OleDbType.DBDate).Value = Baptism_Date.ToString("MMM. dd, yyyy")
                     mscmd.Parameters.Add("@Baptized_By", OleDbType.VarChar).Value = Baptized_By
                     mscmd.Parameters.Add("@Nagakay", OleDbType.VarChar).Value = Nagakay
+                    mscmd.Parameters.Add("@Inputted_By", OleDbType.VarChar).Value = UserNickname & " " & Now.Date.ToString("MMMM dd, yyyy")
                 End If
-
                 If dsTbl_Command = "UpdatePictureTrans" Then
                     mscmd.Parameters.Add("@Image_Location", OleDbType.VarChar).Value = Image_Location
+                    mscmd.Parameters.Add("@Inputted_By", OleDbType.VarChar).Value = UserNickname & " " & Now.Date.ToString("MMMM dd, yyyy")
+                End If
+
+                If dsTbl_Command = "UpdateDeleteTrans" Then
+                    mscmd.Parameters.Add("@Inputted_By", OleDbType.VarChar).Value = UserNickname & " " & Now.Date.ToString("MMMM dd, yyyy")
                 End If
 
                 If dsTbl_Command.Contains("Update") Then
@@ -237,14 +242,17 @@ Module Queries
                     mscmd.Parameters.Add("@A_id_Ref", OleDbType.Integer).Value = A_id
                     mscmd.Parameters.Add("@Report_Status", OleDbType.LongVarChar).Value = Report_Status
                     mscmd.Parameters.Add("@Report_Date", OleDbType.DBDate).Value = Report_Date.ToString("MMM. dd, yyyy")
+                    mscmd.Parameters.Add("@Inputted_By", OleDbType.VarChar).Value = UserNickname & vbCrLf & Now.Date.ToString("MMMM dd, yyyy")
 
                 ElseIf dsTbl_Command = "UpdateISTrans" Then
                     mscmd.Parameters.Add("@A_id_Ref", OleDbType.Integer).Value = A_id
                     mscmd.Parameters.Add("@Report_Status", OleDbType.LongVarChar).Value = Report_Status
                     mscmd.Parameters.Add("@Report_Date", OleDbType.DBDate).Value = Report_Date.ToString("MMM. dd, yyyy")
+                    mscmd.Parameters.Add("@Inputted_By", OleDbType.VarChar).Value = UserNickname & vbCrLf & Now.Date.ToString("MMMM dd, yyyy")
                     mscmd.Parameters.Add("@R_id", OleDbType.Integer).Value = R_id
 
                 ElseIf dsTbl_Command = "UpdateDeleteISTrans" Then
+                    mscmd.Parameters.Add("@Inputted_By", OleDbType.VarChar).Value = UserNickname & vbCrLf & Now.Date.ToString("MMMM dd, yyyy")
                     mscmd.Parameters.Add("@R_id", OleDbType.Integer).Value = R_id
                 End If
 

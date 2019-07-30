@@ -10,6 +10,7 @@ Public Class Login
                 Cancel.Enabled = False
                 UsernameTextBox.Enabled = False
                 PasswordTextBox.Enabled = False
+                Forgot_Lnk.Enabled = False
                 LoadingPB2.Visible = True
                 BGW.RunWorkerAsync()
             Else
@@ -30,6 +31,7 @@ Public Class Login
         PasswordTextBox.Clear()
         Login_Lbl.Visible = False
         LoadingPB2.Visible = False
+        Forgot_Lnk.Enabled = True
         UsernameTextBox.Focus()
     End Sub
 

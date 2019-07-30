@@ -865,6 +865,7 @@ Partial Class Homepage
         '
         'InformationPanelToolStripMenuItem
         '
+        Me.InformationPanelToolStripMenuItem.CheckOnClick = True
         Me.InformationPanelToolStripMenuItem.Name = "InformationPanelToolStripMenuItem"
         Me.InformationPanelToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
         Me.InformationPanelToolStripMenuItem.Text = "Information Panel"
@@ -916,7 +917,7 @@ Partial Class Homepage
         'AddUserToolStripMenuItem
         '
         Me.AddUserToolStripMenuItem.Name = "AddUserToolStripMenuItem"
-        Me.AddUserToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
+        Me.AddUserToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.AddUserToolStripMenuItem.Text = "Add User"
         '
         'DateTime_Timer
@@ -1083,9 +1084,9 @@ Partial Class Homepage
         Me.InputStatus_Pnl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.InputStatus_Pnl.Controls.Add(Me.IS_Split)
         Me.InputStatus_Pnl.Controls.Add(Me.InputStatusHdr_Pnl)
-        Me.InputStatus_Pnl.Location = New System.Drawing.Point(204, 55)
+        Me.InputStatus_Pnl.Location = New System.Drawing.Point(41, 55)
         Me.InputStatus_Pnl.Name = "InputStatus_Pnl"
-        Me.InputStatus_Pnl.Size = New System.Drawing.Size(600, 500)
+        Me.InputStatus_Pnl.Size = New System.Drawing.Size(926, 500)
         Me.InputStatus_Pnl.TabIndex = 21
         Me.InputStatus_Pnl.Visible = False
         '
@@ -1106,7 +1107,7 @@ Partial Class Homepage
         '
         Me.IS_Split.Panel2.Controls.Add(Me.ISBot_Pnl)
         Me.IS_Split.Panel2.Padding = New System.Windows.Forms.Padding(3)
-        Me.IS_Split.Size = New System.Drawing.Size(598, 473)
+        Me.IS_Split.Size = New System.Drawing.Size(924, 473)
         Me.IS_Split.SplitterDistance = 262
         Me.IS_Split.SplitterWidth = 1
         Me.IS_Split.TabIndex = 0
@@ -1117,7 +1118,7 @@ Partial Class Homepage
         Me.ISTop_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ISTop_Pnl.Location = New System.Drawing.Point(3, 3)
         Me.ISTop_Pnl.Name = "ISTop_Pnl"
-        Me.ISTop_Pnl.Size = New System.Drawing.Size(592, 256)
+        Me.ISTop_Pnl.Size = New System.Drawing.Size(918, 256)
         Me.ISTop_Pnl.TabIndex = 0
         '
         'ISBot_Pnl
@@ -1131,7 +1132,7 @@ Partial Class Homepage
         Me.ISBot_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ISBot_Pnl.Location = New System.Drawing.Point(3, 3)
         Me.ISBot_Pnl.Name = "ISBot_Pnl"
-        Me.ISBot_Pnl.Size = New System.Drawing.Size(592, 204)
+        Me.ISBot_Pnl.Size = New System.Drawing.Size(918, 204)
         Me.ISBot_Pnl.TabIndex = 1
         '
         'ISCancel_Btn
@@ -1206,7 +1207,7 @@ Partial Class Homepage
         Me.ISReport_RTF.Location = New System.Drawing.Point(3, 38)
         Me.ISReport_RTF.Name = "ISReport_RTF"
         Me.ISReport_RTF.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
-        Me.ISReport_RTF.Size = New System.Drawing.Size(586, 163)
+        Me.ISReport_RTF.Size = New System.Drawing.Size(912, 163)
         Me.ISReport_RTF.TabIndex = 0
         Me.ISReport_RTF.Text = ""
         '
@@ -1218,7 +1219,7 @@ Partial Class Homepage
         Me.InputStatusHdr_Pnl.Dock = System.Windows.Forms.DockStyle.Top
         Me.InputStatusHdr_Pnl.Location = New System.Drawing.Point(0, 0)
         Me.InputStatusHdr_Pnl.Name = "InputStatusHdr_Pnl"
-        Me.InputStatusHdr_Pnl.Size = New System.Drawing.Size(598, 25)
+        Me.InputStatusHdr_Pnl.Size = New System.Drawing.Size(924, 25)
         Me.InputStatusHdr_Pnl.TabIndex = 3
         '
         'ISHdr_Lbl
@@ -1236,7 +1237,7 @@ Partial Class Homepage
         '
         Me.ISExit_Btn.BackColor = System.Drawing.Color.Transparent
         Me.ISExit_Btn.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ISExit_Btn.Location = New System.Drawing.Point(567, 0)
+        Me.ISExit_Btn.Location = New System.Drawing.Point(893, 0)
         Me.ISExit_Btn.Name = "ISExit_Btn"
         Me.ISExit_Btn.Size = New System.Drawing.Size(31, 25)
         Me.ISExit_Btn.TabIndex = 0
@@ -1330,6 +1331,7 @@ Partial Class Homepage
         Me.UsrNickname_Tbox.SelectionStart = 0
         Me.UsrNickname_Tbox.Size = New System.Drawing.Size(180, 23)
         Me.UsrNickname_Tbox.TabIndex = 11
+        Me.UsrNickname_Tbox.Tag = "Req"
         Me.UsrNickname_Tbox.UseSelectable = True
         Me.UsrNickname_Tbox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.UsrNickname_Tbox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
@@ -1410,6 +1412,7 @@ Partial Class Homepage
         Me.UsrFname_Tbox.SelectionStart = 0
         Me.UsrFname_Tbox.Size = New System.Drawing.Size(180, 23)
         Me.UsrFname_Tbox.TabIndex = 4
+        Me.UsrFname_Tbox.Tag = "Req"
         Me.UsrFname_Tbox.UseSelectable = True
         Me.UsrFname_Tbox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.UsrFname_Tbox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
@@ -1450,6 +1453,7 @@ Partial Class Homepage
         Me.UsrLname_Tbox.SelectionStart = 0
         Me.UsrLname_Tbox.Size = New System.Drawing.Size(180, 23)
         Me.UsrLname_Tbox.TabIndex = 3
+        Me.UsrLname_Tbox.Tag = "Req"
         Me.UsrLname_Tbox.UseSelectable = True
         Me.UsrLname_Tbox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
         Me.UsrLname_Tbox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
@@ -1467,11 +1471,14 @@ Partial Class Homepage
         '
         'Usertype_Cbox
         '
+        Me.Usertype_Cbox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Usertype_Cbox.FormattingEnabled = True
+        Me.Usertype_Cbox.Items.AddRange(New Object() {"Admin", "Encoder"})
         Me.Usertype_Cbox.Location = New System.Drawing.Point(103, 20)
         Me.Usertype_Cbox.Name = "Usertype_Cbox"
         Me.Usertype_Cbox.Size = New System.Drawing.Size(180, 21)
         Me.Usertype_Cbox.TabIndex = 2
+        Me.Usertype_Cbox.Tag = "Req"
         '
         'AddUserHdr_Pnl
         '
@@ -1787,11 +1794,11 @@ Partial Class Homepage
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1008, 611)
+        Me.Controls.Add(Me.InputStatus_Pnl)
         Me.Controls.Add(Me.ChangeUNPW_Pnl)
         Me.Controls.Add(Me.AddUser_Pnl)
         Me.Controls.Add(Me.Search_Pnl)
         Me.Controls.Add(Me.ChangePicture_Pnl)
-        Me.Controls.Add(Me.InputStatus_Pnl)
         Me.Controls.Add(Me.EP_Pnl)
         Me.Controls.Add(Me.Homepage_Menu)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))

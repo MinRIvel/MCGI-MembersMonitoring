@@ -134,6 +134,7 @@ Public Class Homepage
                                         ,Baptized_By AS [BAPTIZED BY]
                                         ,Nagakay AS [NAG-AKAY]
                                         ,Image_Location
+                                        ,Inputted_By
                                 From    Member_Information
                                 Where   (ID_Number Like @SearchStr
                                     or  Last_name like @SearchStr
@@ -163,7 +164,8 @@ Public Class Homepage
                                                                 ,Skill
                                                                 ,Baptism_Date
                                                                 ,Baptized_By
-                                                                ,Nagakay)
+                                                                ,Nagakay
+                                                                ,Inputted_By)
                                                         values  (@Max_ID
                                                                 ,@Image_Location
                                                                 ,@ID_Number
@@ -176,7 +178,8 @@ Public Class Homepage
                                                                 ,@Skill
                                                                 ,@Baptism_Date
                                                                 ,@Baptized_By
-                                                                ,@Nagakay)"
+                                                                ,@Nagakay
+                                                                ,@Inputted_By)"
                     Dim sql2 As String = "SELECT iif(MAX(A_ID) is null,0,MAX(A_ID)) FROM Member_Information"
                     Get_QUERY(sql2)
                     MbrsInfo_QUERY(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
@@ -195,6 +198,7 @@ Public Class Homepage
                                         ,Baptism_Date   = @Baptism_Date
                                         ,Baptized_By    = @Baptized_By
                                         ,Nagakay        = @Nagakay
+                                        ,Inputted_By    = @Inputted_By
                                 where   A_id = @A_id"
                     MbrsInfo_QUERY(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
                                    Occupation, Skill, Baptism_Date, Baptized_By, Nagakay,, A_id)
@@ -202,12 +206,14 @@ Public Class Homepage
                 Case "UpdatePictureTrans"
                     sqlQuery = "Update  Member_Information
                                 set     Image_Location = @Image_Location
+                                       ,Inputted_By    = @Inputted_By
                                 where   A_id = @A_id"
                     MbrsInfo_QUERY(TODO, sqlQuery,,,,,,,,,,,,, Image_Location, A_id)
 
                 Case "UpdateDeleteTrans"
                     sqlQuery = "Update  Member_Information
                                 set     Row_Status = False
+                                       ,Inputted_By    = @Inputted_By
                                 where   A_id = @A_id"
                     For i = 0 To A_ID_list.Count - 1
                         MbrsInfo_QUERY(TODO, sqlQuery,,,,,,,,,,,,,, A_ID_list(i))
@@ -219,6 +225,7 @@ Public Class Homepage
                                         ,Format(CStr(Report_Date),""MMMM dd, yyyy"") + Chr(13) + Chr(10) +  Chr(13) + Chr(10) + Report_Status as [Report Status]
                                         ,Report_Date
                                         ,Report_Status
+                                        ,[RI].Inputted_By
                                 FROM    Member_Information [MI]
                                 INNER JOIN  Report_Information [RI]
                                 ON      [MI].A_Id = [RI].A_Id_Ref
@@ -234,11 +241,13 @@ Public Class Homepage
                     sqlQuery = "Insert into Report_Information       (R_id
                                                                      ,A_Id_Ref
                                                                      ,Report_Status
-                                                                     ,Report_Date)
+                                                                     ,Report_Date
+                                                                     ,Inputted_By)
                                                             VALUES   (@R_id
                                                                      ,@A_Id_Ref
                                                                      ,@Report_Status
-                                                                     ,@Report_Date)"
+                                                                     ,@Report_Date
+                                                                     ,@Inputted_By)"
                     Dim sql2 As String = "SELECT iif(MAX(R_Id) is null,0,MAX(R_Id)) FROM Report_Information"
                     Get_QUERY(sql2)
                     ReportInfo_QUERY(TODO, sqlQuery,, A_id, Report_Status, Max_ID, Report_Date)
@@ -248,12 +257,14 @@ Public Class Homepage
                                 set     A_Id_Ref = @A_Id_Ref
                                        ,Report_Status = @Report_Status
                                        ,Report_Date = @Report_Date
+                                       ,Inputted_By = @Inputted_By
                                 where   R_id = @R_id"
                     ReportInfo_QUERY(TODO, sqlQuery,, A_id, Report_Status, R_Id, Report_Date)
 
                 Case "UpdateDeleteISTrans"
                     sqlQuery = "Update  Report_Information
                                 set     Report_RowStatus = False
+                                       ,Inputted_By = @Inputted_By
                                 where   R_id = @R_id"
                     For i = 0 To R_id_list.Count - 1
                         ReportInfo_QUERY(TODO, sqlQuery,,,, R_id_list(i))
@@ -344,8 +355,8 @@ Public Class Homepage
                                 .DefaultCellStyle.BackColor = Color.White
                                 .RowsDefaultCellStyle.Font = New Font("Segoe UI", 10.0!, FontStyle.Regular)
                                 .AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                                .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells
-                                .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCells
+                                .AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
+                                .AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells
                                 .MultiSelect = True
                                 .ClearSelection()
                             End With
@@ -645,8 +656,13 @@ Public Class Homepage
     End Sub
 
     Private Sub InformationPanelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles InformationPanelToolStripMenuItem.Click
-        left_arrows()
-        Homepage_Split.SplitterDistance = 260
+        If InformationPanelToolStripMenuItem.Checked = True Then
+            left_arrows()
+            Homepage_Split.SplitterDistance = 260
+        ElseIf InformationPanelToolStripMenuItem.Checked = False Then
+            right_arrows()
+            Homepage_Split.SplitterDistance = 30
+        End If
     End Sub
 
     Private Sub ReloadToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReloadToolStripMenuItem.Click
@@ -659,8 +675,8 @@ Public Class Homepage
         Body_Pnl.Enabled = False
         Homepage_Menu.Enabled = False
 
-        TODO = "GetUsertypes"
-        Start_BGW()
+        'TODO = "GetUsertypes"
+        'Start_BGW()
     End Sub
 
     Private Sub AddUserExit_Btn_Click(sender As Object, e As EventArgs) Handles AddUserExit_Btn.Click
@@ -675,8 +691,21 @@ Public Class Homepage
         UsrFname = Trim(UsrFname_Tbox.Text)
         UsrMname = Trim(UsrMname_Tbox.Text)
         UsrNickname = Trim(UsrNickname_Tbox.Text)
-        TODO = "SaveUserTrans"
-        Start_BGW()
+
+        Dim red_occur As Integer = 0
+        For Each ctrl In AddUserBdy_Pnl.Controls
+            If ctrl.Tag = "Req" And ctrl.Text = Nothing Then
+                red_occur += 1
+                ctrl.Focus()
+            End If
+        Next
+
+        If red_occur >= 1 Then
+            MetroMessageBox.Show(Me, "Please fill up all required fields", "Required", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        ElseIf red_occur = 0 Then
+            TODO = "SaveUserTrans"
+            Start_BGW()
+        End If
     End Sub
 
     Private Sub ISEditToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ISEditToolStripMenuItem.Click
@@ -766,19 +795,42 @@ Public Class Homepage
         newUname = Trim(Username_Tbox.Text)
         newPword = Trim(Password_Tbox.Text)
 
-        If OldPass_Tbox.Text = Pword Then
-            If Password_Chk.Checked = True Then
-                If Password_Tbox.Text = Retype_Tbox.Text Then
-                    Start_BGW()
-                Else
-                    MessageBox.Show(Me, "New password doesn't match", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End If
+        If Username_Chk.Checked = True Then
+            Dim sql2 As String = "SELECT * FROM User_Information where Uname = '" & newUname & "'"
+            Get_QUERY(sql2)
+            If Max_ID <> 0 Then
+                MetroMessageBox.Show(Me, "Username already exists.", "Duplicate", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Else
-                Start_BGW()
+                If OldPass_Tbox.Text = Pword Then
+                    If Password_Chk.Checked = True Then
+                        If Password_Tbox.Text = Retype_Tbox.Text Then
+                            Start_BGW()
+                        Else
+                            MessageBox.Show(Me, "New password doesn't match", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        End If
+                    Else
+                        Start_BGW()
+                    End If
+                Else
+                    MessageBox.Show(Me, "Incorrect old password", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             End If
         Else
-            MessageBox.Show(Me, "Incorrect old password", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            If OldPass_Tbox.Text = Pword Then
+                If Password_Chk.Checked = True Then
+                    If Password_Tbox.Text = Retype_Tbox.Text Then
+                        Start_BGW()
+                    Else
+                        MessageBox.Show(Me, "New password doesn't match", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    End If
+                Else
+                    Start_BGW()
+                End If
+            Else
+                MessageBox.Show(Me, "Incorrect old password", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         End If
+
     End Sub
 
     Private Sub ISAdd_Btn_Click(sender As Object, e As EventArgs) Handles ISAdd_Btn.Click
