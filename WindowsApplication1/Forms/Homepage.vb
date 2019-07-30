@@ -17,6 +17,7 @@ Public Class Homepage
     Private dgv_rowindex, ISdgv_rowindex, A_id, R_Id As Integer
 
     Private Sub reset_here()
+        sqlQuery = ""
         Body_Pnl.Enabled = True
         Homepage_Menu.Enabled = True
         LoadingPB2.Visible = False
@@ -90,10 +91,11 @@ Public Class Homepage
     Private Sub Homepage_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             'WindowState = FormWindowState.Maximized
-            Header_Lbl.Text = "Welcome " & UsrNickname
+            Header_Lbl.Text = "Welcome " & UserNickname
             If User_type <> "Admin" Then
                 AdminToolStripMenuItem.Visible = False
             End If
+            Homepage_Split.SplitterDistance = 0
             DateTime_Lbl.Text = ""
             DateTime_Timer.Start()
             BGW.WorkerSupportsCancellation = True
@@ -282,6 +284,12 @@ Public Class Homepage
                     Get_QUERY(sql2)
                     UserInfo_QUERY(TODO, sqlQuery, Max_ID, Usertype, UsrLname, UsrFname, UsrMname, UsrNickname)
 
+                Case "ChangeUNPWTrans"
+                    UserInfo_QUERY(TODO, sqlQuery, User_Id,,,,,, newUname, newPword)
+                Case "ChangeUNTrans"
+                    UserInfo_QUERY(TODO, sqlQuery, User_Id,,,,,, newUname)
+                Case "ChangePWTrans"
+                    UserInfo_QUERY(TODO, sqlQuery, User_Id,,,,,,, newPword)
             End Select
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -419,6 +427,16 @@ Public Class Homepage
                             Usertype_Cbox.DataSource = msDataSet.Tables(TODO)
                             Usertype_Cbox.DisplayMember = "Usertype"
                             LoadingPB2.Visible = False
+
+                        Case "ChangeUNPWTrans"
+                            MessageBox.Show(Me, "After clicking ok you'll have to relogin", "Logging out.", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            LogoutToolStripMenuItem.PerformClick()
+                        Case "ChangeUNTrans"
+                            MessageBox.Show(Me, "After clicking ok you'll have to relogin", "Logging out.", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            LogoutToolStripMenuItem.PerformClick()
+                        Case "ChangePWTrans"
+                            MessageBox.Show(Me, "After clicking ok you'll have to relogin", "Logging out.", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            LogoutToolStripMenuItem.PerformClick()
                     End Select
                 Else
                     MetroMessageBox.Show(Me, "", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -691,24 +709,75 @@ Public Class Homepage
 
     Private Sub ChangeUNPWExit_Btn_Click(sender As Object, e As EventArgs) Handles ChangeUNPWExit_Btn.Click
         ChangeUNPW_Pnl.Visible = False
-        Body_Pnl.Enabled = True
-        Homepage_Menu.Enabled = True
+        reset_here()
     End Sub
 
     Private Sub LogoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LogoutToolStripMenuItem.Click
-        Hide()
         Login.Show()
+        Login.UsernameTextBox.Focus()
+        Close()
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
+        Login.Show()
+        Login.UsernameTextBox.Focus()
         Close()
     End Sub
 
     Private Sub Homepage_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
-        If MetroMessageBox.Show(Me, "Are you sure you want to log out?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then
-            e.Cancel = True
+        Login.Show()
+        Login.UsernameTextBox.Focus()
+    End Sub
+
+    Private Sub Chk_CheckedChanged(sender As Object, e As EventArgs) Handles Username_Chk.CheckedChanged,
+                                                                             Password_Chk.CheckedChanged
+        If sender.Checked = True Then
+            For Each ctrl In ChangeUNPWBdy_Pnl.Controls
+                If ctrl.Tag = sender.Name Then
+                    ctrl.Enabled = True
+                    ctrl.Focus
+                End If
+            Next
+        ElseIf sender.Checked = False Then
+            For Each ctrl In ChangeUNPWBdy_Pnl.Controls
+                If ctrl.Tag = sender.Name Then
+                    ctrl.Enabled = False
+                End If
+            Next
+        End If
+    End Sub
+
+    Dim newUname, newPword As String
+    Private Sub ChangeUNPWAcpt_Btn_Click(sender As Object, e As EventArgs) Handles ChangeUNPWAcpt_Btn.Click
+        If Username_Chk.Checked = True And Password_Chk.Checked = True Then
+            sqlQuery = "update User_Information set Uname = @Uname, Pword = @Pword where U_id = @U_id"
+            TODO = "ChangeUNPWTrans"
+
+        ElseIf Username_Chk.Checked = True And Password_Chk.Checked = False Then
+            sqlQuery = "update User_Information set Uname = @Uname where U_id = @U_id"
+            TODO = "ChangeUNTrans"
+
+        ElseIf Username_Chk.Checked = False And Password_Chk.Checked = True Then
+            sqlQuery = "update User_Information set Pword = @Pword where U_id = @U_id"
+            TODO = "ChangePWTrans"
+
+        End If
+
+        newUname = Trim(Username_Tbox.Text)
+        newPword = Trim(Password_Tbox.Text)
+
+        If OldPass_Tbox.Text = Pword Then
+            If Password_Chk.Checked = True Then
+                If Password_Tbox.Text = Retype_Tbox.Text Then
+                    Start_BGW()
+                Else
+                    MessageBox.Show(Me, "New password doesn't match", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+            Else
+                Start_BGW()
+            End If
         Else
-            Close()
+            MessageBox.Show(Me, "Incorrect old password", "", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 

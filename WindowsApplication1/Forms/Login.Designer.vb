@@ -40,13 +40,15 @@ Partial Class Login
         Me.LogoPictureBox = New System.Windows.Forms.PictureBox()
         Me.LoadingPB2 = New System.Windows.Forms.PictureBox()
         Me.Login_Lbl = New MetroFramework.Controls.MetroLabel()
+        Me.Forgot_Lnk = New System.Windows.Forms.LinkLabel()
         CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LoadingPB2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'UsernameLabel
         '
-        Me.UsernameLabel.Location = New System.Drawing.Point(172, 50)
+        Me.UsernameLabel.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UsernameLabel.Location = New System.Drawing.Point(172, 48)
         Me.UsernameLabel.Name = "UsernameLabel"
         Me.UsernameLabel.Size = New System.Drawing.Size(220, 23)
         Me.UsernameLabel.TabIndex = 0
@@ -55,7 +57,8 @@ Partial Class Login
         '
         'PasswordLabel
         '
-        Me.PasswordLabel.Location = New System.Drawing.Point(172, 107)
+        Me.PasswordLabel.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PasswordLabel.Location = New System.Drawing.Point(172, 93)
         Me.PasswordLabel.Name = "PasswordLabel"
         Me.PasswordLabel.Size = New System.Drawing.Size(220, 23)
         Me.PasswordLabel.TabIndex = 2
@@ -71,7 +74,7 @@ Partial Class Login
         '
         'PasswordTextBox
         '
-        Me.PasswordTextBox.Location = New System.Drawing.Point(174, 127)
+        Me.PasswordTextBox.Location = New System.Drawing.Point(174, 115)
         Me.PasswordTextBox.Name = "PasswordTextBox"
         Me.PasswordTextBox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
         Me.PasswordTextBox.Size = New System.Drawing.Size(220, 20)
@@ -107,7 +110,7 @@ Partial Class Login
         '
         Me.LoadingPB2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LoadingPB2.Image = CType(resources.GetObject("LoadingPB2.Image"), System.Drawing.Image)
-        Me.LoadingPB2.Location = New System.Drawing.Point(309, 10)
+        Me.LoadingPB2.Location = New System.Drawing.Point(309, 0)
         Me.LoadingPB2.Name = "LoadingPB2"
         Me.LoadingPB2.Size = New System.Drawing.Size(85, 28)
         Me.LoadingPB2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
@@ -117,10 +120,11 @@ Partial Class Login
         '
         'Login_Lbl
         '
+        Me.Login_Lbl.AutoSize = True
         Me.Login_Lbl.FontWeight = MetroFramework.MetroLabelWeight.Regular
-        Me.Login_Lbl.Location = New System.Drawing.Point(171, 10)
+        Me.Login_Lbl.Location = New System.Drawing.Point(168, 31)
         Me.Login_Lbl.Name = "Login_Lbl"
-        Me.Login_Lbl.Size = New System.Drawing.Size(129, 40)
+        Me.Login_Lbl.Size = New System.Drawing.Size(191, 19)
         Me.Login_Lbl.Style = MetroFramework.MetroColorStyle.Red
         Me.Login_Lbl.TabIndex = 626
         Me.Login_Lbl.Text = "Incorrect Username Password"
@@ -130,6 +134,17 @@ Partial Class Login
         Me.Login_Lbl.Visible = False
         Me.Login_Lbl.WrapToLine = True
         '
+        'Forgot_Lnk
+        '
+        Me.Forgot_Lnk.AutoSize = True
+        Me.Forgot_Lnk.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Forgot_Lnk.Location = New System.Drawing.Point(294, 141)
+        Me.Forgot_Lnk.Name = "Forgot_Lnk"
+        Me.Forgot_Lnk.Size = New System.Drawing.Size(100, 15)
+        Me.Forgot_Lnk.TabIndex = 627
+        Me.Forgot_Lnk.TabStop = True
+        Me.Forgot_Lnk.Text = "Forgot password?"
+        '
         'Login
         '
         Me.AcceptButton = Me.OK
@@ -137,6 +152,7 @@ Partial Class Login
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel
         Me.ClientSize = New System.Drawing.Size(401, 192)
+        Me.Controls.Add(Me.Forgot_Lnk)
         Me.Controls.Add(Me.Login_Lbl)
         Me.Controls.Add(Me.LoadingPB2)
         Me.Controls.Add(Me.Cancel)
@@ -161,4 +177,5 @@ Partial Class Login
 
     Friend WithEvents LoadingPB2 As PictureBox
     Friend WithEvents Login_Lbl As MetroFramework.Controls.MetroLabel
+    Friend WithEvents Forgot_Lnk As LinkLabel
 End Class

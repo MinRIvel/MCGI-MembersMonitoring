@@ -267,7 +267,9 @@ Module Queries
                               Optional Lname As String = "",
                               Optional Fname As String = "",
                               Optional Mname As String = "",
-                              Optional Nickname As String = "")
+                              Optional Nickname As String = "",
+                              Optional Uname As String = "",
+                              Optional Pword As String = "")
         msDataAdapter = New OleDbDataAdapter
         msBindingSource = New BindingSource
         msDataSet = New DataSet
@@ -286,7 +288,9 @@ Module Queries
                     msDataAdapter.Fill(msDataSet, dsTbl_Command)
                     msBindingSource.DataSource = msDataSet
                     msBindingSource.DataMember = dsTbl_Command
-                Else
+                    sql_Transaction_result = "Committed"
+
+                ElseIf dsTbl_Command = "SaveUserTrans" Then
                     mscmd.Parameters.Add("@U_id", OleDbType.Integer).Value = U_id + 1
                     mscmd.Parameters.Add("@Usertype", OleDbType.VarChar).Value = Usertype
                     mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Lname
@@ -296,18 +300,38 @@ Module Queries
                     mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = U_id + 1
                     mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(U_id + 1)
                     mscmd.ExecuteNonQuery()
+                    sql_Transaction_result = "Committed"
+
+                ElseIf dsTbl_Command = "ChangeUNPWTrans" Then
+                    mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = Uname
+                    mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(Pword)
+                    mscmd.Parameters.Add("@U_id", OleDbType.Integer).Value = U_id
+                    mscmd.ExecuteNonQuery()
+                    sql_Transaction_result = "Committed"
+
+                ElseIf dsTbl_Command = "ChangeUNTrans" Then
+                    mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = Uname
+                    mscmd.Parameters.Add("@U_id", OleDbType.Integer).Value = U_id
+                    mscmd.ExecuteNonQuery()
+                    sql_Transaction_result = "Committed"
+
+                ElseIf dsTbl_Command = "ChangePWTrans" Then
+                    mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(Pword)
+                    mscmd.Parameters.Add("@U_id", OleDbType.Integer).Value = U_id
+                    mscmd.ExecuteNonQuery()
+                    sql_Transaction_result = "Committed"
+
                 End If
-                sql_Transaction_result = "Committed"
             End Using
         End Using
     End Sub
     Public Sub Login_QUERY(ByVal Username As String,
-                                ByVal Password As String)
+                           ByVal Password As String)
         Using mscon As New OleDbConnection(msconString)
             mscon.Open()
             Using mscmd As OleDbCommand = mscon.CreateCommand()
                 mscmd.Connection = mscon
-                mscmd.CommandText = "Select * from User_Information where Uname = @Uname and Pword = @Pword "
+                mscmd.CommandText = "Select * from User_Information where Uname = @Uname and Pword = @Pword"
                 mscmd.CommandType = CommandType.Text
 
                 mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = Username

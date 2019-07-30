@@ -119,16 +119,19 @@ Partial Class Homepage
         Me.AddUserExit_Btn = New MetroFramework.Controls.MetroButton()
         Me.ChangeUNPW_Pnl = New System.Windows.Forms.Panel()
         Me.ChangeUNPWBdy_Pnl = New System.Windows.Forms.Panel()
-        Me.MetroCheckBox3 = New MetroFramework.Controls.MetroCheckBox()
-        Me.MetroCheckBox2 = New MetroFramework.Controls.MetroCheckBox()
-        Me.MetroCheckBox1 = New MetroFramework.Controls.MetroCheckBox()
-        Me.MetroTextBox2 = New MetroFramework.Controls.MetroTextBox()
-        Me.MetroTextBox3 = New MetroFramework.Controls.MetroTextBox()
-        Me.MetroTextBox4 = New MetroFramework.Controls.MetroTextBox()
+        Me.MetroLabel2 = New MetroFramework.Controls.MetroLabel()
+        Me.Password_Chk = New MetroFramework.Controls.MetroCheckBox()
+        Me.Username_Chk = New MetroFramework.Controls.MetroCheckBox()
+        Me.Retype_Tbox = New MetroFramework.Controls.MetroTextBox()
+        Me.Password_Tbox = New MetroFramework.Controls.MetroTextBox()
+        Me.Username_Tbox = New MetroFramework.Controls.MetroTextBox()
         Me.ChangeUNPWHdr_Pnl = New System.Windows.Forms.Panel()
         Me.ChangeUNPWAcpt_Btn = New MetroFramework.Controls.MetroButton()
         Me.MetroLabel14 = New MetroFramework.Controls.MetroLabel()
         Me.ChangeUNPWExit_Btn = New MetroFramework.Controls.MetroButton()
+        Me.MetroLabel9 = New MetroFramework.Controls.MetroLabel()
+        Me.MetroLabel10 = New MetroFramework.Controls.MetroLabel()
+        Me.OldPass_Tbox = New MetroFramework.Controls.MetroTextBox()
         Me.EP_Pnl.SuspendLayout()
         Me.Body_Pnl.SuspendLayout()
         CType(Me.Homepage_Split, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -443,7 +446,7 @@ Partial Class Homepage
         Me.Baptism_DTP.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Baptism_DTP.Location = New System.Drawing.Point(17, 391)
-        Me.Baptism_DTP.MinimumSize = New System.Drawing.Size(4, 29)
+        Me.Baptism_DTP.MinimumSize = New System.Drawing.Size(0, 29)
         Me.Baptism_DTP.Name = "Baptism_DTP"
         Me.Baptism_DTP.Size = New System.Drawing.Size(222, 29)
         Me.Baptism_DTP.TabIndex = 837
@@ -1525,152 +1528,157 @@ Partial Class Homepage
         Me.ChangeUNPW_Pnl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.ChangeUNPW_Pnl.Controls.Add(Me.ChangeUNPWBdy_Pnl)
         Me.ChangeUNPW_Pnl.Controls.Add(Me.ChangeUNPWHdr_Pnl)
-        Me.ChangeUNPW_Pnl.Location = New System.Drawing.Point(354, 238)
+        Me.ChangeUNPW_Pnl.Location = New System.Drawing.Point(337, 238)
         Me.ChangeUNPW_Pnl.Name = "ChangeUNPW_Pnl"
-        Me.ChangeUNPW_Pnl.Size = New System.Drawing.Size(300, 135)
+        Me.ChangeUNPW_Pnl.Size = New System.Drawing.Size(334, 192)
         Me.ChangeUNPW_Pnl.TabIndex = 23
         Me.ChangeUNPW_Pnl.Visible = False
         '
         'ChangeUNPWBdy_Pnl
         '
-        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroCheckBox3)
-        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroCheckBox2)
-        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroCheckBox1)
-        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroTextBox2)
-        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroTextBox3)
-        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroTextBox4)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroLabel10)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.OldPass_Tbox)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroLabel9)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroLabel2)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.Password_Chk)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.Username_Chk)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.Retype_Tbox)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.Password_Tbox)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.Username_Tbox)
         Me.ChangeUNPWBdy_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ChangeUNPWBdy_Pnl.Location = New System.Drawing.Point(0, 25)
         Me.ChangeUNPWBdy_Pnl.Name = "ChangeUNPWBdy_Pnl"
         Me.ChangeUNPWBdy_Pnl.Padding = New System.Windows.Forms.Padding(3)
-        Me.ChangeUNPWBdy_Pnl.Size = New System.Drawing.Size(298, 108)
+        Me.ChangeUNPWBdy_Pnl.Size = New System.Drawing.Size(332, 165)
         Me.ChangeUNPWBdy_Pnl.TabIndex = 4
         '
-        'MetroCheckBox3
+        'MetroLabel2
         '
-        Me.MetroCheckBox3.AutoSize = True
-        Me.MetroCheckBox3.Enabled = False
-        Me.MetroCheckBox3.FontSize = MetroFramework.MetroCheckBoxSize.Medium
-        Me.MetroCheckBox3.Location = New System.Drawing.Point(20, 71)
-        Me.MetroCheckBox3.Name = "MetroCheckBox3"
-        Me.MetroCheckBox3.Size = New System.Drawing.Size(82, 19)
-        Me.MetroCheckBox3.TabIndex = 13
-        Me.MetroCheckBox3.Text = "Re-type:*"
-        Me.MetroCheckBox3.UseSelectable = True
+        Me.MetroLabel2.AutoSize = True
+        Me.MetroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel2.Location = New System.Drawing.Point(11, 71)
+        Me.MetroLabel2.Name = "MetroLabel2"
+        Me.MetroLabel2.Size = New System.Drawing.Size(122, 19)
+        Me.MetroLabel2.TabIndex = 13
+        Me.MetroLabel2.Text = "Re-type password:"
+        Me.MetroLabel2.UseCustomBackColor = True
         '
-        'MetroCheckBox2
+        'Password_Chk
         '
-        Me.MetroCheckBox2.AutoSize = True
-        Me.MetroCheckBox2.Enabled = False
-        Me.MetroCheckBox2.FontSize = MetroFramework.MetroCheckBoxSize.Medium
-        Me.MetroCheckBox2.Location = New System.Drawing.Point(10, 42)
-        Me.MetroCheckBox2.Name = "MetroCheckBox2"
-        Me.MetroCheckBox2.Size = New System.Drawing.Size(92, 19)
-        Me.MetroCheckBox2.TabIndex = 12
-        Me.MetroCheckBox2.Text = "Password:*"
-        Me.MetroCheckBox2.UseSelectable = True
+        Me.Password_Chk.AutoSize = True
+        Me.Password_Chk.FontSize = MetroFramework.MetroCheckBoxSize.Medium
+        Me.Password_Chk.Location = New System.Drawing.Point(10, 43)
+        Me.Password_Chk.Name = "Password_Chk"
+        Me.Password_Chk.Size = New System.Drawing.Size(123, 19)
+        Me.Password_Chk.TabIndex = 3
+        Me.Password_Chk.Tag = ""
+        Me.Password_Chk.Text = "New Password:*"
+        Me.Password_Chk.UseSelectable = True
         '
-        'MetroCheckBox1
+        'Username_Chk
         '
-        Me.MetroCheckBox1.AutoSize = True
-        Me.MetroCheckBox1.Enabled = False
-        Me.MetroCheckBox1.FontSize = MetroFramework.MetroCheckBoxSize.Medium
-        Me.MetroCheckBox1.Location = New System.Drawing.Point(6, 14)
-        Me.MetroCheckBox1.Name = "MetroCheckBox1"
-        Me.MetroCheckBox1.Size = New System.Drawing.Size(96, 19)
-        Me.MetroCheckBox1.TabIndex = 11
-        Me.MetroCheckBox1.Text = "Username:*"
-        Me.MetroCheckBox1.UseSelectable = True
+        Me.Username_Chk.AutoSize = True
+        Me.Username_Chk.FontSize = MetroFramework.MetroCheckBoxSize.Medium
+        Me.Username_Chk.Location = New System.Drawing.Point(6, 15)
+        Me.Username_Chk.Name = "Username_Chk"
+        Me.Username_Chk.Size = New System.Drawing.Size(127, 19)
+        Me.Username_Chk.TabIndex = 1
+        Me.Username_Chk.Tag = ""
+        Me.Username_Chk.Text = "New Username:*"
+        Me.Username_Chk.UseSelectable = True
         '
-        'MetroTextBox2
-        '
-        '
-        '
-        '
-        Me.MetroTextBox2.CustomButton.Image = Nothing
-        Me.MetroTextBox2.CustomButton.Location = New System.Drawing.Point(158, 1)
-        Me.MetroTextBox2.CustomButton.Name = ""
-        Me.MetroTextBox2.CustomButton.Size = New System.Drawing.Size(21, 21)
-        Me.MetroTextBox2.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.MetroTextBox2.CustomButton.TabIndex = 1
-        Me.MetroTextBox2.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.MetroTextBox2.CustomButton.UseSelectable = True
-        Me.MetroTextBox2.CustomButton.Visible = False
-        Me.MetroTextBox2.Enabled = False
-        Me.MetroTextBox2.Lines = New String(-1) {}
-        Me.MetroTextBox2.Location = New System.Drawing.Point(107, 71)
-        Me.MetroTextBox2.MaxLength = 32767
-        Me.MetroTextBox2.Name = "MetroTextBox2"
-        Me.MetroTextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
-        Me.MetroTextBox2.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.MetroTextBox2.SelectedText = ""
-        Me.MetroTextBox2.SelectionLength = 0
-        Me.MetroTextBox2.SelectionStart = 0
-        Me.MetroTextBox2.Size = New System.Drawing.Size(180, 23)
-        Me.MetroTextBox2.TabIndex = 5
-        Me.MetroTextBox2.UseSelectable = True
-        Me.MetroTextBox2.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.MetroTextBox2.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
-        '
-        'MetroTextBox3
+        'Retype_Tbox
         '
         '
         '
         '
-        Me.MetroTextBox3.CustomButton.Image = Nothing
-        Me.MetroTextBox3.CustomButton.Location = New System.Drawing.Point(158, 1)
-        Me.MetroTextBox3.CustomButton.Name = ""
-        Me.MetroTextBox3.CustomButton.Size = New System.Drawing.Size(21, 21)
-        Me.MetroTextBox3.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.MetroTextBox3.CustomButton.TabIndex = 1
-        Me.MetroTextBox3.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.MetroTextBox3.CustomButton.UseSelectable = True
-        Me.MetroTextBox3.CustomButton.Visible = False
-        Me.MetroTextBox3.Enabled = False
-        Me.MetroTextBox3.Lines = New String(-1) {}
-        Me.MetroTextBox3.Location = New System.Drawing.Point(107, 42)
-        Me.MetroTextBox3.MaxLength = 32767
-        Me.MetroTextBox3.Name = "MetroTextBox3"
-        Me.MetroTextBox3.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
-        Me.MetroTextBox3.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.MetroTextBox3.SelectedText = ""
-        Me.MetroTextBox3.SelectionLength = 0
-        Me.MetroTextBox3.SelectionStart = 0
-        Me.MetroTextBox3.Size = New System.Drawing.Size(180, 23)
-        Me.MetroTextBox3.TabIndex = 4
-        Me.MetroTextBox3.UseSelectable = True
-        Me.MetroTextBox3.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.MetroTextBox3.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.Retype_Tbox.CustomButton.Image = Nothing
+        Me.Retype_Tbox.CustomButton.Location = New System.Drawing.Point(158, 1)
+        Me.Retype_Tbox.CustomButton.Name = ""
+        Me.Retype_Tbox.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.Retype_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.Retype_Tbox.CustomButton.TabIndex = 1
+        Me.Retype_Tbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.Retype_Tbox.CustomButton.UseSelectable = True
+        Me.Retype_Tbox.CustomButton.Visible = False
+        Me.Retype_Tbox.Enabled = False
+        Me.Retype_Tbox.Lines = New String(-1) {}
+        Me.Retype_Tbox.Location = New System.Drawing.Point(139, 70)
+        Me.Retype_Tbox.MaxLength = 32767
+        Me.Retype_Tbox.Name = "Retype_Tbox"
+        Me.Retype_Tbox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
+        Me.Retype_Tbox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.Retype_Tbox.SelectedText = ""
+        Me.Retype_Tbox.SelectionLength = 0
+        Me.Retype_Tbox.SelectionStart = 0
+        Me.Retype_Tbox.Size = New System.Drawing.Size(180, 23)
+        Me.Retype_Tbox.TabIndex = 5
+        Me.Retype_Tbox.Tag = "Password_Chk"
+        Me.Retype_Tbox.UseSelectable = True
+        Me.Retype_Tbox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.Retype_Tbox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
-        'MetroTextBox4
+        'Password_Tbox
         '
         '
         '
         '
-        Me.MetroTextBox4.CustomButton.Image = Nothing
-        Me.MetroTextBox4.CustomButton.Location = New System.Drawing.Point(158, 1)
-        Me.MetroTextBox4.CustomButton.Name = ""
-        Me.MetroTextBox4.CustomButton.Size = New System.Drawing.Size(21, 21)
-        Me.MetroTextBox4.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.MetroTextBox4.CustomButton.TabIndex = 1
-        Me.MetroTextBox4.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.MetroTextBox4.CustomButton.UseSelectable = True
-        Me.MetroTextBox4.CustomButton.Visible = False
-        Me.MetroTextBox4.Enabled = False
-        Me.MetroTextBox4.Lines = New String(-1) {}
-        Me.MetroTextBox4.Location = New System.Drawing.Point(107, 13)
-        Me.MetroTextBox4.MaxLength = 32767
-        Me.MetroTextBox4.Name = "MetroTextBox4"
-        Me.MetroTextBox4.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.MetroTextBox4.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.MetroTextBox4.SelectedText = ""
-        Me.MetroTextBox4.SelectionLength = 0
-        Me.MetroTextBox4.SelectionStart = 0
-        Me.MetroTextBox4.Size = New System.Drawing.Size(180, 23)
-        Me.MetroTextBox4.TabIndex = 3
-        Me.MetroTextBox4.UseSelectable = True
-        Me.MetroTextBox4.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.MetroTextBox4.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.Password_Tbox.CustomButton.Image = Nothing
+        Me.Password_Tbox.CustomButton.Location = New System.Drawing.Point(158, 1)
+        Me.Password_Tbox.CustomButton.Name = ""
+        Me.Password_Tbox.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.Password_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.Password_Tbox.CustomButton.TabIndex = 1
+        Me.Password_Tbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.Password_Tbox.CustomButton.UseSelectable = True
+        Me.Password_Tbox.CustomButton.Visible = False
+        Me.Password_Tbox.Enabled = False
+        Me.Password_Tbox.Lines = New String(-1) {}
+        Me.Password_Tbox.Location = New System.Drawing.Point(139, 42)
+        Me.Password_Tbox.MaxLength = 32767
+        Me.Password_Tbox.Name = "Password_Tbox"
+        Me.Password_Tbox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
+        Me.Password_Tbox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.Password_Tbox.SelectedText = ""
+        Me.Password_Tbox.SelectionLength = 0
+        Me.Password_Tbox.SelectionStart = 0
+        Me.Password_Tbox.Size = New System.Drawing.Size(180, 23)
+        Me.Password_Tbox.TabIndex = 4
+        Me.Password_Tbox.Tag = "Password_Chk"
+        Me.Password_Tbox.UseSelectable = True
+        Me.Password_Tbox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.Password_Tbox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'Username_Tbox
+        '
+        '
+        '
+        '
+        Me.Username_Tbox.CustomButton.Image = Nothing
+        Me.Username_Tbox.CustomButton.Location = New System.Drawing.Point(158, 1)
+        Me.Username_Tbox.CustomButton.Name = ""
+        Me.Username_Tbox.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.Username_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.Username_Tbox.CustomButton.TabIndex = 1
+        Me.Username_Tbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.Username_Tbox.CustomButton.UseSelectable = True
+        Me.Username_Tbox.CustomButton.Visible = False
+        Me.Username_Tbox.Enabled = False
+        Me.Username_Tbox.Lines = New String(-1) {}
+        Me.Username_Tbox.Location = New System.Drawing.Point(139, 14)
+        Me.Username_Tbox.MaxLength = 32767
+        Me.Username_Tbox.Name = "Username_Tbox"
+        Me.Username_Tbox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.Username_Tbox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.Username_Tbox.SelectedText = ""
+        Me.Username_Tbox.SelectionLength = 0
+        Me.Username_Tbox.SelectionStart = 0
+        Me.Username_Tbox.Size = New System.Drawing.Size(180, 23)
+        Me.Username_Tbox.TabIndex = 2
+        Me.Username_Tbox.Tag = "Username_Chk"
+        Me.Username_Tbox.UseSelectable = True
+        Me.Username_Tbox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.Username_Tbox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'ChangeUNPWHdr_Pnl
         '
@@ -1681,7 +1689,7 @@ Partial Class Homepage
         Me.ChangeUNPWHdr_Pnl.Dock = System.Windows.Forms.DockStyle.Top
         Me.ChangeUNPWHdr_Pnl.Location = New System.Drawing.Point(0, 0)
         Me.ChangeUNPWHdr_Pnl.Name = "ChangeUNPWHdr_Pnl"
-        Me.ChangeUNPWHdr_Pnl.Size = New System.Drawing.Size(298, 25)
+        Me.ChangeUNPWHdr_Pnl.Size = New System.Drawing.Size(332, 25)
         Me.ChangeUNPWHdr_Pnl.TabIndex = 3
         '
         'ChangeUNPWAcpt_Btn
@@ -1689,7 +1697,7 @@ Partial Class Homepage
         Me.ChangeUNPWAcpt_Btn.BackColor = System.Drawing.Color.Transparent
         Me.ChangeUNPWAcpt_Btn.Dock = System.Windows.Forms.DockStyle.Right
         Me.ChangeUNPWAcpt_Btn.ForeColor = System.Drawing.Color.Green
-        Me.ChangeUNPWAcpt_Btn.Location = New System.Drawing.Point(236, 0)
+        Me.ChangeUNPWAcpt_Btn.Location = New System.Drawing.Point(270, 0)
         Me.ChangeUNPWAcpt_Btn.Name = "ChangeUNPWAcpt_Btn"
         Me.ChangeUNPWAcpt_Btn.Size = New System.Drawing.Size(31, 25)
         Me.ChangeUNPWAcpt_Btn.TabIndex = 4
@@ -1713,13 +1721,66 @@ Partial Class Homepage
         '
         Me.ChangeUNPWExit_Btn.BackColor = System.Drawing.Color.Transparent
         Me.ChangeUNPWExit_Btn.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ChangeUNPWExit_Btn.Location = New System.Drawing.Point(267, 0)
+        Me.ChangeUNPWExit_Btn.Location = New System.Drawing.Point(301, 0)
         Me.ChangeUNPWExit_Btn.Name = "ChangeUNPWExit_Btn"
         Me.ChangeUNPWExit_Btn.Size = New System.Drawing.Size(31, 25)
         Me.ChangeUNPWExit_Btn.TabIndex = 0
         Me.ChangeUNPWExit_Btn.Text = "X"
         Me.ChangeUNPWExit_Btn.UseCustomBackColor = True
         Me.ChangeUNPWExit_Btn.UseSelectable = True
+        '
+        'MetroLabel9
+        '
+        Me.MetroLabel9.AutoSize = True
+        Me.MetroLabel9.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel9.Location = New System.Drawing.Point(6, 96)
+        Me.MetroLabel9.Name = "MetroLabel9"
+        Me.MetroLabel9.Size = New System.Drawing.Size(321, 19)
+        Me.MetroLabel9.TabIndex = 14
+        Me.MetroLabel9.Text = "____________________________________________________"
+        Me.MetroLabel9.UseCustomBackColor = True
+        '
+        'MetroLabel10
+        '
+        Me.MetroLabel10.AutoSize = True
+        Me.MetroLabel10.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel10.Location = New System.Drawing.Point(6, 121)
+        Me.MetroLabel10.Name = "MetroLabel10"
+        Me.MetroLabel10.Size = New System.Drawing.Size(146, 19)
+        Me.MetroLabel10.TabIndex = 16
+        Me.MetroLabel10.Text = "Confirm old password:"
+        Me.MetroLabel10.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.MetroLabel10.UseCustomBackColor = True
+        '
+        'OldPass_Tbox
+        '
+        '
+        '
+        '
+        Me.OldPass_Tbox.CustomButton.Image = Nothing
+        Me.OldPass_Tbox.CustomButton.Location = New System.Drawing.Point(139, 1)
+        Me.OldPass_Tbox.CustomButton.Name = ""
+        Me.OldPass_Tbox.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.OldPass_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.OldPass_Tbox.CustomButton.TabIndex = 1
+        Me.OldPass_Tbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.OldPass_Tbox.CustomButton.UseSelectable = True
+        Me.OldPass_Tbox.CustomButton.Visible = False
+        Me.OldPass_Tbox.Lines = New String(-1) {}
+        Me.OldPass_Tbox.Location = New System.Drawing.Point(158, 121)
+        Me.OldPass_Tbox.MaxLength = 32767
+        Me.OldPass_Tbox.Name = "OldPass_Tbox"
+        Me.OldPass_Tbox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
+        Me.OldPass_Tbox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.OldPass_Tbox.SelectedText = ""
+        Me.OldPass_Tbox.SelectionLength = 0
+        Me.OldPass_Tbox.SelectionStart = 0
+        Me.OldPass_Tbox.Size = New System.Drawing.Size(161, 23)
+        Me.OldPass_Tbox.TabIndex = 6
+        Me.OldPass_Tbox.Tag = "Password_Chk"
+        Me.OldPass_Tbox.UseSelectable = True
+        Me.OldPass_Tbox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.OldPass_Tbox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
         '
         'Homepage
         '
@@ -1886,14 +1947,17 @@ Partial Class Homepage
     Friend WithEvents UsrNickname_Tbox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents ChangeUNPW_Pnl As Panel
     Friend WithEvents ChangeUNPWBdy_Pnl As Panel
-    Friend WithEvents MetroTextBox2 As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents MetroTextBox3 As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents MetroTextBox4 As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents Retype_Tbox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents Password_Tbox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents Username_Tbox As MetroFramework.Controls.MetroTextBox
     Friend WithEvents ChangeUNPWHdr_Pnl As Panel
     Friend WithEvents ChangeUNPWAcpt_Btn As MetroFramework.Controls.MetroButton
     Friend WithEvents MetroLabel14 As MetroFramework.Controls.MetroLabel
     Friend WithEvents ChangeUNPWExit_Btn As MetroFramework.Controls.MetroButton
-    Friend WithEvents MetroCheckBox1 As MetroFramework.Controls.MetroCheckBox
-    Friend WithEvents MetroCheckBox3 As MetroFramework.Controls.MetroCheckBox
-    Friend WithEvents MetroCheckBox2 As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents Username_Chk As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents Password_Chk As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents MetroLabel2 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel9 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents MetroLabel10 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents OldPass_Tbox As MetroFramework.Controls.MetroTextBox
 End Class

@@ -25,9 +25,12 @@ Public Class Login
         OK.Enabled = True
         Cancel.Enabled = True
         UsernameTextBox.Enabled = True
+        UsernameTextBox.Clear()
         PasswordTextBox.Enabled = True
+        PasswordTextBox.Clear()
         Login_Lbl.Visible = False
         LoadingPB2.Visible = False
+        UsernameTextBox.Focus()
     End Sub
 
     Private Sub Login_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -70,6 +73,7 @@ Public Class Login
                         reset_here()
                         Homepage.Show()
                     Else
+                        reset_here()
                         Login_Lbl.Visible = True
                         Login_Lbl.Text = "Login failed! Please Try again"
                     End If
