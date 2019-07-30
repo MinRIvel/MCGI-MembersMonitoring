@@ -427,13 +427,6 @@ Public Class Homepage
         End Try
     End Sub
 
-    Private Sub Homepage_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
-        ChangePicture_Pnl.Location = New Point((Width - ChangePicture_Pnl.Width) / 2, (Height - ChangePicture_Pnl.Height) / 2)
-        Search_Pnl.Location = New Point((Width - Search_Pnl.Width) / 2, (Height - Search_Pnl.Height) / 2)
-        InputStatus_Pnl.Location = New Point((Width - InputStatus_Pnl.Width) / 2, (Height - InputStatus_Pnl.Height) / 2)
-        AddUser_Pnl.Location = New Point((Width - AddUser_Pnl.Width) / 2, (Height - AddUser_Pnl.Height) / 2)
-    End Sub
-
     Private Sub ChangePicExit_Btn_Click(sender As Object, e As EventArgs) Handles ChangePicExit_Btn.Click
         ChangePicture_Pnl.Visible = False
     End Sub
@@ -651,6 +644,7 @@ Public Class Homepage
     Private Sub AddUserExit_Btn_Click(sender As Object, e As EventArgs) Handles AddUserExit_Btn.Click
         AddUser_Pnl.Visible = False
         Body_Pnl.Enabled = True
+        Homepage_Menu.Enabled = True
     End Sub
 
     Private Sub AddUserAcpt_Btn_Click(sender As Object, e As EventArgs) Handles AddUserAcpt_Btn.Click
@@ -683,6 +677,18 @@ Public Class Homepage
         If e.KeyCode = Keys.Enter Then
             SearchIS_Tbox.CustomButton.PerformClick()
         End If
+    End Sub
+
+    Private Sub ChangeUNPWToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ChangeUNPWToolStripMenuItem.Click
+        ChangeUNPW_Pnl.Visible = True
+        Body_Pnl.Enabled = False
+        Homepage_Menu.Enabled = False
+    End Sub
+
+    Private Sub ChangeUNPWExit_Btn_Click(sender As Object, e As EventArgs) Handles ChangeUNPWExit_Btn.Click
+        ChangeUNPW_Pnl.Visible = False
+        Body_Pnl.Enabled = True
+        Homepage_Menu.Enabled = True
     End Sub
 
     Private Sub ISAdd_Btn_Click(sender As Object, e As EventArgs) Handles ISAdd_Btn.Click
@@ -853,7 +859,8 @@ Public Class Homepage
     Private Sub Header_Pnl_MouseDown(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseDown,
                                                                                     SearchHeader_Pnl.MouseDown,
                                                                                     InputStatusHdr_Pnl.MouseDown,
-                                                                                    AddUserHdr_Pnl.MouseDown
+                                                                                    AddUserHdr_Pnl.MouseDown,
+                                                                                    ChangeUNPWHdr_Pnl.MouseDown
         allowCoolMove = True
         myCoolPoint = New Point(e.X, e.Y)
     End Sub
@@ -861,7 +868,8 @@ Public Class Homepage
     Private Sub Header_Pnl_MouseMove(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseMove,
                                                                                     SearchHeader_Pnl.MouseMove,
                                                                                     InputStatusHdr_Pnl.MouseMove,
-                                                                                    AddUserHdr_Pnl.MouseMove
+                                                                                    AddUserHdr_Pnl.MouseMove,
+                                                                                    ChangeUNPWHdr_Pnl.MouseMove
         If allowCoolMove = True Then
             Dim objectToMove As Object = Nothing
             If sender Is ChangePictureHeader_Pnl Then
@@ -872,6 +880,8 @@ Public Class Homepage
                 objectToMove = InputStatus_Pnl
             ElseIf sender Is AddUserHdr_Pnl Then
                 objectToMove = AddUser_Pnl
+            ElseIf sender Is ChangeUNPWHdr_Pnl Then
+                objectToMove = ChangeUNPW_Pnl
             End If
             objectToMove.Location = New Point(objectToMove.Location.X + e.X - myCoolPoint.X, objectToMove.Location.Y + e.Y - myCoolPoint.Y)
         End If
@@ -880,7 +890,17 @@ Public Class Homepage
     Private Sub Header_Pnl_MouseUp(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseUp,
                                                                                   SearchHeader_Pnl.MouseUp,
                                                                                   InputStatusHdr_Pnl.MouseUp,
-                                                                                  AddUserHdr_Pnl.MouseUp
+                                                                                  AddUserHdr_Pnl.MouseUp,
+                                                                                  ChangeUNPWHdr_Pnl.MouseUp
         allowCoolMove = False
     End Sub
+
+    Private Sub Homepage_SizeChanged(sender As Object, e As EventArgs) Handles MyBase.SizeChanged
+        ChangePicture_Pnl.Location = New Point((Width - ChangePicture_Pnl.Width) / 2, (Height - ChangePicture_Pnl.Height) / 2)
+        Search_Pnl.Location = New Point((Width - Search_Pnl.Width) / 2, (Height - Search_Pnl.Height) / 2)
+        InputStatus_Pnl.Location = New Point((Width - InputStatus_Pnl.Width) / 2, (Height - InputStatus_Pnl.Height) / 2)
+        AddUser_Pnl.Location = New Point((Width - AddUser_Pnl.Width) / 2, (Height - AddUser_Pnl.Height) / 2)
+        ChangeUNPW_Pnl.Location = New Point((Width - ChangeUNPW_Pnl.Width) / 2, (Height - ChangeUNPW_Pnl.Height) / 2)
+    End Sub
+
 End Class

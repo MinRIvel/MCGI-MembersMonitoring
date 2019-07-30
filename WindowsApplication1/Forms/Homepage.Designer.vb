@@ -70,7 +70,7 @@ Partial Class Homepage
         Me.BackupToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AccountToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AccountInfoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ChangeUNPWToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LogoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AdminToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddUserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -103,6 +103,8 @@ Partial Class Homepage
         Me.ISDeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AddUser_Pnl = New System.Windows.Forms.Panel()
         Me.AddUserBdy_Pnl = New System.Windows.Forms.Panel()
+        Me.MetroLabel8 = New MetroFramework.Controls.MetroLabel()
+        Me.UsrNickname_Tbox = New MetroFramework.Controls.MetroTextBox()
         Me.MetroLabel7 = New MetroFramework.Controls.MetroLabel()
         Me.UsrMname_Tbox = New MetroFramework.Controls.MetroTextBox()
         Me.MetroLabel6 = New MetroFramework.Controls.MetroLabel()
@@ -115,8 +117,18 @@ Partial Class Homepage
         Me.AddUserAcpt_Btn = New MetroFramework.Controls.MetroButton()
         Me.AddUserHdr_Lbl = New MetroFramework.Controls.MetroLabel()
         Me.AddUserExit_Btn = New MetroFramework.Controls.MetroButton()
-        Me.MetroLabel8 = New MetroFramework.Controls.MetroLabel()
-        Me.UsrNickname_Tbox = New MetroFramework.Controls.MetroTextBox()
+        Me.ChangeUNPW_Pnl = New System.Windows.Forms.Panel()
+        Me.ChangeUNPWBdy_Pnl = New System.Windows.Forms.Panel()
+        Me.MetroTextBox2 = New MetroFramework.Controls.MetroTextBox()
+        Me.MetroTextBox3 = New MetroFramework.Controls.MetroTextBox()
+        Me.MetroTextBox4 = New MetroFramework.Controls.MetroTextBox()
+        Me.ChangeUNPWHdr_Pnl = New System.Windows.Forms.Panel()
+        Me.ChangeUNPWAcpt_Btn = New MetroFramework.Controls.MetroButton()
+        Me.MetroLabel14 = New MetroFramework.Controls.MetroLabel()
+        Me.ChangeUNPWExit_Btn = New MetroFramework.Controls.MetroButton()
+        Me.MetroCheckBox1 = New MetroFramework.Controls.MetroCheckBox()
+        Me.MetroCheckBox2 = New MetroFramework.Controls.MetroCheckBox()
+        Me.MetroCheckBox3 = New MetroFramework.Controls.MetroCheckBox()
         Me.EP_Pnl.SuspendLayout()
         Me.Body_Pnl.SuspendLayout()
         CType(Me.Homepage_Split, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -149,6 +161,9 @@ Partial Class Homepage
         Me.AddUser_Pnl.SuspendLayout()
         Me.AddUserBdy_Pnl.SuspendLayout()
         Me.AddUserHdr_Pnl.SuspendLayout()
+        Me.ChangeUNPW_Pnl.SuspendLayout()
+        Me.ChangeUNPWBdy_Pnl.SuspendLayout()
+        Me.ChangeUNPWHdr_Pnl.SuspendLayout()
         Me.SuspendLayout()
         '
         'EP_Pnl
@@ -871,21 +886,21 @@ Partial Class Homepage
         '
         'AccountToolStripMenuItem
         '
-        Me.AccountToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AccountInfoToolStripMenuItem, Me.LogoutToolStripMenuItem})
+        Me.AccountToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ChangeUNPWToolStripMenuItem, Me.LogoutToolStripMenuItem})
         Me.AccountToolStripMenuItem.Name = "AccountToolStripMenuItem"
         Me.AccountToolStripMenuItem.Size = New System.Drawing.Size(69, 20)
         Me.AccountToolStripMenuItem.Text = "Accounts"
         '
-        'AccountInfoToolStripMenuItem
+        'ChangeUNPWToolStripMenuItem
         '
-        Me.AccountInfoToolStripMenuItem.Name = "AccountInfoToolStripMenuItem"
-        Me.AccountInfoToolStripMenuItem.Size = New System.Drawing.Size(143, 22)
-        Me.AccountInfoToolStripMenuItem.Text = "Account info"
+        Me.ChangeUNPWToolStripMenuItem.Name = "ChangeUNPWToolStripMenuItem"
+        Me.ChangeUNPWToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.ChangeUNPWToolStripMenuItem.Text = "Change UN/PW"
         '
         'LogoutToolStripMenuItem
         '
         Me.LogoutToolStripMenuItem.Name = "LogoutToolStripMenuItem"
-        Me.LogoutToolStripMenuItem.Size = New System.Drawing.Size(143, 22)
+        Me.LogoutToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
         Me.LogoutToolStripMenuItem.Text = "Logout"
         '
         'AdminToolStripMenuItem
@@ -1276,6 +1291,46 @@ Partial Class Homepage
         Me.AddUserBdy_Pnl.Size = New System.Drawing.Size(298, 174)
         Me.AddUserBdy_Pnl.TabIndex = 4
         '
+        'MetroLabel8
+        '
+        Me.MetroLabel8.AutoSize = True
+        Me.MetroLabel8.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel8.Location = New System.Drawing.Point(20, 137)
+        Me.MetroLabel8.Name = "MetroLabel8"
+        Me.MetroLabel8.Size = New System.Drawing.Size(78, 19)
+        Me.MetroLabel8.TabIndex = 12
+        Me.MetroLabel8.Text = "Nickname:*"
+        Me.MetroLabel8.UseCustomBackColor = True
+        '
+        'UsrNickname_Tbox
+        '
+        '
+        '
+        '
+        Me.UsrNickname_Tbox.CustomButton.Image = Nothing
+        Me.UsrNickname_Tbox.CustomButton.Location = New System.Drawing.Point(158, 1)
+        Me.UsrNickname_Tbox.CustomButton.Name = ""
+        Me.UsrNickname_Tbox.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.UsrNickname_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.UsrNickname_Tbox.CustomButton.TabIndex = 1
+        Me.UsrNickname_Tbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.UsrNickname_Tbox.CustomButton.UseSelectable = True
+        Me.UsrNickname_Tbox.CustomButton.Visible = False
+        Me.UsrNickname_Tbox.Lines = New String(-1) {}
+        Me.UsrNickname_Tbox.Location = New System.Drawing.Point(103, 134)
+        Me.UsrNickname_Tbox.MaxLength = 32767
+        Me.UsrNickname_Tbox.Name = "UsrNickname_Tbox"
+        Me.UsrNickname_Tbox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.UsrNickname_Tbox.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.UsrNickname_Tbox.SelectedText = ""
+        Me.UsrNickname_Tbox.SelectionLength = 0
+        Me.UsrNickname_Tbox.SelectionStart = 0
+        Me.UsrNickname_Tbox.Size = New System.Drawing.Size(180, 23)
+        Me.UsrNickname_Tbox.TabIndex = 11
+        Me.UsrNickname_Tbox.UseSelectable = True
+        Me.UsrNickname_Tbox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.UsrNickname_Tbox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
         'MetroLabel7
         '
         Me.MetroLabel7.AutoSize = True
@@ -1464,51 +1519,216 @@ Partial Class Homepage
         Me.AddUserExit_Btn.UseCustomBackColor = True
         Me.AddUserExit_Btn.UseSelectable = True
         '
-        'MetroLabel8
+        'ChangeUNPW_Pnl
         '
-        Me.MetroLabel8.AutoSize = True
-        Me.MetroLabel8.FontWeight = MetroFramework.MetroLabelWeight.Regular
-        Me.MetroLabel8.Location = New System.Drawing.Point(20, 137)
-        Me.MetroLabel8.Name = "MetroLabel8"
-        Me.MetroLabel8.Size = New System.Drawing.Size(78, 19)
-        Me.MetroLabel8.TabIndex = 12
-        Me.MetroLabel8.Text = "Nickname:*"
-        Me.MetroLabel8.UseCustomBackColor = True
+        Me.ChangeUNPW_Pnl.BackColor = System.Drawing.Color.White
+        Me.ChangeUNPW_Pnl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.ChangeUNPW_Pnl.Controls.Add(Me.ChangeUNPWBdy_Pnl)
+        Me.ChangeUNPW_Pnl.Controls.Add(Me.ChangeUNPWHdr_Pnl)
+        Me.ChangeUNPW_Pnl.Location = New System.Drawing.Point(354, 238)
+        Me.ChangeUNPW_Pnl.Name = "ChangeUNPW_Pnl"
+        Me.ChangeUNPW_Pnl.Size = New System.Drawing.Size(300, 135)
+        Me.ChangeUNPW_Pnl.TabIndex = 23
+        Me.ChangeUNPW_Pnl.Visible = False
         '
-        'UsrNickname_Tbox
+        'ChangeUNPWBdy_Pnl
+        '
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroCheckBox3)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroCheckBox2)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroCheckBox1)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroTextBox2)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroTextBox3)
+        Me.ChangeUNPWBdy_Pnl.Controls.Add(Me.MetroTextBox4)
+        Me.ChangeUNPWBdy_Pnl.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ChangeUNPWBdy_Pnl.Location = New System.Drawing.Point(0, 25)
+        Me.ChangeUNPWBdy_Pnl.Name = "ChangeUNPWBdy_Pnl"
+        Me.ChangeUNPWBdy_Pnl.Padding = New System.Windows.Forms.Padding(3)
+        Me.ChangeUNPWBdy_Pnl.Size = New System.Drawing.Size(298, 108)
+        Me.ChangeUNPWBdy_Pnl.TabIndex = 4
+        '
+        'MetroTextBox2
         '
         '
         '
         '
-        Me.UsrNickname_Tbox.CustomButton.Image = Nothing
-        Me.UsrNickname_Tbox.CustomButton.Location = New System.Drawing.Point(158, 1)
-        Me.UsrNickname_Tbox.CustomButton.Name = ""
-        Me.UsrNickname_Tbox.CustomButton.Size = New System.Drawing.Size(21, 21)
-        Me.UsrNickname_Tbox.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
-        Me.UsrNickname_Tbox.CustomButton.TabIndex = 1
-        Me.UsrNickname_Tbox.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
-        Me.UsrNickname_Tbox.CustomButton.UseSelectable = True
-        Me.UsrNickname_Tbox.CustomButton.Visible = False
-        Me.UsrNickname_Tbox.Lines = New String(-1) {}
-        Me.UsrNickname_Tbox.Location = New System.Drawing.Point(103, 134)
-        Me.UsrNickname_Tbox.MaxLength = 32767
-        Me.UsrNickname_Tbox.Name = "UsrNickname_Tbox"
-        Me.UsrNickname_Tbox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
-        Me.UsrNickname_Tbox.ScrollBars = System.Windows.Forms.ScrollBars.None
-        Me.UsrNickname_Tbox.SelectedText = ""
-        Me.UsrNickname_Tbox.SelectionLength = 0
-        Me.UsrNickname_Tbox.SelectionStart = 0
-        Me.UsrNickname_Tbox.Size = New System.Drawing.Size(180, 23)
-        Me.UsrNickname_Tbox.TabIndex = 11
-        Me.UsrNickname_Tbox.UseSelectable = True
-        Me.UsrNickname_Tbox.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
-        Me.UsrNickname_Tbox.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        Me.MetroTextBox2.CustomButton.Image = Nothing
+        Me.MetroTextBox2.CustomButton.Location = New System.Drawing.Point(158, 1)
+        Me.MetroTextBox2.CustomButton.Name = ""
+        Me.MetroTextBox2.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.MetroTextBox2.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.MetroTextBox2.CustomButton.TabIndex = 1
+        Me.MetroTextBox2.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.MetroTextBox2.CustomButton.UseSelectable = True
+        Me.MetroTextBox2.CustomButton.Visible = False
+        Me.MetroTextBox2.Enabled = False
+        Me.MetroTextBox2.Lines = New String() {"asdasdasdad"}
+        Me.MetroTextBox2.Location = New System.Drawing.Point(107, 71)
+        Me.MetroTextBox2.MaxLength = 32767
+        Me.MetroTextBox2.Name = "MetroTextBox2"
+        Me.MetroTextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
+        Me.MetroTextBox2.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.MetroTextBox2.SelectedText = ""
+        Me.MetroTextBox2.SelectionLength = 0
+        Me.MetroTextBox2.SelectionStart = 0
+        Me.MetroTextBox2.Size = New System.Drawing.Size(180, 23)
+        Me.MetroTextBox2.TabIndex = 5
+        Me.MetroTextBox2.Text = "asdasdasdad"
+        Me.MetroTextBox2.UseSelectable = True
+        Me.MetroTextBox2.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.MetroTextBox2.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'MetroTextBox3
+        '
+        '
+        '
+        '
+        Me.MetroTextBox3.CustomButton.Image = Nothing
+        Me.MetroTextBox3.CustomButton.Location = New System.Drawing.Point(158, 1)
+        Me.MetroTextBox3.CustomButton.Name = ""
+        Me.MetroTextBox3.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.MetroTextBox3.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.MetroTextBox3.CustomButton.TabIndex = 1
+        Me.MetroTextBox3.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.MetroTextBox3.CustomButton.UseSelectable = True
+        Me.MetroTextBox3.CustomButton.Visible = False
+        Me.MetroTextBox3.Enabled = False
+        Me.MetroTextBox3.Lines = New String() {"asdasdasdad"}
+        Me.MetroTextBox3.Location = New System.Drawing.Point(107, 42)
+        Me.MetroTextBox3.MaxLength = 32767
+        Me.MetroTextBox3.Name = "MetroTextBox3"
+        Me.MetroTextBox3.PasswordChar = Global.Microsoft.VisualBasic.ChrW(8226)
+        Me.MetroTextBox3.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.MetroTextBox3.SelectedText = ""
+        Me.MetroTextBox3.SelectionLength = 0
+        Me.MetroTextBox3.SelectionStart = 0
+        Me.MetroTextBox3.Size = New System.Drawing.Size(180, 23)
+        Me.MetroTextBox3.TabIndex = 4
+        Me.MetroTextBox3.Text = "asdasdasdad"
+        Me.MetroTextBox3.UseSelectable = True
+        Me.MetroTextBox3.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.MetroTextBox3.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'MetroTextBox4
+        '
+        '
+        '
+        '
+        Me.MetroTextBox4.CustomButton.Image = Nothing
+        Me.MetroTextBox4.CustomButton.Location = New System.Drawing.Point(158, 1)
+        Me.MetroTextBox4.CustomButton.Name = ""
+        Me.MetroTextBox4.CustomButton.Size = New System.Drawing.Size(21, 21)
+        Me.MetroTextBox4.CustomButton.Style = MetroFramework.MetroColorStyle.Blue
+        Me.MetroTextBox4.CustomButton.TabIndex = 1
+        Me.MetroTextBox4.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light
+        Me.MetroTextBox4.CustomButton.UseSelectable = True
+        Me.MetroTextBox4.CustomButton.Visible = False
+        Me.MetroTextBox4.Enabled = False
+        Me.MetroTextBox4.Lines = New String(-1) {}
+        Me.MetroTextBox4.Location = New System.Drawing.Point(107, 13)
+        Me.MetroTextBox4.MaxLength = 32767
+        Me.MetroTextBox4.Name = "MetroTextBox4"
+        Me.MetroTextBox4.PasswordChar = Global.Microsoft.VisualBasic.ChrW(0)
+        Me.MetroTextBox4.ScrollBars = System.Windows.Forms.ScrollBars.None
+        Me.MetroTextBox4.SelectedText = ""
+        Me.MetroTextBox4.SelectionLength = 0
+        Me.MetroTextBox4.SelectionStart = 0
+        Me.MetroTextBox4.Size = New System.Drawing.Size(180, 23)
+        Me.MetroTextBox4.TabIndex = 3
+        Me.MetroTextBox4.UseSelectable = True
+        Me.MetroTextBox4.WaterMarkColor = System.Drawing.Color.FromArgb(CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer), CType(CType(109, Byte), Integer))
+        Me.MetroTextBox4.WaterMarkFont = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel)
+        '
+        'ChangeUNPWHdr_Pnl
+        '
+        Me.ChangeUNPWHdr_Pnl.BackColor = System.Drawing.Color.PowderBlue
+        Me.ChangeUNPWHdr_Pnl.Controls.Add(Me.ChangeUNPWAcpt_Btn)
+        Me.ChangeUNPWHdr_Pnl.Controls.Add(Me.MetroLabel14)
+        Me.ChangeUNPWHdr_Pnl.Controls.Add(Me.ChangeUNPWExit_Btn)
+        Me.ChangeUNPWHdr_Pnl.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ChangeUNPWHdr_Pnl.Location = New System.Drawing.Point(0, 0)
+        Me.ChangeUNPWHdr_Pnl.Name = "ChangeUNPWHdr_Pnl"
+        Me.ChangeUNPWHdr_Pnl.Size = New System.Drawing.Size(298, 25)
+        Me.ChangeUNPWHdr_Pnl.TabIndex = 3
+        '
+        'ChangeUNPWAcpt_Btn
+        '
+        Me.ChangeUNPWAcpt_Btn.BackColor = System.Drawing.Color.Transparent
+        Me.ChangeUNPWAcpt_Btn.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ChangeUNPWAcpt_Btn.ForeColor = System.Drawing.Color.Green
+        Me.ChangeUNPWAcpt_Btn.Location = New System.Drawing.Point(236, 0)
+        Me.ChangeUNPWAcpt_Btn.Name = "ChangeUNPWAcpt_Btn"
+        Me.ChangeUNPWAcpt_Btn.Size = New System.Drawing.Size(31, 25)
+        Me.ChangeUNPWAcpt_Btn.TabIndex = 4
+        Me.ChangeUNPWAcpt_Btn.Text = "✔"
+        Me.ChangeUNPWAcpt_Btn.UseCustomBackColor = True
+        Me.ChangeUNPWAcpt_Btn.UseCustomForeColor = True
+        Me.ChangeUNPWAcpt_Btn.UseSelectable = True
+        '
+        'MetroLabel14
+        '
+        Me.MetroLabel14.AutoSize = True
+        Me.MetroLabel14.FontWeight = MetroFramework.MetroLabelWeight.Regular
+        Me.MetroLabel14.Location = New System.Drawing.Point(4, 3)
+        Me.MetroLabel14.Name = "MetroLabel14"
+        Me.MetroLabel14.Size = New System.Drawing.Size(193, 19)
+        Me.MetroLabel14.TabIndex = 3
+        Me.MetroLabel14.Text = "Change Username / Password"
+        Me.MetroLabel14.UseCustomBackColor = True
+        '
+        'ChangeUNPWExit_Btn
+        '
+        Me.ChangeUNPWExit_Btn.BackColor = System.Drawing.Color.Transparent
+        Me.ChangeUNPWExit_Btn.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ChangeUNPWExit_Btn.Location = New System.Drawing.Point(267, 0)
+        Me.ChangeUNPWExit_Btn.Name = "ChangeUNPWExit_Btn"
+        Me.ChangeUNPWExit_Btn.Size = New System.Drawing.Size(31, 25)
+        Me.ChangeUNPWExit_Btn.TabIndex = 0
+        Me.ChangeUNPWExit_Btn.Text = "X"
+        Me.ChangeUNPWExit_Btn.UseCustomBackColor = True
+        Me.ChangeUNPWExit_Btn.UseSelectable = True
+        '
+        'MetroCheckBox1
+        '
+        Me.MetroCheckBox1.AutoSize = True
+        Me.MetroCheckBox1.Enabled = False
+        Me.MetroCheckBox1.FontSize = MetroFramework.MetroCheckBoxSize.Medium
+        Me.MetroCheckBox1.Location = New System.Drawing.Point(6, 14)
+        Me.MetroCheckBox1.Name = "MetroCheckBox1"
+        Me.MetroCheckBox1.Size = New System.Drawing.Size(96, 19)
+        Me.MetroCheckBox1.TabIndex = 11
+        Me.MetroCheckBox1.Text = "Username:*"
+        Me.MetroCheckBox1.UseSelectable = True
+        '
+        'MetroCheckBox2
+        '
+        Me.MetroCheckBox2.AutoSize = True
+        Me.MetroCheckBox2.Enabled = False
+        Me.MetroCheckBox2.FontSize = MetroFramework.MetroCheckBoxSize.Medium
+        Me.MetroCheckBox2.Location = New System.Drawing.Point(10, 42)
+        Me.MetroCheckBox2.Name = "MetroCheckBox2"
+        Me.MetroCheckBox2.Size = New System.Drawing.Size(92, 19)
+        Me.MetroCheckBox2.TabIndex = 12
+        Me.MetroCheckBox2.Text = "Password:*"
+        Me.MetroCheckBox2.UseSelectable = True
+        '
+        'MetroCheckBox3
+        '
+        Me.MetroCheckBox3.AutoSize = True
+        Me.MetroCheckBox3.Enabled = False
+        Me.MetroCheckBox3.FontSize = MetroFramework.MetroCheckBoxSize.Medium
+        Me.MetroCheckBox3.Location = New System.Drawing.Point(20, 71)
+        Me.MetroCheckBox3.Name = "MetroCheckBox3"
+        Me.MetroCheckBox3.Size = New System.Drawing.Size(82, 19)
+        Me.MetroCheckBox3.TabIndex = 13
+        Me.MetroCheckBox3.Text = "Re-type:*"
+        Me.MetroCheckBox3.UseSelectable = True
         '
         'Homepage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1008, 611)
+        Me.Controls.Add(Me.ChangeUNPW_Pnl)
         Me.Controls.Add(Me.AddUser_Pnl)
         Me.Controls.Add(Me.Search_Pnl)
         Me.Controls.Add(Me.ChangePicture_Pnl)
@@ -1563,6 +1783,11 @@ Partial Class Homepage
         Me.AddUserBdy_Pnl.PerformLayout()
         Me.AddUserHdr_Pnl.ResumeLayout(False)
         Me.AddUserHdr_Pnl.PerformLayout()
+        Me.ChangeUNPW_Pnl.ResumeLayout(False)
+        Me.ChangeUNPWBdy_Pnl.ResumeLayout(False)
+        Me.ChangeUNPWBdy_Pnl.PerformLayout()
+        Me.ChangeUNPWHdr_Pnl.ResumeLayout(False)
+        Me.ChangeUNPWHdr_Pnl.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1657,8 +1882,20 @@ Partial Class Homepage
     Friend WithEvents Usertype_Cbox As ComboBox
     Friend WithEvents AddUserAcpt_Btn As MetroFramework.Controls.MetroButton
     Friend WithEvents AccountToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents AccountInfoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ChangeUNPWToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents LogoutToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents MetroLabel8 As MetroFramework.Controls.MetroLabel
     Friend WithEvents UsrNickname_Tbox As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents ChangeUNPW_Pnl As Panel
+    Friend WithEvents ChangeUNPWBdy_Pnl As Panel
+    Friend WithEvents MetroTextBox2 As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents MetroTextBox3 As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents MetroTextBox4 As MetroFramework.Controls.MetroTextBox
+    Friend WithEvents ChangeUNPWHdr_Pnl As Panel
+    Friend WithEvents ChangeUNPWAcpt_Btn As MetroFramework.Controls.MetroButton
+    Friend WithEvents MetroLabel14 As MetroFramework.Controls.MetroLabel
+    Friend WithEvents ChangeUNPWExit_Btn As MetroFramework.Controls.MetroButton
+    Friend WithEvents MetroCheckBox1 As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents MetroCheckBox3 As MetroFramework.Controls.MetroCheckBox
+    Friend WithEvents MetroCheckBox2 As MetroFramework.Controls.MetroCheckBox
 End Class
