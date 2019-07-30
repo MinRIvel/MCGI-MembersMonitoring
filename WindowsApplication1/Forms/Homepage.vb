@@ -18,10 +18,12 @@ Public Class Homepage
 
     Private Sub reset_here()
         Body_Pnl.Enabled = True
+        Homepage_Menu.Enabled = True
         LoadingPB2.Visible = False
         sql_Transaction_result = Nothing
         TODO_MODE = Nothing
         ChangePicture_Pnl.Visible = False
+        AddUser_Pnl.Visible = False
         Image_Location = ""
         Save_Btn.Style = MetroColorStyle.Black
         Save_Btn.Text = "Save"
@@ -41,11 +43,17 @@ Public Class Homepage
                 ctrl.ImageLocation = Nothing
             End If
         Next
+        For Each ctrl In AddUserBdy_Pnl.Controls
+            If ctrl.GetType = GetType(Controls.MetroTextBox) Then
+                ctrl.Clear()
+            End If
+        Next
     End Sub
     Private Sub Start_BGW()
         Try
             If BGW.IsBusy <> True Then
                 Body_Pnl.Enabled = False
+                Homepage_Menu.Enabled = False
                 LoadingPB2.Visible = True
                 BGW.RunWorkerAsync()
             Else
@@ -244,6 +252,32 @@ Public Class Homepage
                     For i = 0 To R_id_list.Count - 1
                         ReportInfo_QUERY(TODO, sqlQuery,,,, R_id_list(i))
                     Next
+
+                Case "GetUsertypes"
+                    sqlQuery = "Select distinct Usertype From User_Information"
+                    UserInfo_QUERY(TODO, sqlQuery)
+
+                Case "SaveUserTrans"
+                    sqlQuery = "Insert into User_Information         (U_id
+                                                                     ,Usertype
+                                                                     ,Last_Name
+                                                                     ,First_Name
+                                                                     ,Middle_Name
+                                                                     ,Nickname
+                                                                     ,Uname
+                                                                     ,Pword)
+                                                            VALUES   (@U_id
+                                                                     ,@Usertype
+                                                                     ,@Last_Name
+                                                                     ,@First_Name
+                                                                     ,@Middle_Name
+                                                                     ,@Nickname
+                                                                     ,@Uname
+                                                                     ,@Pword)"
+                    Dim sql2 As String = "SELECT iif(MAX(U_id) is null,0,MAX(U_id)) FROM User_Information"
+                    Get_QUERY(sql2)
+                    UserInfo_QUERY(TODO, sqlQuery, Max_ID, Usertype, UsrLname, UsrFname, UsrMname, UsrNickname)
+
             End Select
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -372,6 +406,15 @@ Public Class Homepage
                             MetroMessageBox.Show(Me, "", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             TODO = "Load_ReportDGV"
                             Start_BGW()
+
+                        Case "SaveUserTrans"
+                            MetroMessageBox.Show(Me, "Your new username and password is " & Max_ID + 1, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            reset_here()
+
+                        Case "GetUsertypes"
+                            Usertype_Cbox.DataSource = msDataSet.Tables(TODO)
+                            Usertype_Cbox.DisplayMember = "Usertype"
+                            LoadingPB2.Visible = False
                     End Select
                 Else
                     MetroMessageBox.Show(Me, "", "Failed", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -388,6 +431,7 @@ Public Class Homepage
         ChangePicture_Pnl.Location = New Point((Width - ChangePicture_Pnl.Width) / 2, (Height - ChangePicture_Pnl.Height) / 2)
         Search_Pnl.Location = New Point((Width - Search_Pnl.Width) / 2, (Height - Search_Pnl.Height) / 2)
         InputStatus_Pnl.Location = New Point((Width - InputStatus_Pnl.Width) / 2, (Height - InputStatus_Pnl.Height) / 2)
+        AddUser_Pnl.Location = New Point((Width - AddUser_Pnl.Width) / 2, (Height - AddUser_Pnl.Height) / 2)
     End Sub
 
     Private Sub ChangePicExit_Btn_Click(sender As Object, e As EventArgs) Handles ChangePicExit_Btn.Click
@@ -595,6 +639,30 @@ Public Class Homepage
         Start_BGW()
     End Sub
 
+    Private Sub AddToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddUserToolStripMenuItem.Click
+        AddUser_Pnl.Visible = True
+        Body_Pnl.Enabled = False
+        Homepage_Menu.Enabled = False
+
+        TODO = "GetUsertypes"
+        Start_BGW()
+    End Sub
+
+    Private Sub AddUserExit_Btn_Click(sender As Object, e As EventArgs) Handles AddUserExit_Btn.Click
+        AddUser_Pnl.Visible = False
+        Body_Pnl.Enabled = True
+    End Sub
+
+    Private Sub AddUserAcpt_Btn_Click(sender As Object, e As EventArgs) Handles AddUserAcpt_Btn.Click
+        Usertype = Trim(Usertype_Cbox.Text)
+        UsrLname = Trim(UsrLname_Tbox.Text)
+        UsrFname = Trim(UsrFname_Tbox.Text)
+        UsrMname = Trim(UsrMname_Tbox.Text)
+        UsrNickname = Trim(UsrNickname_Tbox.Text)
+        TODO = "SaveUserTrans"
+        Start_BGW()
+    End Sub
+
     Private Sub ISEditToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ISEditToolStripMenuItem.Click
         Try
             ISAdd_Btn.Style = MetroColorStyle.Red
@@ -663,7 +731,7 @@ Public Class Homepage
             Image_Location = Image_Pbox.ImageLocation
 
             Dim red_occur As Integer = 0
-            For Each ctrl In Left_Pnl.Controls
+            For Each ctrl In Info_Pnl.Controls
                 If ctrl.GetType = GetType(Controls.MetroTextBox) AndAlso (ctrl.Style = MetroColorStyle.Red And ctrl.Text = Nothing) Then
                     red_occur += 1
                     ctrl.Focus()
@@ -780,17 +848,20 @@ Public Class Homepage
     Private allowCoolMove As Boolean = False
     Private myCoolPoint As New Point
     Private Report_Status As String
+    Private Usertype, UsrLname, UsrFname, UsrMname, UsrNickname As String
 
     Private Sub Header_Pnl_MouseDown(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseDown,
                                                                                     SearchHeader_Pnl.MouseDown,
-                                                                                    InputStatusHdr_Pnl.MouseDown
+                                                                                    InputStatusHdr_Pnl.MouseDown,
+                                                                                    AddUserHdr_Pnl.MouseDown
         allowCoolMove = True
         myCoolPoint = New Point(e.X, e.Y)
     End Sub
 
     Private Sub Header_Pnl_MouseMove(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseMove,
                                                                                     SearchHeader_Pnl.MouseMove,
-                                                                                    InputStatusHdr_Pnl.MouseMove
+                                                                                    InputStatusHdr_Pnl.MouseMove,
+                                                                                    AddUserHdr_Pnl.MouseMove
         If allowCoolMove = True Then
             Dim objectToMove As Object = Nothing
             If sender Is ChangePictureHeader_Pnl Then
@@ -799,6 +870,8 @@ Public Class Homepage
                 objectToMove = Search_Pnl
             ElseIf sender Is InputStatusHdr_Pnl Then
                 objectToMove = InputStatus_Pnl
+            ElseIf sender Is AddUserHdr_Pnl Then
+                objectToMove = AddUser_Pnl
             End If
             objectToMove.Location = New Point(objectToMove.Location.X + e.X - myCoolPoint.X, objectToMove.Location.Y + e.Y - myCoolPoint.Y)
         End If
@@ -806,7 +879,8 @@ Public Class Homepage
 
     Private Sub Header_Pnl_MouseUp(sender As Object, e As MouseEventArgs) Handles ChangePictureHeader_Pnl.MouseUp,
                                                                                   SearchHeader_Pnl.MouseUp,
-                                                                                  InputStatusHdr_Pnl.MouseUp
+                                                                                  InputStatusHdr_Pnl.MouseUp,
+                                                                                  AddUserHdr_Pnl.MouseUp
         allowCoolMove = False
     End Sub
 End Class

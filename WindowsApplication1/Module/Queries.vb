@@ -1,6 +1,8 @@
 ﻿Imports System.Data.OleDb
 Imports System.IO
 Imports ComponentFactory.Krypton.Toolkit
+Imports System.Text
+Imports System.Security.Cryptography
 Module Queries
     Public Log_File As StreamWriter
     Public msconString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Application.StartupPath & "\mcgidb.accdb"
@@ -92,6 +94,41 @@ Module Queries
                            "Trace: " & Err_StackTrace & vbCrLf)
         Log_File.Close()
     End Sub
+    Public Function Encrypt(clearText As String) As String
+        Dim EncryptionKey As String = "MAKV2SPBNI99212"
+        Dim clearBytes As Byte() = Encoding.Unicode.GetBytes(clearText)
+        Using encryptor As Aes = Aes.Create()
+            Dim pdb As New Rfc2898DeriveBytes(EncryptionKey, New Byte() {&H49, &H76, &H61, &H6E, &H20, &H4D, &H65, &H64, &H76, &H65, &H64, &H65, &H76})
+            encryptor.Key = pdb.GetBytes(32)
+            encryptor.IV = pdb.GetBytes(16)
+            Using ms As New MemoryStream()
+                Using cs As New CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write)
+                    cs.Write(clearBytes, 0, clearBytes.Length)
+                    cs.Close()
+                End Using
+                clearText = Convert.ToBase64String(ms.ToArray())
+            End Using
+        End Using
+        Return clearText
+    End Function
+    Public Function Decrypt(cipherText As String) As String
+        Dim EncryptionKey As String = "MAKV2SPBNI99212"
+        Dim cipherBytes As Byte() = Convert.FromBase64String(cipherText)
+        Using encryptor As Aes = Aes.Create()
+            Dim pdb As New Rfc2898DeriveBytes(EncryptionKey, New Byte() {&H49, &H76, &H61, &H6E, &H20, &H4D, &H65, &H64, &H76, &H65, &H64, &H65, &H76})
+            encryptor.Key = pdb.GetBytes(32)
+            encryptor.IV = pdb.GetBytes(16)
+            Using ms As New MemoryStream()
+                Using cs As New CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write)
+                    cs.Write(cipherBytes, 0, cipherBytes.Length)
+                    cs.Close()
+                End Using
+                cipherText = Encoding.Unicode.GetString(ms.ToArray())
+            End Using
+        End Using
+        Return cipherText
+    End Function
+
     Public Sub MbrsInfo_QUERY(ByVal dsTbl_Command As String,
                               ByVal sqlQuery As String,
                               Optional SearchStr As String = Nothing,
@@ -223,7 +260,47 @@ Module Queries
             End Using
         End Using
     End Sub
+    Public Sub UserInfo_QUERY(ByVal dsTbl_Command As String,
+                              ByVal sqlQuery As String,
+                              Optional U_id As Integer = 0,
+                              Optional Usertype As String = "",
+                              Optional Lname As String = "",
+                              Optional Fname As String = "",
+                              Optional Mname As String = "",
+                              Optional Nickname As String = "")
+        msDataAdapter = New OleDbDataAdapter
+        msBindingSource = New BindingSource
+        msDataSet = New DataSet
+        If msDataSet.Tables.Contains(dsTbl_Command) Then
+            msDataSet.Tables(dsTbl_Command).Clear()
+        End If
+        Using mscon As New OleDbConnection(msconString)
+            mscon.Open()
+            Using mscmd As OleDbCommand = mscon.CreateCommand()
+                mscmd.Connection = mscon
+                mscmd.CommandText = sqlQuery
+                mscmd.CommandType = CommandType.Text
 
+                If dsTbl_Command.Contains("Trans") = False Then
+                    msDataAdapter.SelectCommand = mscmd
+                    msDataAdapter.Fill(msDataSet, dsTbl_Command)
+                    msBindingSource.DataSource = msDataSet
+                    msBindingSource.DataMember = dsTbl_Command
+                Else
+                    mscmd.Parameters.Add("@U_id", OleDbType.Integer).Value = U_id + 1
+                    mscmd.Parameters.Add("@Usertype", OleDbType.VarChar).Value = Usertype
+                    mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Lname
+                    mscmd.Parameters.Add("@First_Name", OleDbType.VarChar).Value = Fname
+                    mscmd.Parameters.Add("@Middle_Name", OleDbType.VarChar).Value = Mname
+                    mscmd.Parameters.Add("@Nickname", OleDbType.VarChar).Value = Nickname
+                    mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = U_id + 1
+                    mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(U_id + 1)
+                    mscmd.ExecuteNonQuery()
+                End If
+                sql_Transaction_result = "Committed"
+            End Using
+        End Using
+    End Sub
     Public Sub Get_QUERY(ByVal sqlQuery As String)
         Using mscon As New OleDbConnection(msconString)
             mscon.Open()
