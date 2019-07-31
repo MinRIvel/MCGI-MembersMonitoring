@@ -29,17 +29,17 @@ Partial Class Splash
         'Splash_Progress
         '
         Me.Splash_Progress.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splash_Progress.Location = New System.Drawing.Point(0, 118)
+        Me.Splash_Progress.Location = New System.Drawing.Point(0, 138)
         Me.Splash_Progress.Name = "Splash_Progress"
-        Me.Splash_Progress.Size = New System.Drawing.Size(496, 30)
-        Me.Splash_Progress.Style = MetroFramework.MetroColorStyle.Purple
+        Me.Splash_Progress.Size = New System.Drawing.Size(496, 10)
+        Me.Splash_Progress.Style = MetroFramework.MetroColorStyle.Silver
         Me.Splash_Progress.TabIndex = 0
         '
         'Splash_Lbl
         '
         Me.Splash_Lbl.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.Splash_Lbl.FontWeight = MetroFramework.MetroLabelWeight.Regular
-        Me.Splash_Lbl.Location = New System.Drawing.Point(0, 94)
+        Me.Splash_Lbl.Location = New System.Drawing.Point(0, 114)
         Me.Splash_Lbl.Name = "Splash_Lbl"
         Me.Splash_Lbl.Size = New System.Drawing.Size(496, 24)
         Me.Splash_Lbl.TabIndex = 1

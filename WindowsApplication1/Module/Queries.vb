@@ -128,6 +128,19 @@ Module Queries
         End Using
         Return cipherText
     End Function
+    Public Function Checking_Query(ByVal Tblname As String) As Integer
+        Dim true_counter As Integer = 0
+        Using mscon As New OleDbConnection(msconString)
+            mscon.Open()
+            Dim schema = mscon.GetSchema("Tables")
+            For Each row As DataRow In schema.Rows
+                If (row.Field(Of String)("TABLE_NAME")) = Tblname Then
+                    true_counter += 1
+                End If
+            Next
+            Return true_counter
+        End Using
+    End Function
 
     Public Sub Creation_Query(ByVal sqlQuery As String)
         Using mscon As New OleDbConnection(msconString)
@@ -308,6 +321,18 @@ Module Queries
                     msDataAdapter.Fill(msDataSet, dsTbl_Command)
                     msBindingSource.DataSource = msDataSet
                     msBindingSource.DataMember = dsTbl_Command
+                    sql_Transaction_result = "Committed"
+
+                ElseIf dsTbl_Command = "SaveDefaultAdminTrans" Then
+                    mscmd.Parameters.Add("@U_id", OleDbType.Integer).Value = U_id
+                    mscmd.Parameters.Add("@Usertype", OleDbType.VarChar).Value = Usertype
+                    mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Lname
+                    mscmd.Parameters.Add("@First_Name", OleDbType.VarChar).Value = Fname
+                    mscmd.Parameters.Add("@Middle_Name", OleDbType.VarChar).Value = Mname
+                    mscmd.Parameters.Add("@Nickname", OleDbType.VarChar).Value = Nickname
+                    mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = Uname
+                    mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(Pword)
+                    mscmd.ExecuteNonQuery()
                     sql_Transaction_result = "Committed"
 
                 ElseIf dsTbl_Command = "SaveUserTrans" Then
