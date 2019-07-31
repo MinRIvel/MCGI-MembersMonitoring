@@ -37,8 +37,6 @@ Public NotInheritable Class Splash
                     If IO.File.Exists(Application.StartupPath & "\mcgidb.accdb") = True Then
                         chk_DB = True
                     Else
-                        CreateAccessDatabase(Application.StartupPath & "\mcgidb.accdb")
-                        Label_status = "Checking tables."
                         chk_DB = False
                     End If
                 End If
@@ -84,7 +82,7 @@ Public NotInheritable Class Splash
                                                                          Baptized_By TEXT,
                                                                          Nagakay TEXT,
                                                                          Image_Location TEXT,
-                                                                         Row_Status YesNo,
+                                                                         Row_Status YesNo DEFAULT Yes,
                                                                          Inputted_By TEXT)"
                     Creation_Query(sqlquery)
                     Label_status = "Checking Report_Information."
@@ -109,7 +107,7 @@ Public NotInheritable Class Splash
                                                                          A_Id_Ref INTEGER,
                                                                          Report_Status LONGTEXT,
                                                                          Report_Date DateTime,
-                                                                         Report_RowStatus YesNo,
+                                                                         Report_RowStatus YesNo DEFAULT Yes,
                                                                          Inputted_By TEXT)"
                     Creation_Query(sqlquery)
                     Label_status = "Checking User_Information."
