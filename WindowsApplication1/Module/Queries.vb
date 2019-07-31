@@ -397,6 +397,32 @@ Module Queries
             End Using
         End Using
     End Sub
+    Public Sub PrintRPT_QUERY(ByVal ModeString As String,
+                              ByVal sqlQuery As String,
+                              Optional A_id As Integer = Nothing)
+        msDataAdapter = New OleDbDataAdapter
+        Dim mcgi_ds As New mcgi_ds
+
+        Using mscon As New OleDbConnection(msconString)
+            mscon.Open()
+            Using mscmd As OleDbCommand = mscon.CreateCommand()
+                mscmd.Connection = mscon
+                mscmd.CommandText = sqlQuery
+                mscmd.CommandType = CommandType.Text
+                mscmd.Parameters.Add("@A_id", OleDbType.Integer).Value = A_id
+
+                If ModeString = "Member_Info" Then
+                    msDataAdapter.SelectCommand = mscmd
+                    msDataAdapter.Fill(mcgi_ds.Member_Info)
+                    Print_Report.Member_InfoBindingSource.DataSource = mcgi_ds.Member_Info.DefaultView
+                ElseIf ModeString = "Report_Info" Then
+                    msDataAdapter.SelectCommand = mscmd
+                    msDataAdapter.Fill(mcgi_ds.Report_Info)
+                    Print_Report.Report_InfoBindingSource.DataSource = mcgi_ds.Report_Info.DefaultView
+                End If
+            End Using
+        End Using
+    End Sub
     Public Sub Get_QUERY(ByVal sqlQuery As String)
         Using mscon As New OleDbConnection(msconString)
             mscon.Open()

@@ -754,6 +754,7 @@ Public Class Homepage
     End Sub
 
     Private Sub Homepage_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
+        Print_Report.Close()
         Login.Show()
         Login.UsernameTextBox.Focus()
     End Sub
@@ -777,6 +778,43 @@ Public Class Homepage
     End Sub
 
     Dim newUname, newPword As String
+
+    Private Sub PrintToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintToolStripMenuItem.Click
+        Try
+            With Homepage_DGV.Rows(dgv_rowindex)
+                Print_Report.Image_Location = Application.StartupPath & "\Member_Images\" & .Cells("Image_Location").Value.ToString
+                sqlQuery = "Select   ID_Number
+                                    ,Last_Name
+                                    ,First_Name
+                                    ,Middle_Name
+                                    ,Address
+                                    ,Contact_Number
+                                    ,Occupation
+                                    ,Skill
+                                    ,Baptism_Date
+                                    ,Baptized_By
+                                    ,Nagakay
+                                    ,Image_Location
+                        From    Member_Information
+                        Where   A_id = @A_id
+                            and Row_Status = True"
+                PrintRPT_QUERY("Member_Info", sqlQuery, .Cells("A_id").Value)
+
+                sqlQuery = "Select   Report_Status
+                                    ,Report_Date
+                        From    Report_Information
+                        Where   A_Id_Ref = @A_id
+                            and Report_RowStatus = True"
+                PrintRPT_QUERY("Report_Info", sqlQuery, .Cells("A_id").Value)
+
+                Print_Report.Show()
+            End With
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+            log_file_writer(ex.StackTrace)
+        End Try
+    End Sub
+
     Private Sub ChangeUNPWAcpt_Btn_Click(sender As Object, e As EventArgs) Handles ChangeUNPWAcpt_Btn.Click
         If Username_Chk.Checked = True And Password_Chk.Checked = True Then
             sqlQuery = "update User_Information set Uname = @Uname, Pword = @Pword where U_id = @U_id"
