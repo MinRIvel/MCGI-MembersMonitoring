@@ -1,10 +1,10 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-<Global.System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726")> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726")>
 Partial Class Login
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -28,7 +28,7 @@ Partial Class Login
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Login))
         Me.UsernameLabel = New System.Windows.Forms.Label()
@@ -40,7 +40,6 @@ Partial Class Login
         Me.LogoPictureBox = New System.Windows.Forms.PictureBox()
         Me.LoadingPB2 = New System.Windows.Forms.PictureBox()
         Me.Login_Lbl = New MetroFramework.Controls.MetroLabel()
-        Me.Forgot_Lnk = New System.Windows.Forms.LinkLabel()
         CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.LoadingPB2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -134,17 +133,6 @@ Partial Class Login
         Me.Login_Lbl.Visible = False
         Me.Login_Lbl.WrapToLine = True
         '
-        'Forgot_Lnk
-        '
-        Me.Forgot_Lnk.AutoSize = True
-        Me.Forgot_Lnk.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Forgot_Lnk.Location = New System.Drawing.Point(294, 141)
-        Me.Forgot_Lnk.Name = "Forgot_Lnk"
-        Me.Forgot_Lnk.Size = New System.Drawing.Size(100, 15)
-        Me.Forgot_Lnk.TabIndex = 627
-        Me.Forgot_Lnk.TabStop = True
-        Me.Forgot_Lnk.Text = "Forgot password?"
-        '
         'Login
         '
         Me.AcceptButton = Me.OK
@@ -152,7 +140,6 @@ Partial Class Login
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.Cancel
         Me.ClientSize = New System.Drawing.Size(401, 192)
-        Me.Controls.Add(Me.Forgot_Lnk)
         Me.Controls.Add(Me.Login_Lbl)
         Me.Controls.Add(Me.LoadingPB2)
         Me.Controls.Add(Me.Cancel)
@@ -177,5 +164,4 @@ Partial Class Login
 
     Friend WithEvents LoadingPB2 As PictureBox
     Friend WithEvents Login_Lbl As MetroFramework.Controls.MetroLabel
-    Friend WithEvents Forgot_Lnk As LinkLabel
 End Class
