@@ -29,6 +29,7 @@ Partial Class Homepage
         Me.Homepage_Split = New System.Windows.Forms.SplitContainer()
         Me.Left_Pnl = New System.Windows.Forms.Panel()
         Me.Info_Pnl = New System.Windows.Forms.Panel()
+        Me.Image_Pbox = New System.Windows.Forms.PictureBox()
         Me.Clear_Btn = New MetroFramework.Controls.MetroButton()
         Me.Save_Btn = New MetroFramework.Controls.MetroButton()
         Me.Cancel_Btn = New MetroFramework.Controls.MetroButton()
@@ -46,21 +47,36 @@ Partial Class Homepage
         Me.Side_Pnl = New System.Windows.Forms.Panel()
         Me.KryptonLabel1 = New ComponentFactory.Krypton.Toolkit.KryptonLabel()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Side_Btn = New MetroFramework.Controls.MetroButton()
         Me.MetroLabel1 = New MetroFramework.Controls.MetroLabel()
         Me.DGV_Pnl = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.DateTime_Lbl = New MetroFramework.Controls.MetroLabel()
         Me.Header_Lbl = New MetroFramework.Controls.MetroLabel()
+        Me.LoadingPB2 = New System.Windows.Forms.PictureBox()
         Me.Homepage_Cmenu = New MetroFramework.Controls.MetroContextMenu(Me.components)
+        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ChangePictureToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InputToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Image_OPFD = New System.Windows.Forms.OpenFileDialog()
         Me.Homepage_Ttip = New MetroFramework.Components.MetroToolTip()
         Me.Homepage_Menu = New System.Windows.Forms.MenuStrip()
         Me.MenuToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.InformationPanelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ReloadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AccountToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ChangeUNPWToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LogoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.AdminToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.AddUserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DateTime_Timer = New System.Windows.Forms.Timer(Me.components)
         Me.ChangePicture_Pnl = New System.Windows.Forms.Panel()
         Me.ChangePicBody_Pnl = New System.Windows.Forms.Panel()
+        Me.ChangePic_Pbox = New System.Windows.Forms.PictureBox()
         Me.ChangePictureHeader_Pnl = New System.Windows.Forms.Panel()
         Me.MetroLabel3 = New MetroFramework.Controls.MetroLabel()
         Me.ChangePicAccept_Btn = New MetroFramework.Controls.MetroButton()
@@ -115,24 +131,6 @@ Partial Class Homepage
         Me.ChangeUNPWAcpt_Btn = New MetroFramework.Controls.MetroButton()
         Me.MetroLabel14 = New MetroFramework.Controls.MetroLabel()
         Me.ChangeUNPWExit_Btn = New MetroFramework.Controls.MetroButton()
-        Me.ChangePic_Pbox = New System.Windows.Forms.PictureBox()
-        Me.Image_Pbox = New System.Windows.Forms.PictureBox()
-        Me.Side_Btn = New MetroFramework.Controls.MetroButton()
-        Me.LoadingPB2 = New System.Windows.Forms.PictureBox()
-        Me.InformationPanelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ReloadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ImportToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ChangeUNPWToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LogoutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.AddUserToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ChangePictureToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ReportToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.InputToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.PrintToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EP_Pnl.SuspendLayout()
         Me.Body_Pnl.SuspendLayout()
         CType(Me.Homepage_Split, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -141,13 +139,16 @@ Partial Class Homepage
         Me.Homepage_Split.SuspendLayout()
         Me.Left_Pnl.SuspendLayout()
         Me.Info_Pnl.SuspendLayout()
+        CType(Me.Image_Pbox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Side_Pnl.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.Panel6.SuspendLayout()
+        CType(Me.LoadingPB2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Homepage_Cmenu.SuspendLayout()
         Me.Homepage_Menu.SuspendLayout()
         Me.ChangePicture_Pnl.SuspendLayout()
         Me.ChangePicBody_Pnl.SuspendLayout()
+        CType(Me.ChangePic_Pbox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ChangePictureHeader_Pnl.SuspendLayout()
         Me.Search_Pnl.SuspendLayout()
         Me.SearchHeader_Pnl.SuspendLayout()
@@ -165,9 +166,6 @@ Partial Class Homepage
         Me.ChangeUNPW_Pnl.SuspendLayout()
         Me.ChangeUNPWBdy_Pnl.SuspendLayout()
         Me.ChangeUNPWHdr_Pnl.SuspendLayout()
-        CType(Me.ChangePic_Pbox, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.Image_Pbox, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.LoadingPB2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'EP_Pnl
@@ -249,6 +247,18 @@ Partial Class Homepage
         Me.Info_Pnl.Name = "Info_Pnl"
         Me.Info_Pnl.Size = New System.Drawing.Size(238, 505)
         Me.Info_Pnl.TabIndex = 0
+        '
+        'Image_Pbox
+        '
+        Me.Image_Pbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Image_Pbox.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.Image_Pbox.Image = Global.WindowsApplication1.My.Resources.Resources.users
+        Me.Image_Pbox.Location = New System.Drawing.Point(17, 6)
+        Me.Image_Pbox.Name = "Image_Pbox"
+        Me.Image_Pbox.Size = New System.Drawing.Size(115, 115)
+        Me.Image_Pbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.Image_Pbox.TabIndex = 0
+        Me.Image_Pbox.TabStop = False
         '
         'Clear_Btn
         '
@@ -435,7 +445,7 @@ Partial Class Homepage
         Me.Baptism_DTP.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Baptism_DTP.Location = New System.Drawing.Point(17, 391)
-        Me.Baptism_DTP.MinimumSize = New System.Drawing.Size(0, 29)
+        Me.Baptism_DTP.MinimumSize = New System.Drawing.Size(4, 29)
         Me.Baptism_DTP.Name = "Baptism_DTP"
         Me.Baptism_DTP.Size = New System.Drawing.Size(222, 29)
         Me.Baptism_DTP.TabIndex = 837
@@ -699,6 +709,19 @@ Partial Class Homepage
         Me.Panel1.Size = New System.Drawing.Size(268, 35)
         Me.Panel1.TabIndex = 13
         '
+        'Side_Btn
+        '
+        Me.Side_Btn.BackColor = System.Drawing.Color.Transparent
+        Me.Side_Btn.BackgroundImage = Global.WindowsApplication1.My.Resources.Resources.icons8_double_left_30
+        Me.Side_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
+        Me.Side_Btn.Dock = System.Windows.Forms.DockStyle.Right
+        Me.Side_Btn.Location = New System.Drawing.Point(236, 0)
+        Me.Side_Btn.Name = "Side_Btn"
+        Me.Side_Btn.Size = New System.Drawing.Size(30, 33)
+        Me.Side_Btn.TabIndex = 0
+        Me.Side_Btn.UseCustomBackColor = True
+        Me.Side_Btn.UseSelectable = True
+        '
         'MetroLabel1
         '
         Me.MetroLabel1.AutoSize = True
@@ -754,12 +777,67 @@ Partial Class Homepage
         Me.Header_Lbl.TabIndex = 625
         Me.Header_Lbl.Text = "Welcome user"
         '
+        'LoadingPB2
+        '
+        Me.LoadingPB2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LoadingPB2.Image = CType(resources.GetObject("LoadingPB2.Image"), System.Drawing.Image)
+        Me.LoadingPB2.Location = New System.Drawing.Point(910, 5)
+        Me.LoadingPB2.Name = "LoadingPB2"
+        Me.LoadingPB2.Size = New System.Drawing.Size(85, 28)
+        Me.LoadingPB2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.LoadingPB2.TabIndex = 624
+        Me.LoadingPB2.TabStop = False
+        Me.LoadingPB2.Visible = False
+        '
         'Homepage_Cmenu
         '
         Me.Homepage_Cmenu.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.Homepage_Cmenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditToolStripMenuItem, Me.DeleteToolStripMenuItem, Me.ChangePictureToolStripMenuItem, Me.ReportToolStripMenuItem})
         Me.Homepage_Cmenu.Name = "Homepage_Cmenu"
         Me.Homepage_Cmenu.Size = New System.Drawing.Size(156, 92)
+        '
+        'EditToolStripMenuItem
+        '
+        Me.EditToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_edit_24
+        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.EditToolStripMenuItem.Text = "Edit"
+        '
+        'DeleteToolStripMenuItem
+        '
+        Me.DeleteToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_delete_bin_24
+        Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.DeleteToolStripMenuItem.Text = "Delete"
+        '
+        'ChangePictureToolStripMenuItem
+        '
+        Me.ChangePictureToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_photo_editor_24
+        Me.ChangePictureToolStripMenuItem.Name = "ChangePictureToolStripMenuItem"
+        Me.ChangePictureToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.ChangePictureToolStripMenuItem.Text = "Change Picture"
+        '
+        'ReportToolStripMenuItem
+        '
+        Me.ReportToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InputToolStripMenuItem, Me.PrintToolStripMenuItem})
+        Me.ReportToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_business_report_24
+        Me.ReportToolStripMenuItem.Name = "ReportToolStripMenuItem"
+        Me.ReportToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
+        Me.ReportToolStripMenuItem.Text = "Status Report"
+        '
+        'InputToolStripMenuItem
+        '
+        Me.InputToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_input_241
+        Me.InputToolStripMenuItem.Name = "InputToolStripMenuItem"
+        Me.InputToolStripMenuItem.Size = New System.Drawing.Size(102, 22)
+        Me.InputToolStripMenuItem.Text = "Input"
+        '
+        'PrintToolStripMenuItem
+        '
+        Me.PrintToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_print_24
+        Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
+        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(102, 22)
+        Me.PrintToolStripMenuItem.Text = "Print"
         '
         'Image_OPFD
         '
@@ -785,10 +863,32 @@ Partial Class Homepage
         '
         'MenuToolStripMenuItem
         '
-        Me.MenuToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InformationPanelToolStripMenuItem, Me.ReloadToolStripMenuItem, Me.ImportToolStripMenuItem1, Me.ExportToolStripMenuItem, Me.ExitToolStripMenuItem})
+        Me.MenuToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InformationPanelToolStripMenuItem, Me.ReloadToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.MenuToolStripMenuItem.Name = "MenuToolStripMenuItem"
         Me.MenuToolStripMenuItem.Size = New System.Drawing.Size(50, 20)
         Me.MenuToolStripMenuItem.Text = "Menu"
+        '
+        'InformationPanelToolStripMenuItem
+        '
+        Me.InformationPanelToolStripMenuItem.CheckOnClick = True
+        Me.InformationPanelToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_information_24
+        Me.InformationPanelToolStripMenuItem.Name = "InformationPanelToolStripMenuItem"
+        Me.InformationPanelToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
+        Me.InformationPanelToolStripMenuItem.Text = "Information Panel"
+        '
+        'ReloadToolStripMenuItem
+        '
+        Me.ReloadToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_synchronize_24
+        Me.ReloadToolStripMenuItem.Name = "ReloadToolStripMenuItem"
+        Me.ReloadToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
+        Me.ReloadToolStripMenuItem.Text = "Reload (F5)"
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_close_window_24
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
+        Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'AccountToolStripMenuItem
         '
@@ -797,12 +897,33 @@ Partial Class Homepage
         Me.AccountToolStripMenuItem.Size = New System.Drawing.Size(69, 20)
         Me.AccountToolStripMenuItem.Text = "Accounts"
         '
+        'ChangeUNPWToolStripMenuItem
+        '
+        Me.ChangeUNPWToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_lock_24
+        Me.ChangeUNPWToolStripMenuItem.Name = "ChangeUNPWToolStripMenuItem"
+        Me.ChangeUNPWToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.ChangeUNPWToolStripMenuItem.Text = "Change UN/PW"
+        '
+        'LogoutToolStripMenuItem
+        '
+        Me.LogoutToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_shutdown_24
+        Me.LogoutToolStripMenuItem.Name = "LogoutToolStripMenuItem"
+        Me.LogoutToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
+        Me.LogoutToolStripMenuItem.Text = "Logout"
+        '
         'AdminToolStripMenuItem
         '
         Me.AdminToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AddUserToolStripMenuItem})
         Me.AdminToolStripMenuItem.Name = "AdminToolStripMenuItem"
         Me.AdminToolStripMenuItem.Size = New System.Drawing.Size(55, 20)
         Me.AdminToolStripMenuItem.Text = "Admin"
+        '
+        'AddUserToolStripMenuItem
+        '
+        Me.AddUserToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_add_user_male_24
+        Me.AddUserToolStripMenuItem.Name = "AddUserToolStripMenuItem"
+        Me.AddUserToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
+        Me.AddUserToolStripMenuItem.Text = "Add User"
         '
         'DateTime_Timer
         '
@@ -831,6 +952,17 @@ Partial Class Homepage
         Me.ChangePicBody_Pnl.Padding = New System.Windows.Forms.Padding(3)
         Me.ChangePicBody_Pnl.Size = New System.Drawing.Size(306, 306)
         Me.ChangePicBody_Pnl.TabIndex = 4
+        '
+        'ChangePic_Pbox
+        '
+        Me.ChangePic_Pbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.ChangePic_Pbox.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ChangePic_Pbox.Location = New System.Drawing.Point(3, 3)
+        Me.ChangePic_Pbox.Name = "ChangePic_Pbox"
+        Me.ChangePic_Pbox.Size = New System.Drawing.Size(300, 300)
+        Me.ChangePic_Pbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.ChangePic_Pbox.TabIndex = 5
+        Me.ChangePic_Pbox.TabStop = False
         '
         'ChangePictureHeader_Pnl
         '
@@ -1664,154 +1796,6 @@ Partial Class Homepage
         Me.ChangeUNPWExit_Btn.UseCustomBackColor = True
         Me.ChangeUNPWExit_Btn.UseSelectable = True
         '
-        'ChangePic_Pbox
-        '
-        Me.ChangePic_Pbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ChangePic_Pbox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ChangePic_Pbox.Location = New System.Drawing.Point(3, 3)
-        Me.ChangePic_Pbox.Name = "ChangePic_Pbox"
-        Me.ChangePic_Pbox.Size = New System.Drawing.Size(300, 300)
-        Me.ChangePic_Pbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.ChangePic_Pbox.TabIndex = 5
-        Me.ChangePic_Pbox.TabStop = False
-        '
-        'Image_Pbox
-        '
-        Me.Image_Pbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Image_Pbox.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.Image_Pbox.Image = Global.WindowsApplication1.My.Resources.Resources.users
-        Me.Image_Pbox.Location = New System.Drawing.Point(17, 6)
-        Me.Image_Pbox.Name = "Image_Pbox"
-        Me.Image_Pbox.Size = New System.Drawing.Size(115, 115)
-        Me.Image_Pbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.Image_Pbox.TabIndex = 0
-        Me.Image_Pbox.TabStop = False
-        '
-        'Side_Btn
-        '
-        Me.Side_Btn.BackColor = System.Drawing.Color.Transparent
-        Me.Side_Btn.BackgroundImage = Global.WindowsApplication1.My.Resources.Resources.icons8_double_left_30
-        Me.Side_Btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.Side_Btn.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Side_Btn.Location = New System.Drawing.Point(236, 0)
-        Me.Side_Btn.Name = "Side_Btn"
-        Me.Side_Btn.Size = New System.Drawing.Size(30, 33)
-        Me.Side_Btn.TabIndex = 0
-        Me.Side_Btn.UseCustomBackColor = True
-        Me.Side_Btn.UseSelectable = True
-        '
-        'LoadingPB2
-        '
-        Me.LoadingPB2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LoadingPB2.Image = CType(resources.GetObject("LoadingPB2.Image"), System.Drawing.Image)
-        Me.LoadingPB2.Location = New System.Drawing.Point(910, 5)
-        Me.LoadingPB2.Name = "LoadingPB2"
-        Me.LoadingPB2.Size = New System.Drawing.Size(85, 28)
-        Me.LoadingPB2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.LoadingPB2.TabIndex = 624
-        Me.LoadingPB2.TabStop = False
-        Me.LoadingPB2.Visible = False
-        '
-        'InformationPanelToolStripMenuItem
-        '
-        Me.InformationPanelToolStripMenuItem.CheckOnClick = True
-        Me.InformationPanelToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_information_24
-        Me.InformationPanelToolStripMenuItem.Name = "InformationPanelToolStripMenuItem"
-        Me.InformationPanelToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
-        Me.InformationPanelToolStripMenuItem.Text = "Information Panel"
-        '
-        'ReloadToolStripMenuItem
-        '
-        Me.ReloadToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_synchronize_24
-        Me.ReloadToolStripMenuItem.Name = "ReloadToolStripMenuItem"
-        Me.ReloadToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
-        Me.ReloadToolStripMenuItem.Text = "Reload (F5)"
-        '
-        'ImportToolStripMenuItem1
-        '
-        Me.ImportToolStripMenuItem1.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_database_restore_24
-        Me.ImportToolStripMenuItem1.Name = "ImportToolStripMenuItem1"
-        Me.ImportToolStripMenuItem1.Size = New System.Drawing.Size(169, 22)
-        Me.ImportToolStripMenuItem1.Text = "Import DB"
-        '
-        'ExportToolStripMenuItem
-        '
-        Me.ExportToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_database_export_24
-        Me.ExportToolStripMenuItem.Name = "ExportToolStripMenuItem"
-        Me.ExportToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
-        Me.ExportToolStripMenuItem.Text = "Export DB"
-        '
-        'ExitToolStripMenuItem
-        '
-        Me.ExitToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_close_window_24
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(169, 22)
-        Me.ExitToolStripMenuItem.Text = "Exit"
-        '
-        'ChangeUNPWToolStripMenuItem
-        '
-        Me.ChangeUNPWToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_lock_24
-        Me.ChangeUNPWToolStripMenuItem.Name = "ChangeUNPWToolStripMenuItem"
-        Me.ChangeUNPWToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
-        Me.ChangeUNPWToolStripMenuItem.Text = "Change UN/PW"
-        '
-        'LogoutToolStripMenuItem
-        '
-        Me.LogoutToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_shutdown_24
-        Me.LogoutToolStripMenuItem.Name = "LogoutToolStripMenuItem"
-        Me.LogoutToolStripMenuItem.Size = New System.Drawing.Size(158, 22)
-        Me.LogoutToolStripMenuItem.Text = "Logout"
-        '
-        'AddUserToolStripMenuItem
-        '
-        Me.AddUserToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_add_user_male_24
-        Me.AddUserToolStripMenuItem.Name = "AddUserToolStripMenuItem"
-        Me.AddUserToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.AddUserToolStripMenuItem.Text = "Add User"
-        '
-        'EditToolStripMenuItem
-        '
-        Me.EditToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_edit_24
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.EditToolStripMenuItem.Text = "Edit"
-        '
-        'DeleteToolStripMenuItem
-        '
-        Me.DeleteToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_delete_bin_24
-        Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
-        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.DeleteToolStripMenuItem.Text = "Delete"
-        '
-        'ChangePictureToolStripMenuItem
-        '
-        Me.ChangePictureToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_photo_editor_24
-        Me.ChangePictureToolStripMenuItem.Name = "ChangePictureToolStripMenuItem"
-        Me.ChangePictureToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.ChangePictureToolStripMenuItem.Text = "Change Picture"
-        '
-        'ReportToolStripMenuItem
-        '
-        Me.ReportToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.InputToolStripMenuItem, Me.PrintToolStripMenuItem})
-        Me.ReportToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_business_report_24
-        Me.ReportToolStripMenuItem.Name = "ReportToolStripMenuItem"
-        Me.ReportToolStripMenuItem.Size = New System.Drawing.Size(155, 22)
-        Me.ReportToolStripMenuItem.Text = "Status Report"
-        '
-        'InputToolStripMenuItem
-        '
-        Me.InputToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_input_241
-        Me.InputToolStripMenuItem.Name = "InputToolStripMenuItem"
-        Me.InputToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.InputToolStripMenuItem.Text = "Input"
-        '
-        'PrintToolStripMenuItem
-        '
-        Me.PrintToolStripMenuItem.Image = Global.WindowsApplication1.My.Resources.Resources.icons8_print_24
-        Me.PrintToolStripMenuItem.Name = "PrintToolStripMenuItem"
-        Me.PrintToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.PrintToolStripMenuItem.Text = "Print"
-        '
         'Homepage
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1840,17 +1824,20 @@ Partial Class Homepage
         Me.Homepage_Split.ResumeLayout(False)
         Me.Left_Pnl.ResumeLayout(False)
         Me.Info_Pnl.ResumeLayout(False)
+        CType(Me.Image_Pbox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Side_Pnl.ResumeLayout(False)
         Me.Side_Pnl.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
+        CType(Me.LoadingPB2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Homepage_Cmenu.ResumeLayout(False)
         Me.Homepage_Menu.ResumeLayout(False)
         Me.Homepage_Menu.PerformLayout()
         Me.ChangePicture_Pnl.ResumeLayout(False)
         Me.ChangePicBody_Pnl.ResumeLayout(False)
+        CType(Me.ChangePic_Pbox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ChangePictureHeader_Pnl.ResumeLayout(False)
         Me.ChangePictureHeader_Pnl.PerformLayout()
         Me.Search_Pnl.ResumeLayout(False)
@@ -1874,9 +1861,6 @@ Partial Class Homepage
         Me.ChangeUNPWBdy_Pnl.PerformLayout()
         Me.ChangeUNPWHdr_Pnl.ResumeLayout(False)
         Me.ChangeUNPWHdr_Pnl.PerformLayout()
-        CType(Me.ChangePic_Pbox, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.Image_Pbox, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.LoadingPB2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1989,6 +1973,4 @@ Partial Class Homepage
     Friend WithEvents MetroLabel9 As MetroFramework.Controls.MetroLabel
     Friend WithEvents MetroLabel10 As MetroFramework.Controls.MetroLabel
     Friend WithEvents OldPass_Tbox As MetroFramework.Controls.MetroTextBox
-    Friend WithEvents ImportToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents ExportToolStripMenuItem As ToolStripMenuItem
 End Class
