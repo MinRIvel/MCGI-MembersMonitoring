@@ -108,7 +108,7 @@ Public Class Homepage
             Report_DGV.DataSource = ReportDGV_BS
 
             Directory.CreateDirectory(Application.StartupPath & "\Member_Images")
-            Directory.CreateDirectory(Application.StartupPath & "\BackupDBs")
+            'Directory.CreateDirectory(Application.StartupPath & "\BackupDBs")
             TODO = "LoadDGV"
             Start_BGW()
         Catch ex As Exception
