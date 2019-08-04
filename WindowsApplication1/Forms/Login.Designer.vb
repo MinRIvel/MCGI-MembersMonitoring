@@ -37,11 +37,11 @@ Partial Class Login
         Me.PasswordTextBox = New System.Windows.Forms.TextBox()
         Me.OK = New System.Windows.Forms.Button()
         Me.Cancel = New System.Windows.Forms.Button()
-        Me.LogoPictureBox = New System.Windows.Forms.PictureBox()
-        Me.LoadingPB2 = New System.Windows.Forms.PictureBox()
         Me.Login_Lbl = New MetroFramework.Controls.MetroLabel()
-        CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.LoadingPB2 = New System.Windows.Forms.PictureBox()
+        Me.LogoPictureBox = New System.Windows.Forms.PictureBox()
         CType(Me.LoadingPB2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'UsernameLabel
@@ -96,27 +96,6 @@ Partial Class Login
         Me.Cancel.TabIndex = 5
         Me.Cancel.Text = "&Cancel"
         '
-        'LogoPictureBox
-        '
-        Me.LogoPictureBox.Image = CType(resources.GetObject("LogoPictureBox.Image"), System.Drawing.Image)
-        Me.LogoPictureBox.Location = New System.Drawing.Point(0, 0)
-        Me.LogoPictureBox.Name = "LogoPictureBox"
-        Me.LogoPictureBox.Size = New System.Drawing.Size(165, 193)
-        Me.LogoPictureBox.TabIndex = 0
-        Me.LogoPictureBox.TabStop = False
-        '
-        'LoadingPB2
-        '
-        Me.LoadingPB2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LoadingPB2.Image = CType(resources.GetObject("LoadingPB2.Image"), System.Drawing.Image)
-        Me.LoadingPB2.Location = New System.Drawing.Point(309, 0)
-        Me.LoadingPB2.Name = "LoadingPB2"
-        Me.LoadingPB2.Size = New System.Drawing.Size(85, 28)
-        Me.LoadingPB2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.LoadingPB2.TabIndex = 625
-        Me.LoadingPB2.TabStop = False
-        Me.LoadingPB2.Visible = False
-        '
         'Login_Lbl
         '
         Me.Login_Lbl.AutoSize = True
@@ -132,6 +111,28 @@ Partial Class Login
         Me.Login_Lbl.UseStyleColors = True
         Me.Login_Lbl.Visible = False
         Me.Login_Lbl.WrapToLine = True
+        '
+        'LoadingPB2
+        '
+        Me.LoadingPB2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.LoadingPB2.Image = CType(resources.GetObject("LoadingPB2.Image"), System.Drawing.Image)
+        Me.LoadingPB2.Location = New System.Drawing.Point(309, 0)
+        Me.LoadingPB2.Name = "LoadingPB2"
+        Me.LoadingPB2.Size = New System.Drawing.Size(85, 28)
+        Me.LoadingPB2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.LoadingPB2.TabIndex = 625
+        Me.LoadingPB2.TabStop = False
+        Me.LoadingPB2.Visible = False
+        '
+        'LogoPictureBox
+        '
+        Me.LogoPictureBox.Image = Global.WindowsApplication1.My.Resources.Resources.mcgi_logo_w_shadow
+        Me.LogoPictureBox.Location = New System.Drawing.Point(0, 0)
+        Me.LogoPictureBox.Name = "LogoPictureBox"
+        Me.LogoPictureBox.Size = New System.Drawing.Size(165, 193)
+        Me.LogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.LogoPictureBox.TabIndex = 0
+        Me.LogoPictureBox.TabStop = False
         '
         'Login
         '
@@ -150,13 +151,14 @@ Partial Class Login
         Me.Controls.Add(Me.UsernameLabel)
         Me.Controls.Add(Me.LogoPictureBox)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "Login"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.LoadingPB2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.LogoPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
