@@ -154,6 +154,11 @@
     <Compile Include="Forms\Splash.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="mcgiDataSet.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mcgiDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Module\Queries.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -203,6 +208,17 @@
     </None>
     <None Include="Datasets\mcgi_ds.xss">
       <DependentUpon>mcgi_ds.xsd</DependentUpon>
+    </None>
+    <None Include="mcgiDataSet.xsc">
+      <DependentUpon>mcgiDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="mcgiDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>mcgiDataSet.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="mcgiDataSet.xss">
+      <DependentUpon>mcgiDataSet.xsd</DependentUpon>
     </None>
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -308,6 +324,13 @@
     <None Include="Resources\website-mcgi.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="mcgi.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="mcgi_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>mcgi.mdf</DependentUpon>
+    </Content>
     <Content Include="mcgi_logo_w_shadow.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
