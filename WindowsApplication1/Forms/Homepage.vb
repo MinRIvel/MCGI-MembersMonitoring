@@ -62,7 +62,7 @@ Public Class Homepage
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
     Sub right_arrows()
@@ -109,11 +109,11 @@ Public Class Homepage
 
             Directory.CreateDirectory(Application.StartupPath & "\Member_Images")
             'Directory.CreateDirectory(Application.StartupPath & "\BackupDBs")
-            TODO = "LoadDGV"
-            Start_BGW()
+            'TODO = "LoadDGV"
+            'Start_BGW()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -304,7 +304,7 @@ Public Class Homepage
             End Select
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -330,7 +330,7 @@ Public Class Homepage
             End Select
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -456,7 +456,7 @@ Public Class Homepage
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -475,7 +475,7 @@ Public Class Homepage
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -500,7 +500,7 @@ Public Class Homepage
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -536,7 +536,7 @@ Public Class Homepage
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -565,7 +565,7 @@ Public Class Homepage
             End With
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -592,7 +592,7 @@ Public Class Homepage
             Start_BGW()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -720,7 +720,7 @@ Public Class Homepage
             ISReport_RTF.Focus()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -811,7 +811,7 @@ Public Class Homepage
             End With
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -972,7 +972,7 @@ Public Class Homepage
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -1028,7 +1028,7 @@ Public Class Homepage
             End With
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
     Private allowCoolMove As Boolean = False

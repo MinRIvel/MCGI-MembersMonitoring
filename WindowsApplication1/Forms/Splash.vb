@@ -173,7 +173,7 @@ Public NotInheritable Class Splash
             Next
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -183,7 +183,7 @@ Public NotInheritable Class Splash
             Splash_Lbl.Text = Label_status
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 
@@ -198,7 +198,7 @@ Public NotInheritable Class Splash
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message)
-            log_file_writer(ex.StackTrace)
+            log_file_writer(ex.StackTrace, ex.Message)
         End Try
     End Sub
 End Class

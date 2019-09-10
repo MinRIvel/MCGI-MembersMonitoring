@@ -3,9 +3,11 @@ Imports System.IO
 Imports ComponentFactory.Krypton.Toolkit
 Imports System.Text
 Imports System.Security.Cryptography
+Imports System.Data.SqlClient
 Module Queries
     Public Log_File As StreamWriter
-    Public msconString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Application.StartupPath & "\mcgidb.accdb"
+    'Public msconString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Application.StartupPath & "\mcgidb.accdb"
+    Public msconString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" & Application.StartupPath & "\mcgi.mdf;Integrated Security=True"
     Public msDataAdapter As OleDbDataAdapter
     Public msDataSet As New DataSet
     Public msBindingSource As BindingSource
@@ -88,9 +90,11 @@ Module Queries
 
         e.Graphics.DrawString(rowIdx, rowFont, SystemBrushes.ControlText, headerBounds, centerFormat)
     End Sub
-    Public Sub log_file_writer(ByVal Err_StackTrace As String)
+    Public Sub log_file_writer(ByVal Err_StackTrace As String,
+                               ByVal Err_Message As String)
         Log_File = My.Computer.FileSystem.OpenTextFileWriter(Application.StartupPath & "\Error_Logs.txt", True)
         Log_File.WriteLine("Logs dated " & Date.Now.ToString("dddd, MMMM dd, yyyy HH:mm:ss tt") & vbCrLf &
+                           "Error Message: " & Err_Message & vbCrLf &
                            "Trace: " & Err_StackTrace & vbCrLf)
         Log_File.Close()
     End Sub
@@ -370,18 +374,45 @@ Module Queries
             End Using
         End Using
     End Sub
+    'Public Sub Login_QUERY(ByVal Username As String,
+    '                       ByVal Password As String)
+    '    Using mscon As New OleDbConnection(msconString)
+    '        mscon.Open()
+    '        Using mscmd As OleDbCommand = mscon.CreateCommand()
+    '            mscmd.Connection = mscon
+    '            mscmd.CommandText = "Select * from User_Information where Uname = @Uname and Pword = @Pword"
+    '            mscmd.CommandType = CommandType.Text
+
+    '            mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = Username
+    '            mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(Password)
+    '            Using msread As OleDbDataReader = mscmd.ExecuteReader
+    '                msread.Read()
+    '                If msread.HasRows Then
+    '                    User_Id = msread.Item(0)
+    '                    UserNickname = msread.Item("Nickname").ToString
+    '                    User_type = msread.Item("Usertype").ToString
+    '                    Uname = msread.Item("Uname").ToString
+    '                    Pword = Decrypt(msread.Item("Pword").ToString)
+    '                    sql_Transaction_result = "Committed"
+    '                Else
+    '                    User_Id = Nothing
+    '                End If
+    '            End Using
+    '        End Using
+    '    End Using
+    'End Sub
     Public Sub Login_QUERY(ByVal Username As String,
                            ByVal Password As String)
-        Using mscon As New OleDbConnection(msconString)
+        Using mscon As New SqlConnection(msconString)
             mscon.Open()
-            Using mscmd As OleDbCommand = mscon.CreateCommand()
+            Using mscmd As SqlCommand = mscon.CreateCommand()
                 mscmd.Connection = mscon
                 mscmd.CommandText = "Select * from User_Information where Uname = @Uname and Pword = @Pword"
                 mscmd.CommandType = CommandType.Text
 
-                mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = Username
-                mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(Password)
-                Using msread As OleDbDataReader = mscmd.ExecuteReader
+                mscmd.Parameters.Add("@Uname", SqlDbType.VarChar).Value = Username
+                mscmd.Parameters.Add("@Pword", SqlDbType.VarChar).Value = Encrypt(Password)
+                Using msread As SqlDataReader = mscmd.ExecuteReader
                     msread.Read()
                     If msread.HasRows Then
                         User_Id = msread.Item(0)
@@ -397,6 +428,7 @@ Module Queries
             End Using
         End Using
     End Sub
+
     Public Sub PrintRPT_QUERY(ByVal ModeString As String,
                               ByVal sqlQuery As String,
                               Optional A_id As Integer = Nothing)
