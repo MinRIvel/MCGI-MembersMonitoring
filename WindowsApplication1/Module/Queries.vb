@@ -7,8 +7,8 @@ Imports System.Data.SqlClient
 Module Queries
     Public Log_File As StreamWriter
     'Public msconString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Application.StartupPath & "\mcgidb.accdb"
-    'Public msconString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" & Application.StartupPath & "\mcgi.mdf;Integrated Security=True"
-    Public msconString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\kmdie\Documents\GitHub\WindowsApplication1\WindowsApplication1\mcgi.mdf;Integrated Security=True"
+    Public msconString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" & Application.StartupPath & "\mcgi.mdf;Integrated Security=True"
+    'Public msconString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\kmdie\Documents\GitHub\WindowsApplication1\WindowsApplication1\mcgi.mdf;Integrated Security=True"
     Public transaction As SqlTransaction
     Public msDataAdapter As SqlDataAdapter
     Public msDataSet As New DataSet
