@@ -95,7 +95,7 @@ Public Class Homepage
             If User_type <> "Admin" Then
                 AdminToolStripMenuItem.Visible = False
             End If
-            Homepage_Split.SplitterDistance = 0
+            'Homepage_Split.SplitterDistance = 0
             DateTime_Lbl.Text = ""
             DateTime_Timer.Start()
             BGW.WorkerSupportsCancellation = True
@@ -109,8 +109,8 @@ Public Class Homepage
 
             Directory.CreateDirectory(Application.StartupPath & "\Member_Images")
             'Directory.CreateDirectory(Application.StartupPath & "\BackupDBs")
-            'TODO = "LoadDGV"
-            'Start_BGW()
+            TODO = "LoadDGV"
+            Start_BGW()
         Catch ex As Exception
             MessageBox.Show(ex.Message)
             log_file_writer(ex.StackTrace, ex.Message)
@@ -121,186 +121,198 @@ Public Class Homepage
         Try
             Select Case TODO
                 Case "LoadDGV"
-                    sqlQuery = "Select   A_id
-                                        ,ID_Number AS [ID NUMBER]
-                                        ,Last_Name AS [LAST NAME]
-                                        ,First_Name AS [FIRST NAME]
-                                        ,Middle_Name AS [MIDDLE NAME]
-                                        ,Address AS [ADDRESS]
-                                        ,Contact_Number AS [CONTACT NUMBER]
-                                        ,Occupation AS [OCCUPATION]
-                                        ,Skill AS [SKILL]
-                                        ,Baptism_Date AS [BAPTISM DATE]
-                                        ,Baptized_By AS [BAPTIZED BY]
-                                        ,Nagakay AS [NAG-AKAY]
-                                        ,Image_Location
-                                        ,Inputted_By
-                                From    Member_Information
-                                Where   (ID_Number Like @SearchStr
-                                    or  Last_name like @SearchStr
-                                    or  First_Name like @SearchStr
-                                    or  Middle_Name like @SearchStr
-                                    or  Address like @SearchStr
-                                    or  Contact_Number like @SearchStr
-                                    or  Occupation like @SearchStr
-                                    or  Skill like @SearchStr
-                                    or  Baptized_By like @SearchStr
-                                    or  Nagakay like @SearchStr)
-                                    and Row_Status = True
-                                Order by A_id asc"
-                    MbrsInfo_QUERY(TODO, sqlQuery, SearchStr)
+                    'sqlQuery = "Select   A_id
+                    '                    ,ID_Number AS [ID NUMBER]
+                    '                    ,Last_Name AS [LAST NAME]
+                    '                    ,First_Name AS [FIRST NAME]
+                    '                    ,Middle_Name AS [MIDDLE NAME]
+                    '                    ,Address AS [ADDRESS]
+                    '                    ,Contact_Number AS [CONTACT NUMBER]
+                    '                    ,Occupation AS [OCCUPATION]
+                    '                    ,Skill AS [SKILL]
+                    '                    ,Baptism_Date AS [BAPTISM DATE]
+                    '                    ,Baptized_By AS [BAPTIZED BY]
+                    '                    ,Nagakay AS [NAG-AKAY]
+                    '                    ,Image_Location
+                    '                    ,Inputted_By
+                    '            From    Member_Information
+                    '            Where   (ID_Number Like @SearchStr
+                    '                or  Last_name like @SearchStr
+                    '                or  First_Name like @SearchStr
+                    '                or  Middle_Name like @SearchStr
+                    '                or  Address like @SearchStr
+                    '                or  Contact_Number like @SearchStr
+                    '                or  Occupation like @SearchStr
+                    '                or  Skill like @SearchStr
+                    '                or  Baptized_By like @SearchStr
+                    '                or  Nagakay like @SearchStr)
+                    '                and Row_Status = True
+                    '            Order by A_id asc"
+                    mcgi_query(TODO, sqlQuery, SearchStr)
                     BGW.ReportProgress(0)
 
                 Case "SaveTrans"
-                    sqlQuery = "Insert into Member_Information  (A_id
-                                                                ,Image_Location
-                                                                ,ID_Number
-                                                                ,Last_Name
-                                                                ,First_Name
-                                                                ,Middle_Name
-                                                                ,Address
-                                                                ,Contact_Number
-                                                                ,Occupation
-                                                                ,Skill
-                                                                ,Baptism_Date
-                                                                ,Baptized_By
-                                                                ,Nagakay
-                                                                ,Inputted_By)
-                                                        values  (@Max_ID
-                                                                ,@Image_Location
-                                                                ,@ID_Number
-                                                                ,@Last_Name
-                                                                ,@First_Name
-                                                                ,@Middle_Name
-                                                                ,@Address
-                                                                ,@Contact_Number
-                                                                ,@Occupation
-                                                                ,@Skill
-                                                                ,@Baptism_Date
-                                                                ,@Baptized_By
-                                                                ,@Nagakay
-                                                                ,@Inputted_By)"
-                    Dim sql2 As String = "SELECT iif(MAX(A_ID) is null,0,MAX(A_ID)) FROM Member_Information"
-                    Get_QUERY(sql2)
-                    MbrsInfo_QUERY(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
+                    'sqlQuery = "Insert into Member_Information  (A_id
+                    '                                            ,Image_Location
+                    '                                            ,ID_Number
+                    '                                            ,Last_Name
+                    '                                            ,First_Name
+                    '                                            ,Middle_Name
+                    '                                            ,Address
+                    '                                            ,Contact_Number
+                    '                                            ,Occupation
+                    '                                            ,Skill
+                    '                                            ,Baptism_Date
+                    '                                            ,Baptized_By
+                    '                                            ,Nagakay
+                    '                                            ,Inputted_By)
+                    '                                    values  (@Max_ID
+                    '                                            ,@Image_Location
+                    '                                            ,@ID_Number
+                    '                                            ,@Last_Name
+                    '                                            ,@First_Name
+                    '                                            ,@Middle_Name
+                    '                                            ,@Address
+                    '                                            ,@Contact_Number
+                    '                                            ,@Occupation
+                    '                                            ,@Skill
+                    '                                            ,@Baptism_Date
+                    '                                            ,@Baptized_By
+                    '                                            ,@Nagakay
+                    '                                            ,@Inputted_By)"
+                    'Dim sql2 As String = "SELECT iif(MAX(A_ID) is null,0,MAX(A_ID)) FROM Member_Information"
+                    Max_ID = TABLGETMaxID_STP2("Member_Information", "A_Id") + 1
+                    'Get_QUERY(sql2)
+                    mcgi_query(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
                                    Occupation, Skill, Baptism_Date, Baptized_By, Nagakay, Image_Location)
 
                 Case "UpdateTrans"
-                    sqlQuery = "Update  Member_Information
-                                set      ID_Number      = @ID_Number
-                                        ,Last_Name      = @Last_Name
-                                        ,First_Name     = @First_Name
-                                        ,Middle_Name    = @Middle_Name
-                                        ,Address        = @Address
-                                        ,Contact_Number = @Contact_Number
-                                        ,Occupation     = @Occupation
-                                        ,Skill          = @Skill
-                                        ,Baptism_Date   = @Baptism_Date
-                                        ,Baptized_By    = @Baptized_By
-                                        ,Nagakay        = @Nagakay
-                                        ,Inputted_By    = @Inputted_By
-                                where   A_id = @A_id"
-                    MbrsInfo_QUERY(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
+                    'sqlQuery = "Update  Member_Information
+                    '            set      ID_Number      = @ID_Number
+                    '                    ,Last_Name      = @Last_Name
+                    '                    ,First_Name     = @First_Name
+                    '                    ,Middle_Name    = @Middle_Name
+                    '                    ,Address        = @Address
+                    '                    ,Contact_Number = @Contact_Number
+                    '                    ,Occupation     = @Occupation
+                    '                    ,Skill          = @Skill
+                    '                    ,Baptism_Date   = @Baptism_Date
+                    '                    ,Baptized_By    = @Baptized_By
+                    '                    ,Nagakay        = @Nagakay
+                    '                    ,Inputted_By    = @Inputted_By
+                    '            where   A_id = @A_id"
+                    mcgi_query(TODO, sqlQuery,, ID_Number, Last_Name, First_Name, Middle_Name, Address, Contact_Number,
                                    Occupation, Skill, Baptism_Date, Baptized_By, Nagakay,, A_id)
 
                 Case "UpdatePictureTrans"
-                    sqlQuery = "Update  Member_Information
-                                set     Image_Location = @Image_Location
-                                       ,Inputted_By    = @Inputted_By
-                                where   A_id = @A_id"
-                    MbrsInfo_QUERY(TODO, sqlQuery,,,,,,,,,,,,, Image_Location, A_id)
+                    'sqlQuery = "Update  Member_Information
+                    '            set     Image_Location = @Image_Location
+                    '                   ,Inputted_By    = @Inputted_By
+                    '            where   A_id = @A_id"
+                    mcgi_query(TODO, sqlQuery,,,,,,,,,,,,, Image_Location, A_id)
 
                 Case "UpdateDeleteTrans"
-                    sqlQuery = "Update  Member_Information
-                                set     Row_Status = False
-                                       ,Inputted_By    = @Inputted_By
-                                where   A_id = @A_id"
+                    'sqlQuery = "Update  Member_Information
+                    '            set     Row_Status = False
+                    '                   ,Inputted_By    = @Inputted_By
+                    '            where   A_id = @A_id"
                     For i = 0 To A_ID_list.Count - 1
-                        MbrsInfo_QUERY(TODO, sqlQuery,,,,,,,,,,,,,, A_ID_list(i))
+                        mcgi_query(TODO, sqlQuery,,,,,,,,,,,,,, A_ID_list(i))
                     Next
 
                 Case "Load_ReportDGV"
-                    sqlQuery = "Select   R_Id
-                                        ,A_id_Ref
-                                        ,Format(CStr(Report_Date),""MMMM dd, yyyy"") + Chr(13) + Chr(10) +  Chr(13) + Chr(10) + Report_Status as [Report Status]
-                                        ,Report_Date
-                                        ,Report_Status
-                                        ,[RI].Inputted_By
-                                FROM    Member_Information [MI]
-                                INNER JOIN  Report_Information [RI]
-                                ON      [MI].A_Id = [RI].A_Id_Ref
-                                Where   Row_Status = True
-                                    and Report_RowStatus = True
-                                    and Report_Status like @SearchStrIS
-                                    and A_id_Ref = @A_id_Ref
-                                Order by Report_Date desc"
-                    ReportInfo_QUERY(TODO, sqlQuery, SearchISStr, A_id)
+                    'sqlQuery = "Select   R_Id
+                    '                    ,A_id_Ref
+                    '                    ,Format(CStr(Report_Date),""MMMM dd, yyyy"") + Chr(13) + Chr(10) +  Chr(13) + Chr(10) + Report_Status as [Report Status]
+                    '                    ,Report_Date
+                    '                    ,Report_Status
+                    '                    ,[RI].Inputted_By
+                    '            FROM    Member_Information [MI]
+                    '            INNER JOIN  Report_Information [RI]
+                    '            ON      [MI].A_Id = [RI].A_Id_Ref
+                    '            Where   Row_Status = True
+                    '                and Report_RowStatus = True
+                    '                and Report_Status like @SearchStrIS
+                    '                and A_id_Ref = @A_id_Ref
+                    '            Order by Report_Date desc"
+                    mcgi_query(TODO, sqlQuery, SearchStr,,,,,,,,,,,,, A_id)
+                    'ReportInfo_QUERY(TODO, sqlQuery, SearchISStr, A_id)
                     BGW.ReportProgress(0)
 
                 Case "SaveISTrans"
-                    sqlQuery = "Insert into Report_Information       (R_id
-                                                                     ,A_Id_Ref
-                                                                     ,Report_Status
-                                                                     ,Report_Date
-                                                                     ,Inputted_By)
-                                                            VALUES   (@R_id
-                                                                     ,@A_Id_Ref
-                                                                     ,@Report_Status
-                                                                     ,@Report_Date
-                                                                     ,@Inputted_By)"
-                    Dim sql2 As String = "SELECT iif(MAX(R_Id) is null,0,MAX(R_Id)) FROM Report_Information"
-                    Get_QUERY(sql2)
-                    ReportInfo_QUERY(TODO, sqlQuery,, A_id, Report_Status, Max_ID, Report_Date)
+                    'sqlQuery = "Insert into Report_Information       (R_id
+                    '                                                 ,A_Id_Ref
+                    '                                                 ,Report_Status
+                    '                                                 ,Report_Date
+                    '                                                 ,Inputted_By)
+                    '                                        VALUES   (@R_id
+                    '                                                 ,@A_Id_Ref
+                    '                                                 ,@Report_Status
+                    '                                                 ,@Report_Date
+                    '                                                 ,@Inputted_By)"
+                    'Dim sql2 As String = "SELECT iif(MAX(R_Id) is null,0,MAX(R_Id)) FROM Report_Information"
+                    Max_ID = TABLGETMaxID_STP2("Report_Information", "R_Id") + 1
+                    'Get_QUERY(sql2)
+                    'ReportInfo_QUERY(TODO, sqlQuery,, A_id, Report_Status, Max_ID, Report_Date)
+                    mcgi_query(TODO, sqlQuery, SearchStr,,,,, Report_Status,,,, Report_Date,,,, A_id)
 
                 Case "UpdateISTrans"
-                    sqlQuery = "Update  Report_Information
-                                set     A_Id_Ref = @A_Id_Ref
-                                       ,Report_Status = @Report_Status
-                                       ,Report_Date = @Report_Date
-                                       ,Inputted_By = @Inputted_By
-                                where   R_id = @R_id"
-                    ReportInfo_QUERY(TODO, sqlQuery,, A_id, Report_Status, R_Id, Report_Date)
+                    'sqlQuery = "Update  Report_Information
+                    '            set     A_Id_Ref = @A_Id_Ref
+                    '                   ,Report_Status = @Report_Status
+                    '                   ,Report_Date = @Report_Date
+                    '                   ,Inputted_By = @Inputted_By
+                    '            where   R_id = @R_id"
+                    'ReportInfo_QUERY(TODO, sqlQuery,, A_id, Report_Status, R_Id, Report_Date)
+                    mcgi_query(TODO, sqlQuery,,,,,, Report_Status,,,, Report_Date,,,, A_id, R_Id)
 
                 Case "UpdateDeleteISTrans"
-                    sqlQuery = "Update  Report_Information
-                                set     Report_RowStatus = False
-                                       ,Inputted_By = @Inputted_By
-                                where   R_id = @R_id"
+                    'sqlQuery = "Update  Report_Information
+                    '            set     Report_RowStatus = False
+                    '                   ,Inputted_By = @Inputted_By
+                    '            where   R_id = @R_id"
                     For i = 0 To R_id_list.Count - 1
-                        ReportInfo_QUERY(TODO, sqlQuery,,,, R_id_list(i))
+                        mcgi_query(TODO, sqlQuery,,,,,,,,,,,,,,, R_id_list(i))
+                        'ReportInfo_QUERY(TODO, sqlQuery,,,, R_id_list(i))
                     Next
 
                 Case "GetUsertypes"
-                    sqlQuery = "Select distinct Usertype From User_Information"
-                    UserInfo_QUERY(TODO, sqlQuery)
+                    'sqlQuery = "Select distinct Usertype From User_Information"
+                    'UserInfo_QUERY(TODO, sqlQuery)
+                    mcgi_query(TODO, "")
 
                 Case "SaveUserTrans"
-                    sqlQuery = "Insert into User_Information         (U_id
-                                                                     ,Usertype
-                                                                     ,Last_Name
-                                                                     ,First_Name
-                                                                     ,Middle_Name
-                                                                     ,Nickname
-                                                                     ,Uname
-                                                                     ,Pword)
-                                                            VALUES   (@U_id
-                                                                     ,@Usertype
-                                                                     ,@Last_Name
-                                                                     ,@First_Name
-                                                                     ,@Middle_Name
-                                                                     ,@Nickname
-                                                                     ,@Uname
-                                                                     ,@Pword)"
-                    Dim sql2 As String = "SELECT iif(MAX(U_id) is null,0,MAX(U_id)) FROM User_Information"
-                    Get_QUERY(sql2)
-                    UserInfo_QUERY(TODO, sqlQuery, Max_ID, Usertype, UsrLname, UsrFname, UsrMname, UsrNickname)
+                    'sqlQuery = "Insert into User_Information         (U_id
+                    '                                                 ,Usertype
+                    '                                                 ,Last_Name
+                    '                                                 ,First_Name
+                    '                                                 ,Middle_Name
+                    '                                                 ,Nickname
+                    '                                                 ,Uname
+                    '                                                 ,Pword)
+                    '                                        VALUES   (@U_id
+                    '                                                 ,@Usertype
+                    '                                                 ,@Last_Name
+                    '                                                 ,@First_Name
+                    '                                                 ,@Middle_Name
+                    '                                                 ,@Nickname
+                    '                                                 ,@Uname
+                    '                                                 ,@Pword)"
+                    'Dim sql2 As String = "SELECT iif(MAX(U_id) is null,0,MAX(U_id)) FROM User_Information"
+                    Max_ID = TABLGETMaxID_STP2("User_Information", "U_Id") + 1
+                    'Get_QUERY(sql2)
+                    mcgi_query(TODO, sqlQuery,,, UsrLname, UsrFname, UsrMname,,,,,,,,,,,, Usertype, UsrNickname, Max_ID, Max_ID)
+                    'UserInfo_QUERY(TODO, sqlQuery, Max_ID, Usertype, UsrLname, UsrFname, UsrMname, UsrNickname)
 
                 Case "ChangeUNPWTrans"
-                    UserInfo_QUERY(TODO, sqlQuery, User_Id,,,,,, newUname, newPword)
+                    'UserInfo_QUERY(TODO, sqlQuery, User_Id,,,,,, newUname, newPword)
+                    mcgi_query(TODO, sqlQuery,,,,,,,,,,,,,,,, User_Id,,, newUname, newPword)
                 Case "ChangeUNTrans"
-                    UserInfo_QUERY(TODO, sqlQuery, User_Id,,,,,, newUname)
+                    'UserInfo_QUERY(TODO, sqlQuery, User_Id,,,,,, newUname)
+                    mcgi_query(TODO, sqlQuery,,,,,,,,,,,,,,,, User_Id,,, newUname)
                 Case "ChangePWTrans"
-                    UserInfo_QUERY(TODO, sqlQuery, User_Id,,,,,,, newPword)
+                    'UserInfo_QUERY(TODO, sqlQuery, User_Id,,,,,,, newPword)
+                    mcgi_query(TODO, sqlQuery,,,,,,,,,,,,,,,, User_Id,,,, newPword)
             End Select
         Catch ex As Exception
             MessageBox.Show(ex.Message)
@@ -431,7 +443,7 @@ Public Class Homepage
                             Start_BGW()
 
                         Case "SaveUserTrans"
-                            MetroMessageBox.Show(Me, "Your new username and password is " & Max_ID + 1, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                            MetroMessageBox.Show(Me, "Your new username and password is " & Max_ID, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                             reset_here()
 
                         Case "GetUsertypes"
@@ -783,29 +795,31 @@ Public Class Homepage
         Try
             With Homepage_DGV.Rows(dgv_rowindex)
                 Print_Report.Image_Location = Application.StartupPath & "\Member_Images\" & .Cells("Image_Location").Value.ToString
-                sqlQuery = "Select   ID_Number
-                                    ,Last_Name
-                                    ,First_Name
-                                    ,Middle_Name
-                                    ,Address
-                                    ,Contact_Number
-                                    ,Occupation
-                                    ,Skill
-                                    ,Baptism_Date
-                                    ,Baptized_By
-                                    ,Nagakay
-                                    ,Image_Location
-                        From    Member_Information
-                        Where   A_id = @A_id
-                            and Row_Status = True"
+                'sqlQuery = "Select   ID_Number
+                '                    ,Last_Name
+                '                    ,First_Name
+                '                    ,Middle_Name
+                '                    ,Address
+                '                    ,Contact_Number
+                '                    ,Occupation
+                '                    ,Skill
+                '                    ,Baptism_Date
+                '                    ,Baptized_By
+                '                    ,Nagakay
+                '                    ,Image_Location
+                '        From    Member_Information
+                '        Where   A_id = @A_id
+                '            and Row_Status = True"
                 PrintRPT_QUERY("Member_Info", sqlQuery, .Cells("A_id").Value)
+                'mcgi_query("Member_Info", sqlQuery,,,,,,,,,,,,,, .Cells("A_id").Value)
 
-                sqlQuery = "Select   Report_Status
-                                    ,Report_Date
-                        From    Report_Information
-                        Where   A_Id_Ref = @A_id
-                            and Report_RowStatus = True"
+                'sqlQuery = "Select   Report_Status
+                '                    ,Report_Date
+                '        From    Report_Information
+                '        Where   A_Id_Ref = @A_id
+                '            and Report_RowStatus = True"
                 PrintRPT_QUERY("Report_Info", sqlQuery, .Cells("A_id").Value)
+                'mcgi_query("Report_Info", sqlQuery,,,,,,,,,,,,,, .Cells("A_id").Value)
 
                 Print_Report.Show()
             End With

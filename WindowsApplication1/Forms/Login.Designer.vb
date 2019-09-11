@@ -126,7 +126,6 @@ Partial Class Login
         '
         'LogoPictureBox
         '
-        Me.LogoPictureBox.Image = Global.WindowsApplication1.My.Resources.Resources.mcgi_logo_w_shadow
         Me.LogoPictureBox.Location = New System.Drawing.Point(0, 0)
         Me.LogoPictureBox.Name = "LogoPictureBox"
         Me.LogoPictureBox.Size = New System.Drawing.Size(165, 193)

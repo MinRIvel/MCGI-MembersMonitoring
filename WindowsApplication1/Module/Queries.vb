@@ -7,8 +7,10 @@ Imports System.Data.SqlClient
 Module Queries
     Public Log_File As StreamWriter
     'Public msconString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Application.StartupPath & "\mcgidb.accdb"
-    Public msconString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" & Application.StartupPath & "\mcgi.mdf;Integrated Security=True"
-    Public msDataAdapter As OleDbDataAdapter
+    'Public msconString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" & Application.StartupPath & "\mcgi.mdf;Integrated Security=True"
+    Public msconString As String = "Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\kmdie\Documents\GitHub\WindowsApplication1\WindowsApplication1\mcgi.mdf;Integrated Security=True"
+    Public transaction As SqlTransaction
+    Public msDataAdapter As SqlDataAdapter
     Public msDataSet As New DataSet
     Public msBindingSource As BindingSource
     Public homepageDGV_BS As New BindingSource
@@ -134,7 +136,7 @@ Module Queries
     End Function
     Public Function Checking_Query(ByVal Tblname As String) As Integer
         Dim true_counter As Integer = 0
-        Using mscon As New OleDbConnection(msconString)
+        Using mscon As New SqlConnection(msconString)
             mscon.Open()
             Dim schema = mscon.GetSchema("Tables")
             For Each row As DataRow In schema.Rows
@@ -147,9 +149,9 @@ Module Queries
     End Function
 
     Public Sub Creation_Query(ByVal sqlQuery As String)
-        Using mscon As New OleDbConnection(msconString)
+        Using mscon As New SqlConnection(msconString)
             mscon.Open()
-            Using mscmd As OleDbCommand = mscon.CreateCommand()
+            Using mscmd As SqlCommand = mscon.CreateCommand()
                 mscmd.Connection = mscon
                 mscmd.CommandText = sqlQuery
                 mscmd.CommandType = CommandType.Text
@@ -158,74 +160,92 @@ Module Queries
             End Using
         End Using
     End Sub
-    Public Sub MbrsInfo_QUERY(ByVal dsTbl_Command As String,
+    Public Sub mcgi_query(ByVal dsTbl_Command As String,
                               ByVal sqlQuery As String,
-                              Optional SearchStr As String = Nothing,
-                              Optional ID_Number As String = Nothing,
-                              Optional Last_Name As String = Nothing,
-                              Optional First_Name As String = Nothing,
-                              Optional Middle_Name As String = Nothing,
-                              Optional Address As String = Nothing,
-                              Optional Contact_Number As String = Nothing,
-                              Optional Occupation As String = Nothing,
-                              Optional Skill As String = Nothing,
+                              Optional SearchStr As String = "",
+                              Optional ID_Number As String = "",
+                              Optional Last_Name As String = "",
+                              Optional First_Name As String = "",
+                              Optional Middle_Name As String = "",
+                              Optional Address As String = "",
+                              Optional Contact_Number As String = "",
+                              Optional Occupation As String = "",
+                              Optional Skill As String = "",
                               Optional Baptism_Date As Date = Nothing,
-                              Optional Baptized_By As String = Nothing,
-                              Optional Nagakay As String = Nothing,
-                              Optional Image_Location As String = Nothing,
-                              Optional A_id As Integer = 0)
-        msDataAdapter = New OleDbDataAdapter
+                              Optional Baptized_By As String = "",
+                              Optional Nagakay As String = "",
+                              Optional Image_Location As String = "",
+                              Optional A_id As Integer = 0,
+                              Optional R_id As Integer = 0,
+                              Optional U_id As Integer = 0,
+                              Optional Usertype As String = "",
+                              Optional Nickname As String = "",
+                              Optional Uname As String = "",
+                              Optional Pword As String = "")
+        msDataAdapter = New SqlDataAdapter
         msBindingSource = New BindingSource
         msDataSet = New DataSet
         If msDataSet.Tables.Contains(dsTbl_Command) Then
             msDataSet.Tables(dsTbl_Command).Clear()
         End If
-        Using mscon As New OleDbConnection(msconString)
+        Using mscon As New SqlConnection(msconString)
             mscon.Open()
-            Using mscmd As OleDbCommand = mscon.CreateCommand()
+            Using mscmd As SqlCommand = mscon.CreateCommand()
+                transaction = mscon.BeginTransaction(IsolationLevel.RepeatableRead, dsTbl_Command)
                 mscmd.Connection = mscon
-                mscmd.CommandText = sqlQuery
-                mscmd.CommandType = CommandType.Text
-                If dsTbl_Command.Contains("Trans") = False And dsTbl_Command <> "Load_ReportDGV" Then
-                    mscmd.Parameters.Add("@SearchStr", OleDbType.VarChar).Value = "%" & SearchStr & "%"
+                mscmd.Transaction = transaction
+                mscmd.CommandText = "mcgi_stp"
+                mscmd.CommandType = CommandType.StoredProcedure
 
-                ElseIf dsTbl_Command.Contains("Save") Then
-                    mscmd.Parameters.Add("@Max_ID", OleDbType.Integer).Value = Max_ID + 1
-                    mscmd.Parameters.Add("@Image_Location", OleDbType.VarChar).Value = Image_Location
-                End If
-                If dsTbl_Command <> "UpdatePictureTrans" And
-                   dsTbl_Command.Contains("Delete") = False And
-                   dsTbl_Command <> "Load_ReportDGV" Then
 
-                    mscmd.Parameters.Add("@ID_Number", OleDbType.VarChar).Value = ID_Number
-                    mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Last_Name
-                    mscmd.Parameters.Add("@First_Name", OleDbType.VarChar).Value = First_Name
-                    mscmd.Parameters.Add("@Middle_Name", OleDbType.VarChar).Value = Middle_Name
-                    mscmd.Parameters.Add("@Address", OleDbType.VarChar).Value = Address
-                    mscmd.Parameters.Add("@Contact_Number", OleDbType.VarChar).Value = Contact_Number
-                    mscmd.Parameters.Add("@Occupation", OleDbType.VarChar).Value = Occupation
-                    mscmd.Parameters.Add("@Skill", OleDbType.VarChar).Value = Skill
-                    mscmd.Parameters.Add("@Baptism_Date", OleDbType.DBDate).Value = Baptism_Date.ToString("MMM. dd, yyyy")
-                    mscmd.Parameters.Add("@Baptized_By", OleDbType.VarChar).Value = Baptized_By
-                    mscmd.Parameters.Add("@Nagakay", OleDbType.VarChar).Value = Nagakay
-                    mscmd.Parameters.Add("@Inputted_By", OleDbType.VarChar).Value = UserNickname & " " & Now.Date.ToString("MMMM dd, yyyy")
-                End If
-                If dsTbl_Command = "UpdatePictureTrans" Then
-                    mscmd.Parameters.Add("@Image_Location", OleDbType.VarChar).Value = Image_Location
-                    mscmd.Parameters.Add("@Inputted_By", OleDbType.VarChar).Value = UserNickname & " " & Now.Date.ToString("MMMM dd, yyyy")
-                End If
+                'If dsTbl_Command.Contains("Trans") = False And dsTbl_Command <> "Load_ReportDGV" Then
 
-                If dsTbl_Command = "UpdateDeleteTrans" Then
-                    mscmd.Parameters.Add("@Inputted_By", OleDbType.VarChar).Value = UserNickname & " " & Now.Date.ToString("MMMM dd, yyyy")
-                End If
+                'ElseIf dsTbl_Command.Contains("Save") Then
+                'mscmd.Parameters.Add("@Image_Location", SqlDbType.VarChar).Value = Image_Location
+                'End If
+                'If dsTbl_Command <> "UpdatePictureTrans" And
+                '   dsTbl_Command.Contains("Delete") = False And
+                '   dsTbl_Command <> "Load_ReportDGV" Then
+                mscmd.Parameters.Add("@todo", SqlDbType.VarChar).Value = dsTbl_Command
+                mscmd.Parameters.Add("@SearchStr", SqlDbType.VarChar).Value = "%" & SearchStr & "%"
+                mscmd.Parameters.Add("@ID_Number", SqlDbType.VarChar).Value = ID_Number
+                mscmd.Parameters.Add("@Last_Name", SqlDbType.VarChar).Value = Last_Name
+                mscmd.Parameters.Add("@First_Name", SqlDbType.VarChar).Value = First_Name
+                mscmd.Parameters.Add("@Middle_Name", SqlDbType.VarChar).Value = Middle_Name
+                mscmd.Parameters.Add("@Address", SqlDbType.VarChar).Value = Address
+                mscmd.Parameters.Add("@Contact_Number", SqlDbType.VarChar).Value = Contact_Number
+                mscmd.Parameters.Add("@Occupation", SqlDbType.VarChar).Value = Occupation
+                mscmd.Parameters.Add("@Skill", SqlDbType.VarChar).Value = Skill
+                mscmd.Parameters.Add("@Baptism_Date", SqlDbType.Date).Value = Baptism_Date.ToString("MMM. dd, yyyy")
+                mscmd.Parameters.Add("@Baptized_By", SqlDbType.VarChar).Value = Baptized_By
+                mscmd.Parameters.Add("@Nagakay", SqlDbType.VarChar).Value = Nagakay
+                mscmd.Parameters.Add("@Image_Location", SqlDbType.VarChar).Value = Image_Location
+                mscmd.Parameters.Add("@Inputted_By", SqlDbType.VarChar).Value = UserNickname & " " & Now.Date.ToString("MMMM dd, yyyy")
+                mscmd.Parameters.Add("@A_id", SqlDbType.Int).Value = A_id
+                mscmd.Parameters.Add("@Max_ID", SqlDbType.Int).Value = Max_ID
+                mscmd.Parameters.Add("@R_id", SqlDbType.Int).Value = R_id
+                mscmd.Parameters.Add("@U_id", SqlDbType.Int).Value = U_id
+                mscmd.Parameters.Add("@Usertype", SqlDbType.VarChar).Value = Usertype
+                mscmd.Parameters.Add("@Nickname", SqlDbType.VarChar).Value = Nickname
+                mscmd.Parameters.Add("@Uname", SqlDbType.VarChar).Value = Uname
+                mscmd.Parameters.Add("@Pword", SqlDbType.VarChar).Value = Encrypt(Pword)
+                transaction.Commit()
+                'End If
+                'If dsTbl_Command = "UpdatePictureTrans" Then
+                'mscmd.Parameters.Add("@Inputted_By", SqlDbType.VarChar).Value = UserNickname & " " & Now.Date.ToString("MMMM dd, yyyy")
+                'End If
 
-                If dsTbl_Command.Contains("Update") Then
-                    mscmd.Parameters.Add("@A_id", OleDbType.Integer).Value = A_id
-                End If
+                'If dsTbl_Command = "UpdateDeleteTrans" Then
+                'mscmd.Parameters.Add("@Inputted_By", SqlDbType.VarChar).Value = UserNickname & " " & Now.Date.ToString("MMMM dd, yyyy")
+                'End If
 
-                If dsTbl_Command = "Load_ReportDGV" Then
-                    mscmd.Parameters.Add("@A_id_Ref", OleDbType.Integer).Value = A_id
-                End If
+                'If dsTbl_Command.Contains("Update") Then
+                '    mscmd.Parameters.Add("@A_id", SqlDbType.Int).Value = A_id
+                'End If
+
+                'If dsTbl_Command = "Load_ReportDGV" Then
+                '    mscmd.Parameters.Add("@A_id", SqlDbType.Int).Value = A_id
+                'End If
 
                 If dsTbl_Command.Contains("Trans") = False Then
                     msDataAdapter.SelectCommand = mscmd
@@ -246,43 +266,43 @@ Module Queries
                                 Optional Report_Status As String = "",
                                 Optional R_id As Integer = 0,
                                 Optional Report_Date As Date = Nothing)
-        msDataAdapter = New OleDbDataAdapter
+        msDataAdapter = New SqlDataAdapter
         msBindingSource = New BindingSource
         msDataSet = New DataSet
         If msDataSet.Tables.Contains(dsTbl_Command) Then
             msDataSet.Tables(dsTbl_Command).Clear()
         End If
-        Using mscon As New OleDbConnection(msconString)
+        Using mscon As New SqlConnection(msconString)
             mscon.Open()
-            Using mscmd As OleDbCommand = mscon.CreateCommand()
+            Using mscmd As SqlCommand = mscon.CreateCommand()
                 mscmd.Connection = mscon
                 mscmd.CommandText = sqlQuery
                 mscmd.CommandType = CommandType.Text
                 If dsTbl_Command.Contains("Trans") = False Then
-                    mscmd.Parameters.Add("@SearchStrIS", OleDbType.VarChar).Value = "%" & SearchStrIS & "%"
+                    mscmd.Parameters.Add("@SearchStrIS", SqlDbType.VarChar).Value = "%" & SearchStrIS & "%"
                 End If
 
                 If dsTbl_Command = "Load_ReportDGV" Then
-                    mscmd.Parameters.Add("@A_id_Ref", OleDbType.Integer).Value = A_id
+                    mscmd.Parameters.Add("@A_id_Ref", SqlDbType.Int).Value = A_id
                 End If
 
                 If dsTbl_Command = "SaveISTrans" Then
-                    mscmd.Parameters.Add("@R_id", OleDbType.Integer).Value = R_id + 1
-                    mscmd.Parameters.Add("@A_id_Ref", OleDbType.Integer).Value = A_id
-                    mscmd.Parameters.Add("@Report_Status", OleDbType.LongVarChar).Value = Report_Status
-                    mscmd.Parameters.Add("@Report_Date", OleDbType.DBDate).Value = Report_Date.ToString("MMM. dd, yyyy")
-                    mscmd.Parameters.Add("@Inputted_By", OleDbType.VarChar).Value = UserNickname & vbCrLf & Now.Date.ToString("MMMM dd, yyyy")
+                    mscmd.Parameters.Add("@R_id", SqlDbType.Int).Value = R_id + 1
+                    mscmd.Parameters.Add("@A_id_Ref", SqlDbType.Int).Value = A_id
+                    mscmd.Parameters.Add("@Report_Status", SqlDbType.VarChar).Value = Report_Status
+                    mscmd.Parameters.Add("@Report_Date", SqlDbType.Date).Value = Report_Date.ToString("MMM. dd, yyyy")
+                    mscmd.Parameters.Add("@Inputted_By", SqlDbType.VarChar).Value = UserNickname & vbCrLf & Now.Date.ToString("MMMM dd, yyyy")
 
                 ElseIf dsTbl_Command = "UpdateISTrans" Then
-                    mscmd.Parameters.Add("@A_id_Ref", OleDbType.Integer).Value = A_id
-                    mscmd.Parameters.Add("@Report_Status", OleDbType.LongVarChar).Value = Report_Status
-                    mscmd.Parameters.Add("@Report_Date", OleDbType.DBDate).Value = Report_Date.ToString("MMM. dd, yyyy")
-                    mscmd.Parameters.Add("@Inputted_By", OleDbType.VarChar).Value = UserNickname & vbCrLf & Now.Date.ToString("MMMM dd, yyyy")
-                    mscmd.Parameters.Add("@R_id", OleDbType.Integer).Value = R_id
+                    mscmd.Parameters.Add("@A_id_Ref", SqlDbType.Int).Value = A_id
+                    mscmd.Parameters.Add("@Report_Status", SqlDbType.VarChar).Value = Report_Status
+                    mscmd.Parameters.Add("@Report_Date", SqlDbType.Date).Value = Report_Date.ToString("MMM. dd, yyyy")
+                    mscmd.Parameters.Add("@Inputted_By", SqlDbType.VarChar).Value = UserNickname & vbCrLf & Now.Date.ToString("MMMM dd, yyyy")
+                    mscmd.Parameters.Add("@R_id", SqlDbType.Int).Value = R_id
 
                 ElseIf dsTbl_Command = "UpdateDeleteISTrans" Then
-                    mscmd.Parameters.Add("@Inputted_By", OleDbType.VarChar).Value = UserNickname & vbCrLf & Now.Date.ToString("MMMM dd, yyyy")
-                    mscmd.Parameters.Add("@R_id", OleDbType.Integer).Value = R_id
+                    mscmd.Parameters.Add("@Inputted_By", SqlDbType.VarChar).Value = UserNickname & vbCrLf & Now.Date.ToString("MMMM dd, yyyy")
+                    mscmd.Parameters.Add("@R_id", SqlDbType.Int).Value = R_id
                 End If
 
                 If dsTbl_Command.Contains("Trans") = False Then
@@ -307,15 +327,15 @@ Module Queries
                               Optional Nickname As String = "",
                               Optional Uname As String = "",
                               Optional Pword As String = "")
-        msDataAdapter = New OleDbDataAdapter
+        msDataAdapter = New SqlDataAdapter
         msBindingSource = New BindingSource
         msDataSet = New DataSet
         If msDataSet.Tables.Contains(dsTbl_Command) Then
             msDataSet.Tables(dsTbl_Command).Clear()
         End If
-        Using mscon As New OleDbConnection(msconString)
+        Using mscon As New SqlConnection(msconString)
             mscon.Open()
-            Using mscmd As OleDbCommand = mscon.CreateCommand()
+            Using mscmd As SqlCommand = mscon.CreateCommand()
                 mscmd.Connection = mscon
                 mscmd.CommandText = sqlQuery
                 mscmd.CommandType = CommandType.Text
@@ -328,45 +348,45 @@ Module Queries
                     sql_Transaction_result = "Committed"
 
                 ElseIf dsTbl_Command = "SaveDefaultAdminTrans" Then
-                    mscmd.Parameters.Add("@U_id", OleDbType.Integer).Value = U_id
-                    mscmd.Parameters.Add("@Usertype", OleDbType.VarChar).Value = Usertype
-                    mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Lname
-                    mscmd.Parameters.Add("@First_Name", OleDbType.VarChar).Value = Fname
-                    mscmd.Parameters.Add("@Middle_Name", OleDbType.VarChar).Value = Mname
-                    mscmd.Parameters.Add("@Nickname", OleDbType.VarChar).Value = Nickname
-                    mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = Uname
-                    mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(Pword)
+                    mscmd.Parameters.Add("@U_id", SqlDbType.Int).Value = U_id
+                    mscmd.Parameters.Add("@Usertype", SqlDbType.VarChar).Value = Usertype
+                    mscmd.Parameters.Add("@Last_Name", SqlDbType.VarChar).Value = Lname
+                    mscmd.Parameters.Add("@First_Name", SqlDbType.VarChar).Value = Fname
+                    mscmd.Parameters.Add("@Middle_Name", SqlDbType.VarChar).Value = Mname
+                    mscmd.Parameters.Add("@Nickname", SqlDbType.VarChar).Value = Nickname
+                    mscmd.Parameters.Add("@Uname", SqlDbType.VarChar).Value = Uname
+                    mscmd.Parameters.Add("@Pword", SqlDbType.VarChar).Value = Encrypt(Pword)
                     mscmd.ExecuteNonQuery()
                     sql_Transaction_result = "Committed"
 
                 ElseIf dsTbl_Command = "SaveUserTrans" Then
-                    mscmd.Parameters.Add("@U_id", OleDbType.Integer).Value = U_id + 1
-                    mscmd.Parameters.Add("@Usertype", OleDbType.VarChar).Value = Usertype
-                    mscmd.Parameters.Add("@Last_Name", OleDbType.VarChar).Value = Lname
-                    mscmd.Parameters.Add("@First_Name", OleDbType.VarChar).Value = Fname
-                    mscmd.Parameters.Add("@Middle_Name", OleDbType.VarChar).Value = Mname
-                    mscmd.Parameters.Add("@Nickname", OleDbType.VarChar).Value = Nickname
-                    mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = U_id + 1
-                    mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(U_id + 1)
+                    mscmd.Parameters.Add("@U_id", SqlDbType.Int).Value = U_id + 1
+                    mscmd.Parameters.Add("@Usertype", SqlDbType.VarChar).Value = Usertype
+                    mscmd.Parameters.Add("@Last_Name", SqlDbType.VarChar).Value = Lname
+                    mscmd.Parameters.Add("@First_Name", SqlDbType.VarChar).Value = Fname
+                    mscmd.Parameters.Add("@Middle_Name", SqlDbType.VarChar).Value = Mname
+                    mscmd.Parameters.Add("@Nickname", SqlDbType.VarChar).Value = Nickname
+                    mscmd.Parameters.Add("@Uname", SqlDbType.VarChar).Value = U_id + 1
+                    mscmd.Parameters.Add("@Pword", SqlDbType.VarChar).Value = Encrypt(U_id + 1)
                     mscmd.ExecuteNonQuery()
                     sql_Transaction_result = "Committed"
 
                 ElseIf dsTbl_Command = "ChangeUNPWTrans" Then
-                    mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = Uname
-                    mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(Pword)
-                    mscmd.Parameters.Add("@U_id", OleDbType.Integer).Value = U_id
+                    mscmd.Parameters.Add("@Uname", SqlDbType.VarChar).Value = Uname
+                    mscmd.Parameters.Add("@Pword", SqlDbType.VarChar).Value = Encrypt(Pword)
+                    mscmd.Parameters.Add("@U_id", SqlDbType.Int).Value = U_id
                     mscmd.ExecuteNonQuery()
                     sql_Transaction_result = "Committed"
 
                 ElseIf dsTbl_Command = "ChangeUNTrans" Then
-                    mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = Uname
-                    mscmd.Parameters.Add("@U_id", OleDbType.Integer).Value = U_id
+                    mscmd.Parameters.Add("@Uname", SqlDbType.VarChar).Value = Uname
+                    mscmd.Parameters.Add("@U_id", SqlDbType.Int).Value = U_id
                     mscmd.ExecuteNonQuery()
                     sql_Transaction_result = "Committed"
 
                 ElseIf dsTbl_Command = "ChangePWTrans" Then
-                    mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(Pword)
-                    mscmd.Parameters.Add("@U_id", OleDbType.Integer).Value = U_id
+                    mscmd.Parameters.Add("@Pword", SqlDbType.VarChar).Value = Encrypt(Pword)
+                    mscmd.Parameters.Add("@U_id", SqlDbType.Int).Value = U_id
                     mscmd.ExecuteNonQuery()
                     sql_Transaction_result = "Committed"
 
@@ -376,15 +396,15 @@ Module Queries
     End Sub
     'Public Sub Login_QUERY(ByVal Username As String,
     '                       ByVal Password As String)
-    '    Using mscon As New OleDbConnection(msconString)
+    '    Using mscon As New SqlConnection(msconString)
     '        mscon.Open()
-    '        Using mscmd As OleDbCommand = mscon.CreateCommand()
+    '        Using mscmd As SqlCommand = mscon.CreateCommand()
     '            mscmd.Connection = mscon
     '            mscmd.CommandText = "Select * from User_Information where Uname = @Uname and Pword = @Pword"
     '            mscmd.CommandType = CommandType.Text
 
-    '            mscmd.Parameters.Add("@Uname", OleDbType.VarChar).Value = Username
-    '            mscmd.Parameters.Add("@Pword", OleDbType.VarChar).Value = Encrypt(Password)
+    '            mscmd.Parameters.Add("@Uname", SqlDbType.VarChar).Value = Username
+    '            mscmd.Parameters.Add("@Pword", SqlDbType.VarChar).Value = Encrypt(Password)
     '            Using msread As OleDbDataReader = mscmd.ExecuteReader
     '                msread.Read()
     '                If msread.HasRows Then
@@ -407,8 +427,8 @@ Module Queries
             mscon.Open()
             Using mscmd As SqlCommand = mscon.CreateCommand()
                 mscmd.Connection = mscon
-                mscmd.CommandText = "Select * from User_Information where Uname = @Uname and Pword = @Pword"
-                mscmd.CommandType = CommandType.Text
+                mscmd.CommandText = "login_stp"
+                mscmd.CommandType = CommandType.StoredProcedure
 
                 mscmd.Parameters.Add("@Uname", SqlDbType.VarChar).Value = Username
                 mscmd.Parameters.Add("@Pword", SqlDbType.VarChar).Value = Encrypt(Password)
@@ -432,16 +452,19 @@ Module Queries
     Public Sub PrintRPT_QUERY(ByVal ModeString As String,
                               ByVal sqlQuery As String,
                               Optional A_id As Integer = Nothing)
-        msDataAdapter = New OleDbDataAdapter
+        msDataAdapter = New SqlDataAdapter
         Dim mcgi_ds As New mcgi_ds
 
-        Using mscon As New OleDbConnection(msconString)
+        Using mscon As New SqlConnection(msconString)
             mscon.Open()
-            Using mscmd As OleDbCommand = mscon.CreateCommand()
+            Using mscmd As SqlCommand = mscon.CreateCommand()
+                transaction = mscon.BeginTransaction(IsolationLevel.RepeatableRead, ModeString)
                 mscmd.Connection = mscon
-                mscmd.CommandText = sqlQuery
-                mscmd.CommandType = CommandType.Text
-                mscmd.Parameters.Add("@A_id", OleDbType.Integer).Value = A_id
+                mscmd.Transaction = transaction
+                mscmd.CommandText = "report_stp"
+                mscmd.CommandType = CommandType.StoredProcedure
+                mscmd.Parameters.Add("@todo", SqlDbType.VarChar).Value = ModeString
+                mscmd.Parameters.Add("@A_id", SqlDbType.Int).Value = A_id
 
                 If ModeString = "Member_Info" Then
                     msDataAdapter.SelectCommand = mscmd
@@ -452,17 +475,18 @@ Module Queries
                     msDataAdapter.Fill(mcgi_ds.Report_Info)
                     Print_Report.Report_InfoBindingSource.DataSource = mcgi_ds.Report_Info.DefaultView
                 End If
+                transaction.Commit()
             End Using
         End Using
     End Sub
     Public Sub Get_QUERY(ByVal sqlQuery As String)
-        Using mscon As New OleDbConnection(msconString)
+        Using mscon As New SqlConnection(msconString)
             mscon.Open()
-            Using mscmd As OleDbCommand = mscon.CreateCommand()
+            Using mscmd As SqlCommand = mscon.CreateCommand()
                 mscmd.Connection = mscon
                 mscmd.CommandText = sqlQuery
                 mscmd.CommandType = CommandType.Text
-                Using msread As OleDbDataReader = mscmd.ExecuteReader
+                Using msread As SqlDataReader = mscmd.ExecuteReader
                     If msread.Read() Then
                         Max_ID = msread.Item(0)
                     Else
@@ -472,4 +496,28 @@ Module Queries
             End Using
         End Using
     End Sub
+    Public Function TABLGETMaxID_STP2(ByVal TBL_NAME As String,
+                                      ByVal COL_NAME As String,
+                                      Optional StoredProcedureName As String = "A_GLOBAL_stp_GetMaxID") As Integer
+        Using sqlcon As New SqlConnection(msconString)
+            sqlcon.Open()
+            Using sqlCommand As SqlCommand = sqlcon.CreateCommand()
+                sqlCommand.Connection = sqlcon
+                sqlCommand.CommandText = StoredProcedureName
+                sqlCommand.CommandType = CommandType.StoredProcedure
+
+                sqlCommand.Parameters.Add("@TBL_NAME", SqlDbType.VarChar).Value = TBL_NAME
+                sqlCommand.Parameters.Add("@COL_NAME", SqlDbType.VarChar).Value = COL_NAME
+
+                Using read As SqlDataReader = sqlCommand.ExecuteReader
+                    read.Read()
+                    Return read.Item("MAXID")
+                End Using
+
+                sql_Transaction_result = "Committed"
+
+            End Using
+        End Using
+    End Function
+
 End Module
